@@ -68,8 +68,8 @@ class Class_db{
             if ($value != '' && $value != '%%') {
                 $l1 = substr($value, 0, 1);
                 $l2 = substr($value, 0, 2);
-                $this->log_debug(__FUNCTION__, __LINE__, 'l1 = '.$l1);
-                $this->log_debug(__FUNCTION__, __LINE__, 'l2 = '.$l2);
+                //$this->log_debug(__FUNCTION__, __LINE__, 'l1 = '.$l1);
+                //$this->log_debug(__FUNCTION__, __LINE__, 'l2 = '.$l2);
                 if ($item == 'w1') {
                     $where_str .= $value." AND ";
                 } else if ($l2 == 'R_') {
