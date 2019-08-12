@@ -1,0 +1,1 @@
+"C:\xampp\php\php.exe" -f "C:\Users\Zaid\Google Drive\php\cems\scheduler\test2.php"

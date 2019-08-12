@@ -1,0 +1,82 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+.btn-cv{color:#fff;background-color:#39d32b;border-color:#3abb2e}
+.btn-cv.focus,.btn-cv:focus{color:#fff;background-color:#27961d;border-color:#24721d}
+.btn-cv.active,.btn-cv:active,.btn-cv:hover,.open>.dropdown-toggle.btn-cv{color:#fff;background-color:#27961d;border-color:#28951e}
+.btn-cv.active.focus,.btn-cv.active:focus,.btn-cv.active:hover,.btn-cv:active.focus,.btn-cv:active:focus,.btn-cv:active:hover,.open>.dropdown-toggle.btn-cv.focus,.open>.dropdown-toggle.btn-cv:focus,.open>.dropdown-toggle.btn-cv:hover{color:#fff;background-color:#28951e;border-color:#24721d}
+.btn-cv.active,.btn-cv:active,.open>.dropdown-toggle.btn-cv{background-image:none}
+.btn-cv.disabled.focus,.btn-cv.disabled:focus,.btn-cv.disabled:hover,.btn-cv[disabled].focus,.btn-cv[disabled]:focus,.btn-cv[disabled]:hover,fieldset[disabled] .btn-cv.focus,fieldset[disabled] .btn-cv:focus,fieldset[disabled] .btn-cv:hover{background-color:#39d32b;border-color:#3abb2e}
+.btn-cv .badge{color:#39d32b;background-color:#fff}
+
+.txt-color-greencv{color:#33cc33!important}
+.txt-color-greencventer{text-align:center!important}
+
+.checkbox-table{
+    height: 15px;    
+}
+.checkbox-table:hover{
+    cursor: pointer;
+}
+.ui-datepicker{
+    z-index: 10000 !important;
+}
+
+.modal-fixHeight {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+.text-info {
+    color: #999;
+}
+/*canvas {
+    background:#ccc;
+    box-shadow:inset 0 0 40px black;
+}*/
+.h-scroll {
+    //position: fixed;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.process-step .btn:focus{outline:none}
+.process{display:table;width:100%;position:relative}
+.process-step button[disabled]{opacity:1 !important;filter: alpha(opacity=100) !important}
+.process-step{display:table-cell;text-align:center;position:relative}
+.process-step p{margin-top:4px}
+.btn-circle{width:60px;height:60px;text-align:center;font-size:12px;border-radius:50%}
+
+.process-row{display:table-row}
+.process-row:before{top:30px; left: 8%; bottom:0;position:absolute; content:" "; width:84%; height:1px;background-color:#ccc;z-order:0}
+.process-row2{display:table-row}
+.process-row2:before{top:30px; left: 15%; bottom:0;position:absolute; content:" "; width:70%; height:1px;background-color:#ccc;z-order:0}
+.text-italic{font-style: italic !important}
+.minHeight{min-height: 400px}
+.div-fixHeight {
+    max-height: 750px;
+    overflow-y: auto;
+}
+.valign-middle {
+    vertical-align: middle !important
+}
+.text-bold{font-weight: bold}
+.darken {
+    filter: brightness(50%);
+}
