@@ -291,7 +291,7 @@
                                             </div>    
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-12"> 
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><font color="red">*</font> Security Features of Software</label>
                                                     <div class="col-md-9">
@@ -583,7 +583,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label"><font color="red">*</font> Training Cert. from Manufacturer</label>
+                                                        <label class="col-md-3 control-label">Training Cert. from Manufacturer</label>
                                                         <div class="col-md-9">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" name="map_consPers_certificate" id="map_consPers_certificate"/>

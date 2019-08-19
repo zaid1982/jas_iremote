@@ -210,7 +210,7 @@ try {
             $consPems_outsource = $_POST['map_dis_type'] == '2' ? $_POST['map_consPems_outsource'] : '';
             Class_db::getInstance()->db_update('t_consultant_pems', array('consPems_isInstall'=>$consPems_isInstall, 'consPems_isMaintain'=>$consPems_isMaintain, 'consPems_outsource'=>$consPems_outsource, 'consPems_model'=>$_POST['map_consPems_model'],
                 'consPems_version'=>$_POST['map_consPems_version'], 'softwareMethod_id'=>$_POST['map_softwareMethod_id'], 'consPems_security'=>$_POST['map_consPems_security'], 'consPems_ownerStatus'=>$_POST['map_consPems_ownerStatus'],
-                'consPems_mobileConsultant'=>$_POST['map_consPems_mobileConsultant'], 'consPems_mobileCems'=>empty($_POST['map_consPems_mobileCems'])?'':$_POST['map_consPems_mobileCems']), array('consAll_id'=>$_POST['map_consAll_id']));
+                ), array('consAll_id'=>$_POST['map_consAll_id']));
             $dis_outsource = (isset($_POST['map_dis_outsource'])) ? $_POST['map_dis_outsource'] : '';            
             Class_db::getInstance()->db_update('t_dis', array('dis_name'=>$_POST['map_dis_name'], 'dis_type'=>$_POST['map_dis_type'], 'dis_outsource'=>$dis_outsource, 'dis_description'=>$_POST['map_dis_description']), array('dis_id'=>$_POST['map_dis_id']));
             Class_db::getInstance()->db_update('t_das', array('das_probeSoftware'=>$_POST['map_das_probeSoftware'], 'das_probeDesc'=>$_POST['map_das_probeDesc'], 'das_analyzerSoftware'=>$_POST['map_das_analyzerSoftware'], 'das_analyzerDesc'=>$_POST['map_das_analyzerDesc']), array('das_id'=>$_POST['map_das_id']));
@@ -394,8 +394,8 @@ try {
             if (empty($_POST['mac_consPers_name']))            throw new Exception('(ErrCode:5828) [' . __LINE__ . '] - Name of Certified Employee empty.', 32);
             if (empty($_POST['mac_personnel_icNo']))           throw new Exception('(ErrCode:5849) [' . __LINE__ . '] - IC. / Passport No empty.', 32);
             if (empty($_POST['mac_consPers_qualification']))   throw new Exception('(ErrCode:5829) [' . __LINE__ . '] - Academic Qualification empty.', 32); 
-            if (empty($_POST['mac_consPers_experience']))      throw new Exception('(ErrCode:5830) [' . __LINE__ . '] - Working Experience empty.', 32); 
-            if (empty($_POST['mac_consPers_certificate']))     throw new Exception('(ErrCode:5831) [' . __LINE__ . '] - Training Certification empty.', 32); 
+            if (empty($_POST['mac_consPers_experience']))      throw new Exception('(ErrCode:5830) [' . __LINE__ . '] - Working Experience empty.', 32);
+            if (empty($_POST['mac_consPers_certificate']))     throw new Exception('(ErrCode:5831) [' . __LINE__ . '] - Training Certification empty.', 32);
             if (empty($_POST['mac_personnel_citizenship']))    throw new Exception('(ErrCode:5850) [' . __LINE__ . '] - Citizenship empty.', 32); 
             if (empty($_POST['mac_consPers_workingStatus']))   throw new Exception('(ErrCode:5851) [' . __LINE__ . '] - Employee\'s Status empty.', 32); 
             $personnel_id = '';
@@ -419,8 +419,7 @@ try {
             if (empty($_POST['map_consPers_name']))            throw new Exception('(ErrCode:5828) [' . __LINE__ . '] - Name of Certified Employee empty.', 32); 
             if (empty($_POST['map_personnel_icNo']))           throw new Exception('(ErrCode:5849) [' . __LINE__ . '] - IC. / Passport No empty.', 32);
             if (empty($_POST['map_consPers_qualification']))   throw new Exception('(ErrCode:5829) [' . __LINE__ . '] - Academic Qualification empty.', 32); 
-            if (empty($_POST['map_consPers_experience']))      throw new Exception('(ErrCode:5830) [' . __LINE__ . '] - Working Experience empty.', 32); 
-            if (empty($_POST['map_consPers_certificate']))     throw new Exception('(ErrCode:5831) [' . __LINE__ . '] - Training Certification empty.', 32); 
+            if (empty($_POST['map_consPers_experience']))      throw new Exception('(ErrCode:5830) [' . __LINE__ . '] - Working Experience empty.', 32);
             if (empty($_POST['map_personnel_citizenship']))    throw new Exception('(ErrCode:5850) [' . __LINE__ . '] - Citizenship empty.', 32); 
             if (empty($_POST['map_consPers_workingStatus']))   throw new Exception('(ErrCode:5851) [' . __LINE__ . '] - Employee\'s Status empty.', 32);             
             $personnel_id = ''; 
@@ -435,9 +434,10 @@ try {
                 $personnel_id = $personnel['personnel_id'];
             } else
                 $personnel_id = Class_db::getInstance()->db_insert('t_personnel', array('personnel_icNo'=>$_POST['map_personnel_icNo'], 'personnel_citizenship'=>$_POST['map_personnel_citizenship']));
+            $certificate = !empty($_POST['map_consPers_certificate'])?$_POST['map_consPers_certificate']:'';
             $document_id = !empty($_FILES['map_consPers_document']['name']) ? $fn_upload->upload_file('1', $_FILES['map_consPers_document'], $_POST['map_consPers_document_name'], '12', '') : '';
             $result = Class_db::getInstance()->db_insert('t_consultant_personnel', array('personnel_id'=>$personnel_id, 'consAll_id'=>$_POST['map_consAll_id'], 'consPers_name'=>$_POST['map_consPers_name'], 'consPers_qualification'=>$_POST['map_consPers_qualification'],
-                'consPers_experience'=>$_POST['map_consPers_experience'], 'consPers_certificate'=>$_POST['map_consPers_certificate'], 'consPers_document'=>$document_id, 'consPers_workingStatus'=>$_POST['map_consPers_workingStatus']));
+                'consPers_experience'=>$_POST['map_consPers_experience'], 'consPers_certificate'=>$certificate, 'consPers_document'=>$document_id, 'consPers_workingStatus'=>$_POST['map_consPers_workingStatus']));
         } else if ($_POST['funct'] == 'save_consultant_personnel_mobile') {
             if (empty($_POST['mam_consAll_id']))               throw new Exception('(ErrCode:5817) [' . __LINE__ . '] - Parameter consAll_id empty.'); 
             if (empty($_POST['mam_wfGroup_id']))               throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter wfGroup_id empty.'); 

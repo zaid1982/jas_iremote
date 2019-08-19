@@ -273,9 +273,6 @@
                 },
                 map_consPers_certificate : {
                     validators: {
-                        notEmpty: {
-                            message: 'Training Certification is required'
-                        },
                         stringLength : {
                             max : 255,
                             message : 'Training Certification must be not more than 255 characters long'
