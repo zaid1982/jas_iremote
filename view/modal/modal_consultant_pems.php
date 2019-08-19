@@ -293,18 +293,6 @@
                                         <div class="row">
                                             <div class="col-md-12"> 
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label"><font color="red">*</font> Mobile-CEMS/Portable Consultant</label>
-                                                    <div class="col-md-9 selectContainer">
-                                                        <select class="form-control" name="map_consPems_mobileConsultant" id="map_consPems_mobileConsultant"></select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><font color="red">*</font> Mobile/Portable Analyzer Model No.</label>
-                                                    <div class="col-md-9 selectContainer">
-                                                        <select class="form-control" name="map_consPems_mobileCems" id="map_consPems_mobileCems"></select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
                                                     <label class="col-md-3 control-label"><font color="red">*</font> Security Features of Software</label>
                                                     <div class="col-md-9">
                                                         <textarea class="form-control" name="map_consPems_security" id="map_consPems_security" rows="4"></textarea>

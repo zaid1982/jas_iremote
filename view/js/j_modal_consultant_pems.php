@@ -107,20 +107,6 @@
                         }
                     }
                 },
-                map_consPems_mobileConsultant : {
-                    validators: {
-                        notEmpty: {
-                            message: 'Mobile-CEMS Consultant is required'
-                        }
-                    }
-                },
-                map_consPems_mobileCems : {
-                    validators: {
-                        notEmpty: {
-                            message: 'Mobile/Portable Analyzer Model No. is required'
-                        }
-                    }
-                },
                 map_consPems_security : {
                     validators: {
                         notEmpty: {
@@ -673,11 +659,6 @@
                 f_notify(2, 'Error', errMsg_validation);    
                 return false;
             }
-        }); 
-        
-        $('#map_consPems_mobileConsultant').on('change', function () {
-            $('#form_map_2_1').data('bootstrapValidator').resetField('map_consPems_mobileCems');
-            f_map_set_mobileCems('', $(this).val()); 
         });
         
         var datatable_map_personnel = undefined; 
@@ -789,15 +770,7 @@
             $(this).unbind(e);
         }).modal('show');  
     }
-    
-    function f_map_set_mobileCems(consPems_mobileCems, consPems_mobileConsultant) {
-        set_option_empty('map_consPems_mobileCems');
-        if ($('#map_consPems_mobileConsultant').val() != '') {   
-            get_option ('map_consPems_mobileCems', '1', 't_consultant_mobile', 'consAll_id', 'consMobile_modelNo', 'consMobile_status', ' ', 'ref_desc', 'consultant_id', consPems_mobileConsultant);
-            $('#map_consPems_mobileCems').prop('disabled', false).val(consPems_mobileCems);
-        }
-    }
-        
+
     function f_load_consultant_pems (load_type, wfGroup_id, consAll_id, otable) {
         $('#modal_waiting').on('shown.bs.modal', function(e){            
             if (map_1st_load) {                           
@@ -874,7 +847,6 @@
                 $("input[name='map_consultant_type[]'][value=2]").prop('checked', true);     
             $('#map_consPems_outsource').attr('disabled', $('#map_consPems_ownerStatus').val() == '2' ? false : true);
             //$('#form_map_2_1').bootstrapValidator('revalidateField', 'map_consPems_outsource');
-            f_map_set_mobileCems(consultant_pems.consPems_mobileCems, consultant_pems.consPems_mobileConsultant);
             $('#form_map_3').bootstrapValidator('enableFieldValidators', 'map_consPers_document', false);            
             $('#form_map_3').bootstrapValidator('enableFieldValidators', 'map_consPers_document_name', false);
             // ---------------- \\
