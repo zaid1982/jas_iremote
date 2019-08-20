@@ -548,7 +548,7 @@ try {
             $arrayParam = $_POST['param'];
             if (empty($arrayParam['industrial_id']))    throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter industrial_id empty.');
             $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$arrayParam['industrial_id']), NULL, 1);
-            if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial_id, 'industrial_status'=>'1')) > 0)
+            if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial['industrial_id'], 'industrial_status'=>'1')) > 0)
                 throw new Exception('(ErrCode:5855) [' . __LINE__ . '] - This premise has already activated by other user based on JAS File No. Please reject if true or deactivate other premise if want to proceed with this application.', 32); 
             $result = '1';
         } else if ($_POST['funct'] == 'save_task_action' || $_POST['funct'] == 'submit_task_action') {
@@ -653,7 +653,8 @@ try {
             if (empty($_POST['mce_wfGroup_id']))        throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter wfGroup_id empty.');  
             if (empty($_POST['mce_industrial_id']))     throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter mce_industrial_id empty.');  
             if (empty($_POST['mce_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');  
-            if (empty($_POST['mce_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');  
+            if (empty($_POST['mce_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
+            if (empty($_POST['mce_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Parameter mce_indAll_installType empty.');
             $arr_indReason = Class_db::getInstance()->db_select_colm ('t_industrial_reason', array('indAll_id'=>$_POST['mce_indAll_id']), 'indReason_id');
             $arrPost_indReason = (!empty($_POST['mce_indReason_id'])) ? $_POST['mce_indReason_id'] : array();
             if ($arr_indReason != $arrPost_indReason) {
@@ -710,7 +711,7 @@ try {
             Class_db::getInstance()->db_delete('t_industrial_quarter', array('indAll_id'=>$_POST['mce_indAll_id'], 'indQuarter_type'=>'2'));
             if ($indAll_qaFreqYearly != '' && !empty($_POST['mce_y_indQuarter_no']))
                 Class_db::getInstance()->db_insert('t_industrial_quarter', array('indAll_id'=>$_POST['mce_indAll_id'], 'indQuarter_type'=>'2', 'indQuarter_no'=>$_POST['mce_y_indQuarter_no']));
-            Class_db::getInstance()->db_update('t_industrial_all', array('sourceActivity_id'=>$_POST['mce_sourceActivity_id'], 'sourceCapacity_id'=>(isset($_POST['mce_sourceCapacity_id'])?$_POST['mce_sourceCapacity_id']:''), 'fuelType_id'=>(isset($_POST['mce_fuelType_id'])?$_POST['mce_fuelType_id']:''),
+            Class_db::getInstance()->db_update('t_industrial_all', array('indAll_installType'=>$_POST['mce_indAll_installType'], 'sourceActivity_id'=>$_POST['mce_sourceActivity_id'], 'sourceCapacity_id'=>(isset($_POST['mce_sourceCapacity_id'])?$_POST['mce_sourceCapacity_id']:''), 'fuelType_id'=>(isset($_POST['mce_fuelType_id'])?$_POST['mce_fuelType_id']:''),
                 'indAll_fuelQuantity'=>$_POST['mce_indAll_fuelQuantity'], 'metalType_id'=>(isset($_POST['mce_metalType_id'])?$_POST['mce_metalType_id']:''), 'indAll_sourceCapacity'=>$_POST['mce_indAll_sourceCapacity'],
                 'indAll_stackNo'=>$_POST['mce_indAll_stackNo'], 'indAll_stackHeight'=>$_POST['mce_indAll_stackHeight'], 'indAll_stackDiameter'=>$_POST['mce_indAll_stackDiameter'], 'indAll_stackLongitude'=>$_POST['mce_indAll_stackLongitude'], 'indAll_stackLatitude'=>$_POST['mce_indAll_stackLatitude'],
                 'indAll_gasTemperature'=>$_POST['mce_indAll_gasTemperature'], 'indAll_airFlowRate'=>$_POST['mce_indAll_airFlowRate'], 'indAll_stackVelocity'=>$_POST['mce_indAll_stackVelocity'], 'indAll_moistureContect'=>$_POST['mce_indAll_moistureContect'],
@@ -722,7 +723,8 @@ try {
             if (empty($_POST['mpe_wfGroup_id']))        throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter wfGroup_id empty.');  
             if (empty($_POST['mpe_industrial_id']))     throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter mpe_industrial_id empty.');  
             if (empty($_POST['mpe_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');  
-            if (empty($_POST['mpe_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');  
+            if (empty($_POST['mpe_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
+            if (empty($_POST['mpe_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Parameter mpe_indAll_installType empty.');
             $arr_indReason = Class_db::getInstance()->db_select_colm ('t_industrial_reason', array('indAll_id'=>$_POST['mpe_indAll_id']), 'indReason_id');
             $arrPost_indReason = (!empty($_POST['mpe_indReason_id'])) ? $_POST['mpe_indReason_id'] : array();
             if ($arr_indReason != $arrPost_indReason) {
@@ -794,7 +796,7 @@ try {
             Class_db::getInstance()->db_delete('t_industrial_quarter', array('indAll_id'=>$_POST['mpe_indAll_id'], 'indQuarter_type'=>'2'));
             if ($indAll_qaFreqYearly != '' && !empty($_POST['mpe_y_indQuarter_no']))
                 Class_db::getInstance()->db_insert('t_industrial_quarter', array('indAll_id'=>$_POST['mpe_indAll_id'], 'indQuarter_type'=>'2', 'indQuarter_no'=>$_POST['mpe_y_indQuarter_no']));
-            Class_db::getInstance()->db_update('t_industrial_all', array('sourceActivity_id'=>$_POST['mpe_sourceActivity_id'], 'sourceCapacity_id'=>(isset($_POST['mpe_sourceCapacity_id'])?$_POST['mpe_sourceCapacity_id']:''), 'fuelType_id'=>(isset($_POST['mpe_fuelType_id'])?$_POST['mpe_fuelType_id']:''),
+            Class_db::getInstance()->db_update('t_industrial_all', array('indAll_installType'=>$_POST['mpe_indAll_installType'], 'sourceActivity_id'=>$_POST['mpe_sourceActivity_id'], 'sourceCapacity_id'=>(isset($_POST['mpe_sourceCapacity_id'])?$_POST['mpe_sourceCapacity_id']:''), 'fuelType_id'=>(isset($_POST['mpe_fuelType_id'])?$_POST['mpe_fuelType_id']:''),
                 'indAll_fuelQuantity'=>$_POST['mpe_indAll_fuelQuantity'], 'metalType_id'=>(isset($_POST['mpe_metalType_id'])?$_POST['mpe_metalType_id']:''), 'indAll_sourceCapacity'=>$_POST['mpe_indAll_sourceCapacity'], 
                 'indAll_stackNo'=>$_POST['mpe_indAll_stackNo'], 'indAll_stackHeight'=>$_POST['mpe_indAll_stackHeight'], 'indAll_stackDiameter'=>$_POST['mpe_indAll_stackDiameter'], 'indAll_stackLongitude'=>$_POST['mpe_indAll_stackLongitude'], 'indAll_stackLatitude'=>$_POST['mpe_indAll_stackLatitude'],
                 'indAll_gasTemperature'=>$_POST['mpe_indAll_gasTemperature'], 'indAll_airFlowRate'=>$_POST['mpe_indAll_airFlowRate'], 'indAll_stackVelocity'=>$_POST['mpe_indAll_stackVelocity'], 'indAll_moistureContect'=>$_POST['mpe_indAll_moistureContect'],

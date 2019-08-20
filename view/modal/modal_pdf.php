@@ -14,7 +14,7 @@
           <div class="box-body">
             <div class="row">
                 <div class="col-md-12" style="height: calc(100vh - 270px); ">
-                    <iframe type="application/pdf" id="mpdf_iframe" name="mpdf_iframe_<?=time()?>" src="pdf/test.pdf" height="100%" width="100%"></iframe>
+                    <iframe type="application/pdf" id="mpdf_iframe" name="mpdf_iframe_<?=time()?>" src="" height="100%" width="100%"></iframe>
                 </div>                                    
             </div>
           </div>

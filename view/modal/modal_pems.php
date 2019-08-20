@@ -285,6 +285,19 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <label class="col-md-3 control-label"><font color="red">*</font> Type of Installation</label>
+                                                    <div class="col-md-9">
+                                                        <label class="radio radio-inline">
+                                                            <input type="radio" class="radiobox" name="mpe_indAll_installType" value="1">
+                                                            <span>New</span>
+                                                        </label>
+                                                        <label class="radio radio-inline">
+                                                            <input type="radio" class="radiobox" name="mpe_indAll_installType" value="2">
+                                                            <span>Existing</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label"><font color="red">*</font> Reasons of PEMS Installation</label>
                                                     <div class="col-md-9">
                                                         <div class="checkbox">
