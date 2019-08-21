@@ -1,4 +1,4 @@
-<? 
+<?php
 include 'view/js/j_modal_industrial.php';
 ?>
 <script type="text/javascript">  

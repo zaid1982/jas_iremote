@@ -682,7 +682,7 @@ class Class_db{
             //$config = parse_ini_file('../library/config_2.ini');
             $dbname = $config['dbname'];    
             $dbhost = $config['dbhost'];    
-            $this->DBH = new PDO("mysql:host=$dbhost;dbname=$dbname", $config['username'], $config['password']);
+            $this->DBH = new PDO("mysql:host=$dbhost;dbname=$dbname;charset=utf8", $config['username'], $config['password']);
             //$this->DBH = new PDO("mysql:host=10.16.41.129;dbname=$dbname", $config['username'], $config['password']);
             $this->DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }

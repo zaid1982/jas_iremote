@@ -185,7 +185,7 @@ try {
 Class_db::getInstance()->db_close();
         
 /* Return back the values to form */
-//$input = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($form_data));
+//$form_data = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($form_data));
 $json = json_encode($form_data);
 switch (json_last_error()){
     case JSON_ERROR_CTRL_CHAR:

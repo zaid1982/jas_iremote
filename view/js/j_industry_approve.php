@@ -201,7 +201,7 @@ include 'view/js/j_modal_action.php';
                             if (row.wfFlow_id == '4')       modal_open = 'cems';
                             else if (row.wfFlow_id == '5')  modal_open = 'pems';
                             else return '';
-                            $label = '<button type="button" class="btn btn-info btn-xs" id="ita_btn_info" title="Application Information" onclick="f_load_consultant_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'ita\');"><i class="fa fa-info-circle"></i></button>';
+                            $label = '<button type="button" class="btn btn-info btn-xs" id="ita_btn_info" title="Application Information" onclick="f_load_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'ita\');"><i class="fa fa-info-circle"></i></button>';
                             $label += ' <button type="button" class="btn btn-success btn-xs" id="ita_btn_edit" title="Approve Application" onclick="f_load_action (2, '+row.wfTask_id+',\'ita\');"><i class="fa fa-mail-forward"></i></button>';
                             return $label;
                         }
@@ -410,7 +410,7 @@ include 'view/js/j_modal_action.php';
                             if (row.wfFlow_id == '4')       modal_open = 'cems';
                             else if (row.wfFlow_id == '5')  modal_open = 'pems';
                             else return '';
-                            $label = '<button type="button" class="btn btn-info btn-xs" id="ita_btn_info" title="Application Information" onclick="f_load_consultant_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'ita\');"><i class="fa fa-info-circle"></i></button>';
+                            $label = '<button type="button" class="btn btn-info btn-xs" id="ita_btn_info" title="Application Information" onclick="f_load_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'ita\');"><i class="fa fa-info-circle"></i></button>';
                             $label += ' <button type="button" class="btn btn-warning btn-xs" title="Transaction History" onclick="f_load_action (3, '+row.wfTask_id+',\'ita\');"><i class="fa fa-history"></i></button>';
                             return $label;
                         }
