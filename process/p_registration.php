@@ -1101,10 +1101,15 @@ try {
             if (empty($arrayParam['pemsReading_id']))     throw new Exception('(ErrCode:5882) [' . __LINE__ . '] - Parameter pemsReading_id empty.');  
             $result = Class_db::getInstance()->db_delete('t_industrial_pems_reading', array('pemsReading_id'=>$arrayParam['pemsReading_id']));
         } else if ($_POST['funct'] == 'save_verify_initial_RATA_j') { 
-            if (empty($_POST['mqj_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');  
+            if (empty($_POST['mqj_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');
+            if (empty($_POST['mqj_qa_id']))         throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter qa_id empty.');
             $arr_set['wfTask_remark'] = (!empty($_POST['mqj_wfTask_verify'])) ? $_POST['mqj_wfTask_verify'] : '';
             $arr_set['wfTask_statusSave'] = (empty($_POST['mqj_result'])?'':$_POST['mqj_result']);
             Class_db::getInstance()->db_update('wf_task', $arr_set, array('wfTask_id'=>$_POST['mqj_wfTask_id']));
+            $arr_set2['qa_hardCopy'] = (empty($_POST['mqj_qa_hardCopy'])?'':$_POST['mqj_qa_hardCopy']);
+            $arr_set2['qa_hardCopy_receiver'] = (!empty($_POST['mqj_qa_hardCopy_receiver'])) ? $_POST['mqj_qa_hardCopy_receiver'] : '';
+            $arr_set2['qa_hardCopy_remark'] = (!empty($_POST['mqj_snote_hardCopy_remark'])) ? $_POST['mqj_snote_hardCopy_remark'] : '';
+            Class_db::getInstance()->db_update('t_qa', $arr_set2, array('qa_id'=>$_POST['mqj_qa_id']));
             $result = '1';
         } else if ($_POST['funct'] == 'save_verify_initial_RATA_k') { 
             if (empty($_POST['mqk_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');  

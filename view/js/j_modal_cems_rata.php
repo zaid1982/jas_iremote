@@ -16,63 +16,83 @@
     // var mqj_otable_supportDoc;
     var arr_param = [];
     // var mqj_qaDrift_id;
-    
+
     $(document).ready(function () {
 
         var arr_input_param = f_get_general_info_multiple('t_input_parameter');
-        $.each(arr_input_param, function(u){
+        $.each(arr_input_param, function (u) {
             arr_param[parseInt(arr_input_param[u].inputParam_id)] = arr_input_param[u].inputParam_desc;
         });
-        
+
         $('#mqj_snote_qa_message').summernote({
             height: 150,
             toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['table', ['table']]
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']]
             ]
-        });   
-        
+        });
+
         $('#mqj_snote_wfTask_verify').summernote({
             height: 150,
             toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['table', ['table']]
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']]
             ],
             callbacks: {
-                onChange: function(contents, $editable) {
+                onChange: function (contents, $editable) {
                     $('#form_mqj_verify').bootstrapValidator('revalidateField', 'mqj_snote_wfTask_verify');
                     $('#mqj_snote_wfTask_verify').val(contents);
                 }
             }
-        });  
-        
+        });
+
+        $('#mqj_snote_hardCopy_remark').summernote({
+            height: 150,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']]
+            ],
+            callbacks: {
+                onChange: function (contents, $editable) {
+                    $('#mqj_snote_hardCopy_remark').val(contents);
+                }
+            }
+        });
+
         $('#mqj_qa_dateActual').datepicker({
             dateFormat: 'yy-mm-dd',
             defaultDate: '0',
             changeMonth: true,
             changeYear: true,
-            maxDate: '0', 
+            maxDate: '0',
             prevText: '<i class="fa fa-chevron-left"></i>',
             nextText: '<i class="fa fa-chevron-right"></i>',
             showButtonPanel: true,
-            closeText:'Clear',
-            beforeShow: function( input ) {
-                setTimeout(function() {
-                    var clearButton = $(input ).datepicker( "widget" ).find( ".ui-datepicker-close" );
-                    clearButton.unbind("click").bind("click",function(){$.datepicker._clearDate( input );});
-                }, 1 );
+            closeText: 'Clear',
+            beforeShow: function (input) {
+                setTimeout(function () {
+                    var clearButton = $(input).datepicker("widget").find(".ui-datepicker-close");
+                    clearButton.unbind("click").bind("click", function () {
+                        $.datepicker._clearDate(input);
+                    });
+                }, 1);
             },
-            onSelect: function( input ) {
+            onSelect: function (input) {
                 $('#form_mqj_form').bootstrapValidator('revalidateField', 'mqj_qa_dateActual');
             }
         });
@@ -81,54 +101,55 @@
         //     labelID = $(this).attr('for');
         //     $('#'+labelID).trigger('click');
         // });
-        
+
         $('#mqj_indAll_datePoolStart').datepicker({
             dateFormat: 'yy-mm-dd',
             defaultDate: '0',
             changeMonth: true,
             changeYear: true,
-            minDate: '0', 
+            minDate: '0',
             prevText: '<i class="fa fa-chevron-left"></i>',
             nextText: '<i class="fa fa-chevron-right"></i>',
             showButtonPanel: true,
-            closeText:'Clear',
-            beforeShow: function( input ) {
-                setTimeout(function() {
-                    var clearButton = $(input ).datepicker( "widget" ).find( ".ui-datepicker-close" );
-                    clearButton.unbind("click").bind("click",function(){$.datepicker._clearDate( input );});
-                }, 1 );
+            closeText: 'Clear',
+            beforeShow: function (input) {
+                setTimeout(function () {
+                    var clearButton = $(input).datepicker("widget").find(".ui-datepicker-close");
+                    clearButton.unbind("click").bind("click", function () {
+                        $.datepicker._clearDate(input);
+                    });
+                }, 1);
             },
-            onSelect: function( input ) {
+            onSelect: function (input) {
                 $('#form_mqj_form').bootstrapValidator('revalidateField', 'mqj_indAll_datePoolStart');
             }
-        });     
-        
-        $('#form_mqj_form').bootstrapValidator({     
+        });
+
+        $('#form_mqj_form').bootstrapValidator({
             excluded: ':disabled',
-            fields: {  
-                mqj_qa_dateActual : {
-                    validators : {
+            fields: {
+                mqj_qa_dateActual: {
+                    validators: {
                         notEmpty: {
                             message: 'Actual Test Date is required'
-                        }                     
+                        }
                     }
                 },
-                mqj_indAll_datePoolStart : {
-                    validators : {
+                mqj_indAll_datePoolStart: {
+                    validators: {
                         notEmpty: {
                             message: 'Pooling Start Date is required'
-                        }                     
+                        }
                     }
                 }
             }
         });
-        
-        $('#form_mqj_form_2').bootstrapValidator({      
+
+        $('#form_mqj_form_2').bootstrapValidator({
             excluded: ':disabled',
-            fields: {  
-            }
+            fields: {}
         });
-        
+
         // var datatable_mqj_raNormal = undefined; 
         // mqj_otable_raNormal = $('#datatable_mqj_raNormal').DataTable({
         //     "paging": false,
@@ -401,7 +422,7 @@
         //             }
         //         ]
         // });
-        
+
         // var datatable_mqj_drift2 = undefined; 
         // mqj_otable_drift2 = $('#datatable_mqj_drift2').DataTable({
         //     "paging": false,
@@ -584,7 +605,7 @@
         //             }
         //         ]
         // });
-        
+
         // var datatable_mqj_drift3 = undefined; 
         // mqj_otable_drift3 = $('#datatable_mqj_drift3').DataTable({
         //     "paging": false,
@@ -679,7 +700,7 @@
         //             }
         //         ]
         // });
-        
+
         // var datatable_mqj_responseTime = undefined; 
         // mqj_otable_responseTime = $('#datatable_mqj_responseTime').DataTable({
         //     "paging": false,
@@ -733,7 +754,7 @@
         //             }
         //         ]
         // });
-        
+
         // $('#form_mqj_doc').bootstrapValidator({
         //     excluded: ':disabled',
         //     fields: {  
@@ -766,63 +787,63 @@
 
         // validation upload---
         $('#form_mqj_form_2').bootstrapValidator({
-            excluded: ':disabled',
-            fields: {
-                mqj_doc_cdt: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Supporting Attachment File is required'
-                        },
-                        file: {
-                            extension: 'pdf',
-                            type: 'application/pdf',
-                            maxSize: '20000000',
-                            message: 'Only PDF file format max 20MB allowed.'
+                excluded: ':disabled',
+                fields: {
+                    mqj_doc_cdt: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Supporting Attachment File is required'
+                            },
+                            file: {
+                                extension: 'pdf',
+                                type: 'application/pdf',
+                                maxSize: '20000000',
+                                message: 'Only PDF file format max 20MB allowed.'
+                            }
                         }
-                    }
-                },
-                mqj_doc_rata: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Supporting Attachment File is required'
-                        },
-                        file: {
-                            extension: 'pdf',
-                            type: 'application/pdf',
-                            maxSize: '20000000',
-                            message: 'Only PDF file format max 20MB allowed.'
+                    },
+                    mqj_doc_rata: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Supporting Attachment File is required'
+                            },
+                            file: {
+                                extension: 'pdf',
+                                type: 'application/pdf',
+                                maxSize: '20000000',
+                                message: 'Only PDF file format max 20MB allowed.'
+                            }
                         }
-                    }
-                },
-                mqj_doc_rca: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Supporting Attachment File is required'
-                        },
-                        file: {
-                            extension: 'pdf',
-                            type: 'application/pdf',
-                            maxSize: '20000000',
-                            message: 'Only PDF file format max 20MB allowed.'
+                    },
+                    mqj_doc_rca: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Supporting Attachment File is required'
+                            },
+                            file: {
+                                extension: 'pdf',
+                                type: 'application/pdf',
+                                maxSize: '20000000',
+                                message: 'Only PDF file format max 20MB allowed.'
+                            }
                         }
-                    }
-                },
-                mqj_doc_fapt: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Supporting Attachment File is required'
-                        },
-                        file: {
-                            extension: 'pdf',
-                            type: 'application/pdf',
-                            maxSize: '20000000',
-                            message: 'Only PDF file format max 20MB allowed.'
+                    },
+                    mqj_doc_fapt: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Supporting Attachment File is required'
+                            },
+                            file: {
+                                extension: 'pdf',
+                                type: 'application/pdf',
+                                maxSize: '20000000',
+                                message: 'Only PDF file format max 20MB allowed.'
+                            }
                         }
                     }
                 }
             }
-        }
-        )        
+        )
         // validation end --
         // var datatable_mqj_supportDoc = undefined; 
         // mqj_otable_supportDoc = $('#datatable_mqj_supportDoc').DataTable({
@@ -860,7 +881,7 @@
         //             }
         //         ]
         // });
-        
+
         //===============AJAX For Uploading Docs
         // $('#mqj_btn_add_supDoc').on('click', function () {
         //     var bootstrapValidator = $("#form_mqj_doc").data('bootstrapValidator');
@@ -912,8 +933,8 @@
             var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
             bootstrapValidator.validate();
             alert(bootstrapValidator.validate());
-            if (bootstrapValidator.isValid()) {       
-                $('#modal_waiting').on('shown.bs.modal', function(e){      
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function (e) {
                     var formData = new FormData($('#form_mqj_form_2')[0]);
                     formData.append('funct', 'save_qa_doc_cdt_report');
                     formData.append('mqj_qa_id', $('#mqj_qa_id').val());
@@ -926,34 +947,40 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        xhr: function() {
+                        xhr: function () {
                             myXhr = $.ajaxSettings.xhr();
                             return myXhr;
                         },
-                        success: function(resp) {
-                            if (resp.success == true){ 
+                        success: function (resp) {
+                            if (resp.success == true) {
                                 f_notify(1, 'Success', 'Callibration Drift Test Report successfully added.');
-                                $('#form_mqj_form_2').trigger('reset'); $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
+                                $('#form_mqj_form_2').trigger('reset');
+                                $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
                                 //data_mqj_cdt_doc = f_get_general_info_multiple('dt_qa_document', {qa_id:$('#mqj_qa_id').val()}, '', '', 'qa_id');
                                 //f_dataTable_draw(mqj_otable_supportDoc, data_mqj_cdt_doc, 'datatable_mqj_supportDoc', 4);
-                            } else { f_notify(2, 'Error', resp.errors); }
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
                         },
-                        error: function() {  f_notify(2, 'Error', errMsg_default); }
+                        error: function () {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
                     });
-                    $('#modal_waiting').modal('hide'); $(this).unbind(e);
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
                 }).modal('show');
             } else {
-                f_notify(2, 'Error', errMsg_validation);    
+                f_notify(2, 'Error', errMsg_validation);
                 return false;
             }
-        }); 
+        });
 
         //for rata
         $('#mqj_btn_add_doc_rata').on('click', function () {
-            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator'); 
+            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
             bootstrapValidator.validate();
-            if (bootstrapValidator.isValid()) {       
-                $('#modal_waiting').on('shown.bs.modal', function(e){      
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function (e) {
                     var formData = new FormData($('#form_mqj_form_2')[0]);
                     formData.append('funct', 'save_qa_doc_rata_report');
                     formData.append('mqj_qa_id', $('#mqj_qa_id').val());
@@ -966,34 +993,40 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        xhr: function() {
+                        xhr: function () {
                             myXhr = $.ajaxSettings.xhr();
                             return myXhr;
                         },
-                        success: function(resp) {
-                            if (resp.success == true){ 
+                        success: function (resp) {
+                            if (resp.success == true) {
                                 f_notify(1, 'Success', 'Relative Accuracy Test Audit Report successfully added.');
-                                $('#form_mqj_form_2').trigger('reset'); $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
+                                $('#form_mqj_form_2').trigger('reset');
+                                $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
                                 //data_mqj_cdt_doc = f_get_general_info_multiple('dt_qa_document', {qa_id:$('#mqj_qa_id').val()}, '', '', 'qa_id');
                                 //f_dataTable_draw(mqj_otable_supportDoc, data_mqj_cdt_doc, 'datatable_mqj_supportDoc', 4);
-                            } else { f_notify(2, 'Error', resp.errors);  }
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
                         },
-                        error: function() { f_notify(2, 'Error', errMsg_default);  }
+                        error: function () {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
                     });
-                    $('#modal_waiting').modal('hide'); $(this).unbind(e);
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
                 }).modal('show');
             } else {
-                f_notify(2, 'Error', errMsg_validation);    
+                f_notify(2, 'Error', errMsg_validation);
                 return false;
             }
-        }); 
+        });
 
         //for rca
         $('#mqj_btn_add_doc_rca').on('click', function () {
-            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator'); 
+            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
             bootstrapValidator.validate();
-            if (bootstrapValidator.isValid()) {       
-                $('#modal_waiting').on('shown.bs.modal', function(e){      
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function (e) {
                     var formData = new FormData($('#form_mqj_form_2')[0]);
                     formData.append('funct', 'save_qa_doc_rca_report');
                     formData.append('mqj_qa_id', $('#mqj_qa_id').val());
@@ -1006,34 +1039,40 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        xhr: function() {
+                        xhr: function () {
                             myXhr = $.ajaxSettings.xhr();
                             return myXhr;
                         },
-                        success: function(resp) {
-                            if (resp.success == true){ 
+                        success: function (resp) {
+                            if (resp.success == true) {
                                 f_notify(1, 'Success', 'Relative Accuracy Test Audit Report successfully added.');
-                                $('#form_mqj_form_2').trigger('reset'); $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
+                                $('#form_mqj_form_2').trigger('reset');
+                                $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
                                 //data_mqj_cra_doc = f_get_general_info_multiple('dt_qa_document', {qa_id:$('#mqj_qa_id').val()}, '', '', 'qa_id');
                                 //f_dataTable_draw(mqj_otable_rca, data_mqj_rca_doc, 'datatable_mqj_rca', 4);
-                            } else { f_notify(2, 'Error', resp.errors);  }
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
                         },
-                        error: function() { f_notify(2, 'Error', errMsg_default);  }
+                        error: function () {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
                     });
-                    $('#modal_waiting').modal('hide'); $(this).unbind(e);
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
                 }).modal('show');
             } else {
-                f_notify(2, 'Error', errMsg_validation);    
+                f_notify(2, 'Error', errMsg_validation);
                 return false;
             }
-        }); 
+        });
 
         //for fapt
         $('#mqj_btn_add_doc_fapt').on('click', function () {
-            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator'); 
+            var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
             bootstrapValidator.validate();
-            if (bootstrapValidator.isValid()) {       
-                $('#modal_waiting').on('shown.bs.modal', function(e){      
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function (e) {
                     var formData = new FormData($('#form_mqj_form_2')[0]);
                     formData.append('funct', 'save_qa_doc_fapt_report');
                     formData.append('mqj_qa_id', $('#mqj_qa_id').val());
@@ -1046,49 +1085,65 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        xhr: function() {
+                        xhr: function () {
                             myXhr = $.ajaxSettings.xhr();
                             return myXhr;
                         },
-                        success: function(resp) {
-                            if (resp.success == true){ 
+                        success: function (resp) {
+                            if (resp.success == true) {
                                 f_notify(1, 'Success', 'Relative Accuracy Test Audit Report successfully added.');
-                                $('#form_mqj_form_2').trigger('reset'); $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
+                                $('#form_mqj_form_2').trigger('reset');
+                                $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
                                 //data_mqj_cdt_doc = f_get_general_info_multiple('dt_qa_document', {qa_id:$('#mqj_qa_id').val()}, '', '', 'qa_id');
                                 //f_dataTable_draw(mqj_otable_supportDoc, data_mqj_cdt_doc, 'datatable_mqj_supportDoc', 4);
-                            } else { f_notify(2, 'Error', resp.errors);  }
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
                         },
-                        error: function() { f_notify(2, 'Error', errMsg_default);  }
+                        error: function () {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
                     });
-                    $('#modal_waiting').modal('hide'); $(this).unbind(e);
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
                 }).modal('show');
             } else {
-                f_notify(2, 'Error', errMsg_validation);    
+                f_notify(2, 'Error', errMsg_validation);
                 return false;
             }
-        }); 
-
-
+        });
 
 
         //==========================
+        $('#form_mqj_hardCopy').bootstrapValidator({
+            excluded: ':disabled',
+            fields: {
+                mqj_qa_hardCopy_receiver: {
+                    validators: {
+                        stringLength : {
+                            max : 150,
+                            message : 'Received By must be not more than 150 characters long'
+                        }
+                    }
+                }
+            }
+        });
 
-        
         $('#form_mqj_verify').bootstrapValidator({
             excluded: ':disabled',
-            fields: {  
-                mqj_result : {
+            fields: {
+                mqj_result: {
                     validators: {
                         notEmpty: {
                             message: 'Verification Result is required'
                         }
                     }
                 },
-                mqj_snote_wfTask_verify : {
+                mqj_snote_wfTask_verify: {
                     validators: {
                         callback: {
                             message: 'Message/Feedback is required',
-                            callback: function(value, validator, $field) {
+                            callback: function (value, validator, $field) {
                                 var code = $('[name="mqj_snote_wfTask_verify"]').summernote('code');
                                 return (code !== '' && code !== '<p><br></p>');
                             }
@@ -1097,8 +1152,8 @@
                 }
             }
         });
-        
-        $('#modal_cems_rata').on('hide.bs.modal', function() {
+
+        $('#modal_cems_rata').on('hide.bs.modal', function () {
             // alert('close');
             // $.each(data_mqj_raNormal, function(u){
             //     var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
@@ -1119,10 +1174,10 @@
             //     var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
             //     bootstrapValidator.removeField('mqj_qaRespTime_value_'+data_mqj_responseTime[u].qaRa_id);
             // });
-        }); 
-        
+        });
+
         $('#mqj_btn_save').on('click', function () {
-            $('#modal_waiting').on('shown.bs.modal', function(e){   
+            $('#modal_waiting').on('shown.bs.modal', function (e) {
                 if (($('#mqj_wfTaskType_id').val() == '37' && mqj_otable == 'icm') || ($('#mqj_wfTaskType_id').val() == '91' && mqj_otable == 'iqa')) {
                     $('#mqj_funct').val('save_qa_j');
                     $('#mqj_qa_message').val($('[name="mqj_snote_qa_message"]').summernote('code'));
@@ -1137,93 +1192,93 @@
                         // data_mqj_responseTime = f_get_general_info_multiple('t_qa_responsetime', {qa_id:$('#mqj_qa_id').val()});
                         // f_dataTable_draw(mqj_otable_responseTime, data_mqj_responseTime, 'datatable_mqj_responseTime', 3);
                     }
-                } else if (($('#mqj_wfTaskType_id').val() == '39' && mqj_otable == 'itp')) {
+                } else if (($('#mqj_wfTaskType_id').val() == '38' && mqj_otable == 'itp')) {
                     $('#mqj_funct').val('save_verify_initial_RATA_j');
                     $('#mqj_wfTask_verify').val($('[name="mqj_snote_wfTask_verify"]').summernote('code'));
-                    f_submit_forms('form_mqj_base,#form_mqj_verify', 'p_registration', 'Data successfully saved.');
-                } else {  
-                    f_notify(2, 'Error', errMsg_default);    
+                    f_submit_forms('form_mqj_base,#form_mqj_verify,#form_mqj_hardCopy', 'p_registration', 'Data successfully saved.');
+                } else {
+                    f_notify(2, 'Error', errMsg_default);
                     return false;
                 }
                 $('#modal_waiting').modal('hide');
                 $(this).unbind(e);
-            }).modal('show'); 
+            }).modal('show');
         });
-        
+
         $('#mqj_btn_submit').on('click', function () {
-            var submit_status = '', submit_group = '', condition_no = ''; 
+            var submit_status = '', submit_group = '', condition_no = '';
             if (mqj_otable == 'icm' && $('#mqj_wfTaskType_id').val() == '37') {             //Initial RATA
                 var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
                 bootstrapValidator.validate();
-                if (!bootstrapValidator.isValid()) {         
-                    f_notify(2, 'Error', errMsg_validation);    
+                if (!bootstrapValidator.isValid()) {
+                    f_notify(2, 'Error', errMsg_validation);
                     return false;
                 }
                 var bootstrapValidator = $("#form_mqj_form").data('bootstrapValidator');
                 bootstrapValidator.validate();
-                if (!bootstrapValidator.isValid()) {         
-                    f_notify(2, 'Error', errMsg_validation);    
+                if (!bootstrapValidator.isValid()) {
+                    f_notify(2, 'Error', errMsg_validation);
                     return false;
                 }
                 $.SmartMessageBox({
-                    title : "<i class='fa fa-exclamation-circle'></i> Confirmation!",
-                    content : "Are you sure to submit this Initial RATA Report?",
-                    buttons : '[No][Yes]'
-                }, function(ButtonPressed) {
+                    title: "<i class='fa fa-exclamation-circle'></i> Confirmation!",
+                    content: "Are you sure to submit this Initial RATA Report?",
+                    buttons: '[No][Yes]'
+                }, function (ButtonPressed) {
                     if (ButtonPressed === "Yes") {
-                        $('#modal_waiting').on('shown.bs.modal', function(e){  
+                        $('#modal_waiting').on('shown.bs.modal', function (e) {
                             $('#mqj_funct').val('save_qa_j');
                             $('#mqj_qa_message').val($('[name="mqj_snote_qa_message"]').summernote('code'));
                             if (f_submit_forms('form_mqj_base,#form_mqj_form,#form_mqj_form_2', 'p_registration')) {
-                                submit_status = $('#mqj_wfTask_status').val() == '28' ?  '10' : '13';
+                                submit_status = $('#mqj_wfTask_status').val() == '28' ? '10' : '13';
                                 if (f_submit($('#mqj_wfTask_id').val(), $('#mqj_wfTaskType_id').val(), submit_status, 'Initial RATA successfully submitted', $('#mqj_qa_message').val(), condition_no, submit_group, '', $('#mqj_wfTask_refName').val(), $('#mqj_wfTask_refValue').val())) {
-                                    f_table_icm ();
-                                    f_send_email('email_verify_initRATA', {wfTask_id:result_submit_task}); 
+                                    f_table_icm();
+                                    f_send_email('email_verify_initRATA', {wfTask_id: result_submit_task});
                                     $('#modal_cems_rata').modal('hide');
                                 }
                             }
                             $('#modal_waiting').modal('hide');
                             $(this).unbind(e);
-                        }).modal('show'); 
+                        }).modal('show');
                     }
-                });  
+                });
             } else if (mqj_otable == 'itp' && $('#mqj_wfTaskType_id').val() == '38') {          //Verify Initial RATA
                 var bootstrapValidator = $("#form_mqj_verify").data('bootstrapValidator');
                 bootstrapValidator.validate();
-                if (!bootstrapValidator.isValid()) {         
-                    f_notify(2, 'Error', errMsg_validation);    
+                if (!bootstrapValidator.isValid()) {
+                    f_notify(2, 'Error', errMsg_validation);
                     return false;
                 }
                 $.SmartMessageBox({
-                    title : "<i class='fa fa-exclamation-circle'></i> Confirmation!",
-                    content : "Are you sure?",
-                    buttons : '[No][Yes]'
-                }, function(ButtonPressed) {
+                    title: "<i class='fa fa-exclamation-circle'></i> Confirmation!",
+                    content: "Are you sure?",
+                    buttons: '[No][Yes]'
+                }, function (ButtonPressed) {
                     if (ButtonPressed === "Yes") {
-                        $('#modal_waiting').on('shown.bs.modal', function(e){  
+                        $('#modal_waiting').on('shown.bs.modal', function (e) {
                             $('#mqj_funct').val('save_verify_initial_RATA_j');
                             $('#mqj_wfTask_verify').val($('[name="mqj_snote_wfTask_verify"]').summernote('code'));
                             if (f_submit_forms('form_mqj_base,#form_mqj_verify', 'p_registration')) {
                                 submit_status = $('input[name="mqj_result"]:checked').val();
                                 condition_no = submit_status == '17' ? '' : '1';
                                 if (f_submit($('#mqj_wfTask_id').val(), $('#mqj_wfTaskType_id').val(), submit_status, 'The verification result successfully submitted', $('#mqj_wfTask_verify').val(), condition_no, submit_group, '', $('#mqj_wfTask_refName').val(), $('#mqj_wfTask_refValue').val())) {
-                                    f_table_itp_new ();
-                                    f_table_itp_history ();
+                                    f_table_itp_new();
+                                    f_table_itp_history();
                                     if (submit_status == '12')
-                                        f_send_email('email_return_initRATA', {wfTask_id:$('#mqj_wfTask_id').val()}); 
+                                        f_send_email('email_return_initRATA', {wfTask_id: $('#mqj_wfTask_id').val()});
                                     else if (submit_status == '46')
-                                        f_send_email('email_redo_initRATA', {wfTask_id:$('#mqj_wfTask_id').val()}); 
+                                        f_send_email('email_redo_initRATA', {wfTask_id: $('#mqj_wfTask_id').val()});
                                     $('#modal_cems_rata').modal('hide');
                                 }
                             }
                             $('#modal_waiting').modal('hide');
                             $(this).unbind(e);
-                        }).modal('show'); 
+                        }).modal('show');
                     }
-                });  
+                });
             }
         });
-});
+    });
 
     // function f_mqj_delete_supportDoc (qaDoc_id) {
     //     $('#modal_waiting').on('shown.bs.modal', function(e){
@@ -1235,7 +1290,7 @@
     //         $(this).unbind(e);
     //     }).modal('show'); 
     // }
-    
+
     // function f_mqj_calc_ra (qaRa_id) {
     //     var result = parseFloat(0);
     //     // var diff = parseFloat($('#mqj_qaRa_difference_'+qaRa_id).val()!=''?$('#mqj_qaRa_difference_'+qaRa_id).val():0);
@@ -1250,51 +1305,61 @@
     //         $('#mqj_qaRa_ra_'+qaRa_id).val(result);
     //     }
     // }
-    
+
     function f_load_cems_rata(load_type, qa_id, wfTask_id, otable) {
-        $('#modal_waiting').on('shown.bs.modal', function(e){
-            $('#form_mqj_base, #form_mqj_form, #form_mqj_form_2, #form_mqj_verify').trigger('reset'); 
+        $('#modal_waiting').on('shown.bs.modal', function (e) {
+            $('#form_mqj_base, #form_mqj_form, #form_mqj_form_2, #form_mqj_verify, #form_mqj_hardCopy').trigger('reset');
             $('#form_mqj_form').bootstrapValidator('resetForm', true);
             $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
             // $('#form_mqj_doc').bootstrapValidator('resetForm', true);
             $('#form_mqj_verify').bootstrapValidator('resetForm', true);
-            $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled',true);
+            $('#form_mqj_hardCopy').bootstrapValidator('resetForm', true);
+            $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled', true);
             $('#mqj_snote_qa_message').summernote('code', '');
             $('#mqj_snote_qa_message').summernote('disable');
             if (qa_id == '' && wfTask_id == '') {
-                f_notify(2, 'Error', errMsg_default);    
-                $('#modal_waiting').modal('hide'); 
-                $(this).unbind(e);
-                return false;
-            }  
-            if (qa_id == '') {
-                // all transaction with null qa_id should be initial RATA.
-                var wf_task = f_get_general_info('wf_task', {wfTask_id:wfTask_id}); 
-                var arr_qa = f_get_general_info_multiple('vw_qa_task', {wfTrans_id:wf_task.wfTrans_id, wfTask_id:'<='+wfTask_id}, '', '', 'qa_id DESC');
-                qa_id = arr_qa[0].qa_id;
-                $('#mqa_doc_two').hide();  
-            } else if (wfTask_id == '') {
-                wfTask_id = f_get_value_from_table('t_qa', 'qa_id', qa_id, 'wfTask_id');
-            } 
-            if (qa_id == '' || wfTask_id == '') {
-                f_notify(2, 'Error', errMsg_default);  
+                f_notify(2, 'Error', errMsg_default);
                 $('#modal_waiting').modal('hide');
                 $(this).unbind(e);
                 return false;
-            } 
+            }
+            if (qa_id == '') {
+                // all transaction with null qa_id should be initial RATA.
+                var wf_task = f_get_general_info('wf_task', {wfTask_id: wfTask_id});
+                var arr_qa = f_get_general_info_multiple('vw_qa_task', {
+                    wfTrans_id: wf_task.wfTrans_id,
+                    wfTask_id: '<=' + wfTask_id
+                }, '', '', 'qa_id DESC');
+                qa_id = arr_qa[0].qa_id;
+                $('#mqa_doc_two').hide();
+            } else if (wfTask_id == '') {
+                wfTask_id = f_get_value_from_table('t_qa', 'qa_id', qa_id, 'wfTask_id');
+            }
+            if (qa_id == '' || wfTask_id == '') {
+                f_notify(2, 'Error', errMsg_default);
+                $('#modal_waiting').modal('hide');
+                $(this).unbind(e);
+                return false;
+            }
             mqj_otable = otable;
             mqj_load_type = load_type;
 
-            $('.mqj_hide_view, .mqj_show_view, #mqj_alert_box, .mqj_div_verify, #mqj_div_datePoolStart').hide();
+            $('.mqj_hide_view, .mqj_show_view, #mqj_alert_box, .mqj_div_verify, .mqj_div_hardCopy, #mqj_div_datePoolStart').hide();
             $('.mqj_show_view').show();
-            
-            var task_info = f_get_general_info('vw_task_info', {wfTask_id:wfTask_id}, 'mqj');    
+
+            var task_info = f_get_general_info('vw_task_info', {wfTask_id: wfTask_id}, 'mqj');
             var is_end = (task_info.wfFlow_id == '4') ? 'N' : '';
-            var arr_steps = f_get_general_info_multiple('wf_task_type', {wfFlow_id:task_info.wfFlow_id, wfTaskType_isEnd:is_end});
-            var previous_task = f_get_general_info_multiple('wf_task', {wfTrans_id:task_info.wfTrans_id, wfTask_partition:'2'}, '', '', 'wfTask_id DESC');
+            var arr_steps = f_get_general_info_multiple('wf_task_type', {
+                wfFlow_id: task_info.wfFlow_id,
+                wfTaskType_isEnd: is_end
+            });
+            var previous_task = f_get_general_info_multiple('wf_task', {
+                wfTrans_id: task_info.wfTrans_id,
+                wfTask_partition: '2'
+            }, '', '', 'wfTask_id DESC');
             var wfTaskType_turn = task_info.wfTaskType_turn != '0' ? task_info.wfTaskType_turn : f_get_value_from_table('wf_task_type', 'wfTaskType_id', previous_task[0].wfTaskType_id, 'wfTaskType_turn');
-            var qa_detail = f_get_general_info('vw_qa_details', {qa_id:qa_id}, 'mqj');
-            var qa_docs = f_get_general_info_multiple('dt_qa_docs', {qa_id:qa_id}, '', '', 'qa_id');
+            var qa_detail = f_get_general_info('vw_qa_details', {qa_id: qa_id}, 'mqj');
+            var qa_docs = f_get_general_info_multiple('dt_qa_document', {qa_id: qa_id}, '', '', 'qa_id');
 
             var doc_length = qa_docs.length;
 
@@ -1302,28 +1367,28 @@
             //     lbl_refresh();
 
             // function lbl_refresh(){
-                for(var ii = 0; ii < doc_length; ii++){
-                    // alert(qa_docs[ii].doc_name);
-                    if(qa_docs[ii].doc_name.indexOf('CDT_') > -1){
-                        // alert(qa_docs[ii].doc_name);
-                        $('#cdt_lbl').html(qa_docs[ii].doc_name);
-                    }
-                    else if(qa_docs[ii].doc_name.indexOf('RATA_') > -1){
-                        // alert(qa_docs[ii].doc_name);
-                        $('#rata_lbl').html(qa_docs[ii].doc_name);
-                    }
-                    else if(qa_docs[ii].doc_name.indexOf('RCA_') > -1){
-                        // alert(qa_docs[ii].doc_name);
-                        $('#rca_lbl').html(qa_docs[ii].doc_name);
-                    }
-                    else if(qa_docs[ii].doc_name.indexOf('FAPT_') > -1){
-                        // alert(qa_docs[ii].doc_name);
-                        $('#fapt_lbl').html(qa_docs[ii].doc_name);
-                    }
-                };
+            /* for(var ii = 0; ii < doc_length; ii++){
+                 // alert(qa_docs[ii].doc_name);
+                 if(qa_docs[ii].doc_name.indexOf('CDT_') > -1){
+                     // alert(qa_docs[ii].doc_name);
+                     $('#cdt_lbl').html(qa_docs[ii].doc_name);
+                 }
+                 else if(qa_docs[ii].doc_name.indexOf('RATA_') > -1){
+                     // alert(qa_docs[ii].doc_name);
+                     $('#rata_lbl').html(qa_docs[ii].doc_name);
+                 }
+                 else if(qa_docs[ii].doc_name.indexOf('RCA_') > -1){
+                     // alert(qa_docs[ii].doc_name);
+                     $('#rca_lbl').html(qa_docs[ii].doc_name);
+                 }
+                 else if(qa_docs[ii].doc_name.indexOf('FAPT_') > -1){
+                     // alert(qa_docs[ii].doc_name);
+                     $('#fapt_lbl').html(qa_docs[ii].doc_name);
+                 }
+             }*/
             // }
             // });
-            f_steps (arr_steps, wfTaskType_turn, 'mqj_steps');     
+            f_steps(arr_steps, wfTaskType_turn, 'mqj_steps');
             $('#lmqj_qa_type_title').html(qa_detail.qa_type_desc);
             $('[name="mqj_snote_qa_message"]').summernote('code', qa_detail.qa_message);
             // data_mqj_raNormal = f_get_general_info_multiple('t_qa_ra', {qa_id:qa_id});
@@ -1337,100 +1402,111 @@
             // data_mqj_supportDoc = f_get_general_info_multiple('dt_qa_document', {qa_id:qa_id}, '', '', 'qa_id');
             // f_dataTable_draw(mqj_otable_supportDoc, data_mqj_supportDoc, 'datatable_mqj_supportDoc', 4);
 
-            $('#form_mqj_form_2').find('input').prop('disabled',true);
+            $('#form_mqj_form_2').find('input').prop('disabled', true);
             $('.mqj_hide_view').hide();
             if (task_info.wfFlow_id == '4')
                 $('#mqj_div_datePoolStart').show();
 
-            if (mqj_load_type == 2) { 
+            if (mqj_load_type == 2) {
 
                 // ICM ------------------
                 if (mqj_otable == 'icm') {
-                    if (previous_task[0].wfTask_remark != null && previous_task[0].wfTask_remark != '<p><br></p>') {                    
+                    if (previous_task[0].wfTask_remark != null && previous_task[0].wfTask_remark != '<p><br></p>') {
                         $('#mqj_alert_box').show();
                         $('#mqj_alert_message').html(previous_task[0].wfTask_remark);
-                        var profile = f_get_general_info('profile', {user_id:previous_task[0].wfTask_claimedBy, profile_status:'1'});  
-                        $('#mqj_alert_date').html('from '+profile.profile_name+'</br>'+dateString2Date(previous_task[0].wfTask_timeSubmitted).toLocaleString());
+                        var profile = f_get_general_info('profile', {
+                            user_id: previous_task[0].wfTask_claimedBy,
+                            profile_status: '1'
+                        });
+                        $('#mqj_alert_date').html('from ' + profile.profile_name + '</br>' + dateString2Date(previous_task[0].wfTask_timeSubmitted).toLocaleString());
                     }
                     $('.mqj_show_view').hide();
                     // $('#rr').hide();
                     $('.mqj_hide_view').show();
                     $('#mqj_snote_qa_message').summernote('enable');
-                    $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled',false); 
-                // -----------------------
-                //  ITP ------------------
-            } else if (mqj_otable == 'itp') {
-                $("input[name='mqj_result'][value=" + task_info.wfTask_statusSave + "]").prop('checked', true);
-                if (task_info.wfTask_remark != null && task_info.wfTask_remark != '<p><br></p>')
-                    $('[name="mqj_snote_wfTask_verify"]').summernote('code', task_info.wfTask_remark);
-                else
-                    $('[name="mqj_snote_wfTask_verify"]').summernote('code', '');
-                $('#form_mqj_verify').bootstrapValidator('resetField', 'mqj_snote_wfTask_verify');
-                $('.mqj_div_verify, #mqj_btn_save, #mqj_btn_submit').show(); 
-                    //alert("itp!");
+                    $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled', false);
+                    // -----------------------
+                    //  ITP ------------------
+                } else if (mqj_otable == 'itp') {
+                    $("input[name='mqj_qa_hardCopy'][value=" + qa_detail.qa_hardCopy + "]").prop('checked', true);
+                    if (task_info.wfTask_remark != null && qa_detail.qa_hardCopy_remark != '<p><br></p>')
+                        $('[name="mqj_snote_hardCopy_remark"]').summernote('code', qa_detail.qa_hardCopy_remark);
+                    else
+                        $('[name="mqj_snote_hardCopy_remark"]').summernote('code', '');
 
-                //  ----------------------
-                //  IQA ------------------
-            } else if (mqj_otable == 'iqa') {
-                if (previous_task != '' && previous_task[0].wfTask_remark != null && previous_task[0].wfTask_remark != '<p><br></p>') {
-                    $('#mqj_alert_box').show();
-                    $('#mqj_alert_message').html(previous_task[0].wfTask_remark);
-                    var profile = f_get_general_info('profile', {user_id:previous_task[0].wfTask_claimedBy, profile_status:'1'}); 
-                    $('#mqj_alert_date').html('from '+profile.profile_name+'</br>'+dateString2Date(previous_task[0].wfTask_timeSubmitted).toLocaleString()); 
-                }
+                    $("input[name='mqj_result'][value=" + task_info.wfTask_statusSave + "]").prop('checked', true);
+                    if (task_info.wfTask_remark != null && task_info.wfTask_remark != '<p><br></p>')
+                        $('[name="mqj_snote_wfTask_verify"]').summernote('code', task_info.wfTask_remark);
+                    else
+                        $('[name="mqj_snote_wfTask_verify"]').summernote('code', '');
+                    $('#form_mqj_verify').bootstrapValidator('resetField', 'mqj_snote_wfTask_verify');
+                    $('.mqj_div_verify, .mqj_div_hardCopy, #mqj_btn_save, #mqj_btn_submit').show();
+                    //  ----------------------
+                    //  IQA ------------------
+                } else if (mqj_otable == 'iqa') {
+                    if (previous_task != '' && previous_task[0].wfTask_remark != null && previous_task[0].wfTask_remark != '<p><br></p>') {
+                        $('#mqj_alert_box').show();
+                        $('#mqj_alert_message').html(previous_task[0].wfTask_remark);
+                        var profile = f_get_general_info('profile', {
+                            user_id: previous_task[0].wfTask_claimedBy,
+                            profile_status: '1'
+                        });
+                        $('#mqj_alert_date').html('from ' + profile.profile_name + '</br>' + dateString2Date(previous_task[0].wfTask_timeSubmitted).toLocaleString());
+                    }
                     // $(".mqa_doc_two").attr("style", "display:none !important;");
                     // $('.mqa_doc_two').hide(); 
                     $('.mqj_show_view').hide();
-                    $('.mqj_hide_view').show();  
+                    $('.mqj_hide_view').show();
                     $('#mqj_snote_qa_message').summernote('enable');
-                    $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled',false);  
+                    $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled', false);
                     //alert(profile.profile_name+dateString2Date(previous_task[0].wfTask_timeSubmitted).toLocaleString());
                     //alert(previous_task[0].wfTask_id);
                     //alert($('#user_id'));
                 } else {
-                    f_notify(2, 'Error', errMsg_default);   
+                    f_notify(2, 'Error', errMsg_default);
                     $('#modal_waiting').modal('hide');
                     $(this).unbind(e);
                     return false;
                 }
-            } 
-            $('.mqj_disabled').prop('disabled',true);
-            $('#mqj_wfTask_id').val(wfTask_id); 
-            $('#mqj_qa_id').val(qa_id);  
+            }
+            $('.mqj_disabled').prop('disabled', true);
+            $('#mqj_wfTask_id').val(wfTask_id);
+            $('#mqj_qa_id').val(qa_id);
             $('#modal_cems_rata').modal('show');
-            $('#modal_waiting').modal('hide');  
+            $('#modal_waiting').modal('hide');
             $(this).unbind(e);
         }).modal('show');
-}
+    }
 
-'use strict';
+    'use strict';
 
-;( function ( document, window, index )
-{
-    var inputs = document.querySelectorAll( '.inputfile' );
-    Array.prototype.forEach.call( inputs, function( input )
-    {
-        var label    = input.nextElementSibling,
-        labelVal = label.innerHTML;
+    ;(function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
 
-        input.addEventListener( 'change', function( e )
-        {
-            var fileName = '';
-            if( this.files && this.files.length > 1 )
-                fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-            else
-                fileName = e.target.value.split( '\\' ).pop();
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
 
-            if( fileName )
-                label.querySelector( 'span' ).innerHTML = fileName;
-            else
-                label.innerHTML = labelVal;
-        });
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
 
             // Firefox bug fix
-            input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
-            input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+            input.addEventListener('focus', function () {
+                input.classList.add('has-focus');
+            });
+            input.addEventListener('blur', function () {
+                input.classList.remove('has-focus');
+            });
         });
-}( document, window, 0 ));
+    }(document, window, 0));
 
 </script>

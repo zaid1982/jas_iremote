@@ -42,6 +42,7 @@
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" id="itp_dateRata" class="form-control" readonly></th>
+                                            <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" id="itp_dateReceived" class="form-control" readonly></th>
                                             <th><input type="text" id="itp_dateDue" class="form-control" readonly></th>
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
@@ -52,9 +53,10 @@
                                             <th data-class="expand">Application No.</th> 
                                             <th data-hide="phone" width="12%">Application Type</th>        
                                             <th data-hide="phone">Industrial Name</th>                       
-                                            <th width="8%" data-hide="phone">Stack ID</th>                                                            
+                                            <th width="6%" data-hide="phone">Stack ID</th>
                                             <th width="10%">JAS File No.</th>                    
-                                            <th data-hide="phone,tablet" style="min-width: 92px">Initial RATA Date</th>                
+                                            <th data-hide="phone,tablet" style="min-width: 92px">Initial RATA Date</th>
+                                            <th data-hide="phone" width="6%">Hard Copy Received</th>
                                             <th data-hide="phone,tablet" style="min-width: 92px">Received Time</th>
                                             <th data-hide="phone,tablet" style="min-width: 92px">Due Date</th>
                                             <th width="65px" style="min-width: 65px">Status</th>
@@ -90,6 +92,7 @@
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" id="itp2_dateRata" class="form-control" readonly></th>
+                                            <th><input type="text" class="form-control" maxlength="50" /></th>
                                             <th><input type="text" id="itp2_dateSubmit" class="form-control" readonly></th>
                                             <th><input type="text" id="itp2_dateDue" class="form-control" readonly></th>
                                             <th><input type="text" class="form-control" maxlength="50" /></th>
@@ -100,9 +103,10 @@
                                             <th data-class="expand">Application No.</th> 
                                             <th data-hide="phone" width="10%">Application Type</th>             
                                             <th data-hide="phone">Industrial Name</th>                                            
-                                            <th width="8%" data-hide="phone">Stack ID</th>                                                     
+                                            <th width="6%" data-hide="phone">Stack ID</th>
                                             <th width="10%">JAS File No.</th>                    
-                                            <th data-hide="phone,tablet" style="min-width: 92px">Initial RATA Date</th>               
+                                            <th data-hide="phone,tablet" style="min-width: 92px">Initial RATA Date</th>
+                                            <th data-hide="phone" width="6%">Hard Copy Received</th>
                                             <th data-hide="phone,tablet" style="min-width: 92px">Submission Time</th>
                                             <th data-hide="phone,tablet" style="min-width: 92px">Due Date</th>
                                             <th width="65px" style="min-width: 60px">Action</th>

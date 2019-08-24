@@ -4,10 +4,12 @@ class Class_sql {
     
     private $prm_user_role = "select user_role.user_id AS user_id,group_concat(ref_role.role_desc order by ref_role.role_id ASC separator ', ') AS role_list from user_role left join ref_role on ref_role.role_id = user_role.role_id group by user_role.user_id";
     private $prm_user_type = "select user_type.user_id AS user_id,group_concat(ref_uType.uType_desc order by ref_uType.uType_id ASC separator ', ') AS userType_list from user_type left join ref_uType on ref_uType.uType_id = user_type.uType_id group by user_type.user_id";
-            
+    private $log_dir = '';
+
     function __construct()
     {
-        // 1010 - 1019
+        $config = parse_ini_file('../library/config.ini');
+        $this->log_dir = $config['log_dir'];
     }
     
     private function get_exception($codes, $function, $line, $msg) {
@@ -1236,6 +1238,7 @@ class Class_sql {
                     t_industrial_all.indAll_dateRataActual AS indAll_dateRataActual,
                     ref_status_previous.status_desc AS status_previous,
                     ref_status_previous.status_color AS status_previous_color,
+                    t_qa.qa_hardCopy,
                     wf_task.*
                 FROM wf_task 
                 LEFT JOIN wf_task_type ON wf_task_type.wfTaskType_id = wf_task.wfTaskType_id 
@@ -1247,6 +1250,7 @@ class Class_sql {
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = wf_transaction.wfTrans_createdByGr 
                 LEFT JOIN t_industrial ON t_industrial.wfGroup_id = wf_group.wfGroup_id
                 LEFT JOIN t_industrial_all ON t_industrial_all.wfTrans_id = wf_task.wfTrans_id
+                LEFT JOIN t_qa ON t_qa.indAll_id = t_industrial_all.indAll_id AND t_qa.qa_status <> 22
                 LEFT JOIN ref_status ON ref_status.status_id = wf_task.wfTask_status
                 LEFT JOIN ref_status ref_status_previous ON ref_status_previous.status_id = wf_task.wfTask_statusPrevious";
             } else if ($title == 'vw_industrial_short') {
@@ -2759,7 +2763,7 @@ class Class_sql {
             return $sql;
         }
         catch(Exception $e) {
-            error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, '../logs/error/error_'.date("Ymd").'.log');
+            error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, $this->log_dir.'/error/error_'.date("Ymd").'.log');
             if ($e->getCode() == 30) { $errCode = 32; } else { $errCode = $e->getCode(); }
             throw new Exception($this->get_exception('0099', __FUNCTION__, __LINE__, $e->getMessage()), $errCode);
         }

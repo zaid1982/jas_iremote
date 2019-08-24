@@ -702,7 +702,7 @@ class Class_task {
     
     public function send_email () {
         try {
-            mail($to, $subject, $message);
+            //mail($to, $subject, $message);
         } 
         catch(Exception $e) {
             error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, $this->log_dir.'/error/error_'.date("Ymd").'.log');

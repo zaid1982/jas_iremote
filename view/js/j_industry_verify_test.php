@@ -79,7 +79,7 @@ include 'view/js/j_modal_pems_rata.php';
         }).on('apply.daterangepicker', function (ev, picker) {
             var dateStart = picker.startDate.format('YYYYMMDD');
             var dateEnd = picker.endDate.format('YYYYMMDD');
-            var filteredData = dataNew.column(7).data().filter(function (value, index) {
+            var filteredData = dataNew.column(8).data().filter(function (value, index) {
                 var evalDate = 0;
                 if (value !== null && value !== "") {
                     var dateArray = value.substr(0,10).split("-");
@@ -95,11 +95,11 @@ include 'view/js/j_modal_pems_rata.php';
                 val += filteredData[count] + "|";
             }
             val = val.slice(0, -1);
-            dataNew.column(7).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw(); 
+            dataNew.column(8).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();
             f_table_itp_title ();
         }).on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
-            dataNew.column(7).search('').draw();
+            dataNew.column(8).search('').draw();
             f_table_itp_title ();
         }).val('');
         
@@ -122,7 +122,7 @@ include 'view/js/j_modal_pems_rata.php';
         }).on('apply.daterangepicker', function (ev, picker) {
             var dateStart = picker.startDate.format('YYYYMMDD');
             var dateEnd = picker.endDate.format('YYYYMMDD');
-            var filteredData = dataNew.column(8).data().filter(function (value, index) {
+            var filteredData = dataNew.column(9).data().filter(function (value, index) {
                 var evalDate = 0;
                 if (value !== null && value !== "") {
                     var dateArray = data_itp_new[index].wfTask_dateExpired.substr(0,10).split("-");
@@ -138,17 +138,17 @@ include 'view/js/j_modal_pems_rata.php';
                 val += filteredData[count] + "|";
             }
             val = val.slice(0, -1);
-            dataNew.column(8).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();     
+            dataNew.column(9).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();
             f_table_itp_title ();
         }).on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
-            dataNew.column(8).search('').draw();
+            dataNew.column(9).search('').draw();
             f_table_itp_title ();
         }).val('');
         
         var datatable_itp = undefined;  var cnt_itp = 1;
         dataNew = $('#datatable_itp').DataTable({
-            "aaSorting": [[7,'desc']],
+            "aaSorting": [[8,'desc']],
             "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
                     "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
             "autoWidth": true,
@@ -177,11 +177,11 @@ include 'view/js/j_modal_pems_rata.php';
                                 cnt_itp = 1;
                             if ( iColumn === 0 )
                                 return cnt_itp++;
-                            else if ( iColumn === 8 )
-                                return data_itp_new[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 9 )
-                                return data_itp_new[iDataIndex].status_desc;
+                                return data_itp_new[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 10 )
+                                return data_itp_new[iDataIndex].status_desc;
+                            else if ( iColumn === 11 )
                                 return '';
                             return sValue;
                         }
@@ -196,11 +196,11 @@ include 'view/js/j_modal_pems_rata.php';
                                 cnt_itp = 1;
                             if ( iColumn === 0 )
                                 return cnt_itp++;
-                            else if ( iColumn === 8 )
-                                return data_itp_new[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 9 )
-                                return data_itp_new[iDataIndex].status_desc;
+                                return data_itp_new[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 10 )
+                                return data_itp_new[iDataIndex].status_desc;
+                            else if ( iColumn === 11 )
                                 return '';
                             return sValue;
                         }
@@ -222,6 +222,14 @@ include 'view/js/j_modal_pems_rata.php';
                     {mData: 'indAll_stackNo'},
                     {mData: 'industrial_jasFileNo', visible:false},
                     {mData: 'indAll_dateRataActual'},
+                    {mData: 'qa_hardCopy', sClass: 'text-center',
+                        mRender: function (data) {
+                            if (data !== null) {
+                                return data === '1' ? 'Yes' : 'No';
+                            }
+                            return '';
+                        }
+                    },
                     {mData: 'wfTask_timeCreated'},
                     {mData: 'wfTask_dateExpired',
                         mRender: function (data, type, row) {
@@ -335,7 +343,7 @@ include 'view/js/j_modal_pems_rata.php';
         }).on('apply.daterangepicker', function (ev, picker) {
             var dateStart = picker.startDate.format('YYYYMMDD');
             var dateEnd = picker.endDate.format('YYYYMMDD');
-            var filteredData = dataHistory.column(7).data().filter(function (value, index) {
+            var filteredData = dataHistory.column(8).data().filter(function (value, index) {
                 var evalDate = 0;
                 if (value !== null && value !== "") {
                     var dateArray = value.substr(0,10).split("-");
@@ -351,11 +359,11 @@ include 'view/js/j_modal_pems_rata.php';
                 val += filteredData[count] + "|";
             }
             val = val.slice(0, -1);
-            dataHistory.column(7).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw(); 
+            dataHistory.column(8).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();
             f_table_itp2_title ();
         }).on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
-            dataHistory.column(7).search('').draw();
+            dataHistory.column(8).search('').draw();
             f_table_itp2_title ();
         }).val('');
         
@@ -378,7 +386,7 @@ include 'view/js/j_modal_pems_rata.php';
         }).on('apply.daterangepicker', function (ev, picker) {
             var dateStart = picker.startDate.format('YYYYMMDD');
             var dateEnd = picker.endDate.format('YYYYMMDD');
-            var filteredData = dataHistory.column(8).data().filter(function (value, index) {
+            var filteredData = dataHistory.column(9).data().filter(function (value, index) {
                 var evalDate = 0;
                 if (value !== null && value !== "") {
                     var dateArray = data_itp_history[index].wfTask_dateExpired.substr(0,10).split("-");
@@ -394,17 +402,17 @@ include 'view/js/j_modal_pems_rata.php';
                 val += filteredData[count] + "|";
             }
             val = val.slice(0, -1);
-            dataHistory.column(8).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();     
+            dataHistory.column(9).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();
             f_table_itp2_title ();
         }).on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
-            dataHistory.column(8).search('').draw();
+            dataHistory.column(9).search('').draw();
             f_table_itp2_title ();
         }).val('');
         
         var datatable_itp2 = undefined;  var cnt_itp2 = 1;
         dataHistory = $('#datatable_itp2').DataTable({
-            "aaSorting": [[7,'desc']],
+            "aaSorting": [[8,'desc']],
             "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
                     "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
             "autoWidth": true,
@@ -433,11 +441,11 @@ include 'view/js/j_modal_pems_rata.php';
                                 cnt_itp2 = 1;
                             if ( iColumn === 0 )
                                 return cnt_itp2++;
-                            else if ( iColumn === 8 )
-                                return data_itp_history[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 9 )
-                                return data_itp_history[iDataIndex].status_desc;
+                                return data_itp_history[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 10 )
+                                return data_itp_history[iDataIndex].status_desc;
+                            else if ( iColumn === 11 )
                                 return '';
                             return sValue;
                         }
@@ -452,11 +460,11 @@ include 'view/js/j_modal_pems_rata.php';
                                 cnt_itp2 = 1;
                             if ( iColumn === 0 )
                                 return cnt_itp2++;
-                            else if ( iColumn === 8 )
-                                return data_itp_history[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 9 )
-                                return data_itp_history[iDataIndex].status_desc;
+                                return data_itp_history[iDataIndex].wfTask_dateExpired;
                             else if ( iColumn === 10 )
+                                return data_itp_history[iDataIndex].status_desc;
+                            else if ( iColumn === 11 )
                                 return '';
                             return sValue;
                         }
@@ -478,6 +486,14 @@ include 'view/js/j_modal_pems_rata.php';
                     {mData: 'indAll_stackNo'},
                     {mData: 'industrial_jasFileNo', visible:false},
                     {mData: 'indAll_dateRataActual'},
+                    {mData: 'qa_hardCopy', sClass: 'text-center',
+                        mRender: function (data) {
+                            if (data !== null) {
+                                return data === '1' ? 'Yes' : 'No';
+                            }
+                            return '';
+                        }
+                    },
                     {mData: 'wfTask_timeSubmitted'},
                     {mData: 'wfTask_dateExpired',
                         mRender: function (data, type, row) {
