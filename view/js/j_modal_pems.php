@@ -397,8 +397,8 @@
             else{                
                 $('#mpe_fuelType_id').prop('disabled', true).val('');
             }
-            $('#mpe_fuelType_id option[value="1"]').attr("disabled", $(this).val() !== '1');
-            $('#mpe_fuelType_id option[value="2"]').attr("disabled", $(this).val() !== '2');
+            $('#mpe_fuelType_id option[value="1"]').attr("disabled", $(this).val() !== '1' || $(this).val() !== '2');
+            //$('#mpe_fuelType_id option[value="2"]').attr("disabled", $(this).val() !== '2');
             f_mpe_insert_parameter (); 
         });
         
