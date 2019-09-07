@@ -892,11 +892,24 @@ try {
             if (empty($_POST['mce_docNormalize_type'])) throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32); 
             $document_id = !empty($_FILES['mce_file_docNormalize']['name']) ? $fn_upload->upload_file('1', $_FILES['mce_file_docNormalize'], $_POST['mce_file_docNormalize_name'], $_POST['mce_docNormalize_type'], '') : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mce_indAll_id'], 'documentName_id'=>$_POST['mce_docNormalize_type'], 'document_id'=>$document_id));
+        } else if ($_POST['funct'] == 'delete_industrial_docNormalize_cems') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['indDoc_id']))        throw new Exception('(ErrCode:5864) [' . __LINE__ . '] - Parameter indDoc_id empty.');
+            $document_id = Class_db::getInstance()->db_select_col('t_industrial_doc', array('indDoc_id'=>$arrayParam['indDoc_id']), 'document_id', NULL, 1);
+            Class_db::getInstance()->db_update('t_industrial_doc', array('indDoc_status'=>'8'), array('indDoc_id'=>$arrayParam['indDoc_id']));
+            Class_db::getInstance()->db_update('document', array('document_status'=>'8'), array('document_id'=>$document_id));
+            $result = '1';
         } else if ($_POST['funct'] == 'save_industrial_docNormalize_pems') {
             if (empty($_POST['mpe_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');  
             if (empty($_POST['mpe_docNormalize_type'])) throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32); 
             $document_id = !empty($_FILES['mpe_file_docNormalize']['name']) ? $fn_upload->upload_file('1', $_FILES['mpe_file_docNormalize'], $_POST['mce_file_docNormalize_name'], $_POST['mpe_docNormalize_type'], '') : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mpe_indAll_id'], 'documentName_id'=>$_POST['mpe_docNormalize_type'], 'document_id'=>$document_id));
+        } else if ($_POST['funct'] == 'save_initial_rata_attach_cems') {
+            if (empty($_POST['mqj_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
+            if (empty($_POST['mqj_document_type'])) throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
+            $document_id = !empty($_FILES['mqj_file_attachment']['name']) ? $fn_upload->upload_file('1', $_FILES['mqj_file_attachment'], $_POST['mqj_file_document_title'], $_POST['mqj_document_type'], '') : '';
+            $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mqj_indAll_id'], 'documentName_id'=>$_POST['mqj_document_type'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'save_industrial_personnel_cems') {
             if (empty($_POST['mce_indAll_id']))                 throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');  
             if (empty($_POST['mce_indPers_name']))              throw new Exception('(ErrCode:5868) [' . __LINE__ . '] - Field Name empty.', 32); 

@@ -1214,7 +1214,8 @@ class Class_sql {
                     document.*,
                     t_industrial_doc.indAll_id AS indAll_id,
                     t_industrial_doc.indDoc_id AS indDoc_id,
-                    IF(t_industrial_doc.documentName_id IN (25,18),t_industrial_doc.indDoc_others,document_name.documentName_desc) AS documentName_desc
+                    IF(t_industrial_doc.documentName_id IN (25,18),t_industrial_doc.indDoc_others,document_name.documentName_desc) AS documentName_desc,
+                    document_name.documentName_type
                 FROM t_industrial_doc
                 LEFT JOIN document ON document.document_id = t_industrial_doc.document_id
                 LEFT JOIN document_name ON document_name.documentName_id = t_industrial_doc.documentName_id

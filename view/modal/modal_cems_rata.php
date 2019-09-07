@@ -58,107 +58,7 @@
                     </form>
                 </div>
                 <!-- DOCS UPLOAD/DOWNLOAD -->
-                <h6>Test Result</h6>
-                <div class="well well-light">
-                    <!-- Upload doc -->
-                    <form class="form-horizontal" id="form_mqj_form_2" method="post" enctype="multipart/form-data">
-                        <div class="col-md-12 form-group">
-                            <label><span class="badge badge-success pull-left"><b>GAS </b> </span>&nbsp;
-                                Attachment</label>
-                        </div>
-                        <br/>
-                        <div class="row form-group" id="mqa_doc_one">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" style="margin-top: -10px !important;">Callibration
-                                    Drift Test Report:</label>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="mqj_doc_cdt" name="mqj_doc_cdt"
-                                               style="width: 100%">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="mqj_btn_add_doc_cdt"><i
-                                                        class="fa fa-upload"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label id="cdt_lbl" style="margin-top: 5px;"> <small>Empty</small> </label>
-                                </div>
-                            </div>
-                            <br/>
-                        </div>
-                        <div class="form-group mqj_doc_rata">
-                            <label class="col-md-2 control-label" style="margin-top: -10px !important;">Relative
-                                Accuracy Test Audit Report: </label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="file" class="form-control" id="mqj_doc_rata" name="mqj_doc_rata"
-                                           style="width: 100%">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="mqj_btn_add_doc_rata"><i
-                                                    class="fa fa-upload"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label id="rata_lbl" style="margin-top: 5px;"> <small>Empty</small> </label>
-                            </div>
-                            <br/>
-                        </div>
-                        <hr/>
-                        <div class="well well-light">
-                            <div class="row mqa_doc_two form-group">
-                                <div class="col-md-12 mqa_doc_two">
-                                    <label><u>Total PM Attachment</u></label>
-                                </div>
-                                <br/>
-                                <div class="form-group mqa_doc_two">
-                                    <label class="col-md-2 control-label">Response Colleration Audit (RCA)
-                                        Report: </label>
-                                    <div class="col-md-4 mqa_doc_two">
-                                        <div class="input-group mqa_doc_two">
-                                            <input type="file" class="form-control" id="mqj_doc_rca" name="mqj_doc_rca"
-                                                   style="width: 100%">
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="mqj_btn_add_doc_rca"><i
-                                                        class="fa fa-upload"></i></button>
-                                        </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label id="rca_lbl" style="margin-top: 5px;"> <small>Empty</small> </label>
-                                    </div>
-                                    <br/>
-                                </div>
-                            </div>
-                            <div class="row form-group" id="mqa_doc_three">
-                                <div class="col-md-12">
-                                    <label>Opacity Attachment</label>
-                                </div>
-                                <br/>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Field Audit Performance Test Report: </label>
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <input type="file" class="form-control" id="mqj_doc_fapt"
-                                                   name="mqj_doc_fapt" style="width: 100%">
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="mqj_btn_add_doc_fapt"><i
-                                                        class="fa fa-upload"></i></button>
-                                        </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label id="fapt_lbl" style="margin-top: 5px;"> <small>Empty</small> </label>
-                                    </div>
-                                    <br/>
-                                </div>
-                            </div>
-                    </form>
-                    <br/>
-                </div>
-                <!-- End of doc upload -->
-
+                <h6>Test Information</h6>
                 <div class="well well-light">
                     <form class="form-horizontal" id="form_mqj_form">
                         <div class="form-group">
@@ -201,6 +101,67 @@
                         </div>
                     </form>
                 </div>
+                <h6>Test Result Attachment</h6>
+                <form class="form-horizontal" id="form_mqj_attach" method="post" enctype="multipart/form-data">
+                    <div class="well margin-bottom-15 padding-bottom-0 mqj_attach_form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label text-left text-italic padding-left-15">* Notes: Please attached all available result test based on the attachment type for gas, total PM and opacity.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><font color="red">*</font> Test Result Attachment Type</label>
+                                    <div class="col-md-9 selectContainer">
+                                        <select class="form-control" name="mqj_document_type" id="mqj_document_type"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group margin-bottom-5">
+                                    <label class="col-md-3 control-label"><font color="red">*</font> Attachment File (PDF)</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="mqj_file_document_title" name="mqj_file_document_title" placeholder="Attachment Title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">&nbsp;</label>
+                                    <div class="col-md-6">
+                                        <input type="file" class="form-control" id="mqj_file_attachment" name="mqj_file_attachment" style="width: 100%">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-labeled btn-primary pull-right" id="mqj_btn_add_attachment">
+                                            <span class="btn-label"><i class="fa fa-plus"></i></span>Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered margin-bottom-15" id="datatable_mqj_attach">
+                                <thead>
+                                <tr>
+                                    <th class="text-center bg-color-teal txt-color-white" width="30px" data-hide="phone">No.</th>
+                                    <th class="text-center bg-color-teal txt-color-white" width="40%" data-hide="phone">Type</th>
+                                    <th class="text-center bg-color-teal txt-color-white" width="20%" data-hide="phone">Document Title</th>
+                                    <th class="text-center bg-color-teal txt-color-white" data-class="expand">File Name</th>
+                                    <th class="text-center bg-color-teal txt-color-white" width="52px" style="min-width: 52px">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
                 <!--    <form class="form-horizontal" id="form_mqj_doc" method="post" enctype="multipart/form-data">
                        <div class="form-group mqj_hide_view">
                            <label class="col-md-2 control-label"> Attachment</label>
@@ -245,7 +206,7 @@
                     <input type="hidden" name="mqj_wfTask_refName" id="mqj_wfTask_refName"/>
                     <input type="hidden" name="mqj_wfTask_refValue" id="mqj_wfTask_refValue"/>
                 </form>
-            </div>
+
             <h6 class="mqj_div_hardCopy">Hard Copy Submission</h6>
             <div class="well well-light mqj_div_hardCopy">
                 <form class="form-horizontal" id="form_mqj_hardCopy">

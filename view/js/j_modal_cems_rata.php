@@ -4,6 +4,7 @@
 
     var mqj_otable;
     var mqj_load_type;
+    let mqj_1st_load = true;
     // var data_mqj_raNormal;
     // var mqj_otable_raNormal;
     // var data_mqj_drift;
@@ -16,6 +17,8 @@
     // var mqj_otable_supportDoc;
     var arr_param = [];
     // var mqj_qaDrift_id;
+    var data_mqj_attach;
+    var mqj_otable_attach;
 
     $(document).ready(function () {
 
@@ -148,6 +151,124 @@
         $('#form_mqj_form_2').bootstrapValidator({
             excluded: ':disabled',
             fields: {}
+        });
+
+        $('#form_mqj_attach').bootstrapValidator({
+            excluded: ':disabled',
+            fields: {
+                mqj_document_type : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Test Result Attachment Type is required'
+                        }
+                    }
+                },
+                mqj_file_document_title : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Attachment Title is required'
+                        },
+                        stringLength : {
+                            max : 255,
+                            message : 'Attachment Title must be not more than 255 characters long'
+                        }
+                    }
+                },
+                mqj_file_attachment : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Attachment File is required'
+                        },
+                        file: {
+                            extension: 'pdf',
+                            type: 'application/pdf',
+                            maxSize: '20000000',
+                            message: 'Only PDF file format max 20MB allowed.'
+                        }
+                    }
+                }
+            }
+        });
+
+        let datatable_mqj_attach = undefined;
+        mqj_otable_attach = $('#datatable_mqj_attach').DataTable({
+            "paging": false,
+            "ordering": false,
+            "autoWidth": false,
+            "info": false,
+            "bFilter": false,
+            "preDrawCallback": function () {
+                if (!datatable_mqj_attach) {
+                    datatable_mqj_attach = new ResponsiveDatatablesHelper($('#datatable_mqj_attach'), breakpointDefinition);
+                }
+            },
+            "rowCallback": function (nRow, aData, index) {
+                datatable_mqj_attach.createExpandIcon(nRow);
+                const info = mqj_otable_attach.page.info();
+                $('td', nRow).eq(0).html(info.page * info.length + (index + 1));
+            },
+            "drawCallback": function () {
+                datatable_mqj_attach.respond();
+            },
+            "aoColumns":
+                [
+                    {mData: null, sClass: 'text-center'},
+                    {mData: 'documentName_desc'},
+                    {mData: 'document_name'},
+                    {mData: 'document_uplname'},
+                    {mData: null, sClass: 'text-center',
+                        mRender: function (data, type, row) {
+                            let label = '';
+                            if (row.document_id !== null)
+                                label += '<a type="button" class="btn btn-success btn-xs" title="Download Document" href="process/download.php?doc_id='+row.document_id+'"><i class="fa fa-download"></i></a>';
+                            label += ' <button type="button" class="btn btn-danger btn-xs mqj_attach_form" title="Delete" onclick="f_mqj_delete_attach ('+row.indDoc_id+');"><i class="fa fa-trash-o"></i></button>';
+                            return label;
+                        }
+                    }
+                ]
+        });
+
+        $('#mqj_btn_add_attachment').on('click', function () {
+            let bootstrapValidator = $("#form_mqj_attach").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function(e){
+                    let formData = new FormData($('#form_mqj_attach')[0]);
+                    formData.append('funct', 'save_initial_rata_attach_cems');
+                    formData.append('mqj_indAll_id', $('#mqj_indAll_id').val());
+                    $.ajax({
+                        url: "process/p_registration.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: false,
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() {
+                            return $.ajaxSettings.xhr();
+                        },
+                        success: function(resp) {
+                            if (resp.success === true){
+                                f_notify(1, 'Success', 'Document successfully added.');
+                                $('#form_mqj_attach').trigger('reset');
+                                $('#form_mqj_attach').bootstrapValidator('resetForm', true);
+                                f_mqj_gen_table_attach();
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
+                        },
+                        error: function() {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
+                    });
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
+                }).modal('show');
+            } else {
+                f_notify(2, 'Error', errMsg_validation);
+                return false;
+            }
         });
 
         // var datatable_mqj_raNormal = undefined; 
@@ -843,7 +964,8 @@
                     }
                 }
             }
-        )
+        );
+
         // validation end --
         // var datatable_mqj_supportDoc = undefined; 
         // mqj_otable_supportDoc = $('#datatable_mqj_supportDoc').DataTable({
@@ -1308,12 +1430,17 @@
 
     function f_load_cems_rata(load_type, qa_id, wfTask_id, otable) {
         $('#modal_waiting').on('shown.bs.modal', function (e) {
-            $('#form_mqj_base, #form_mqj_form, #form_mqj_form_2, #form_mqj_verify, #form_mqj_hardCopy').trigger('reset');
+            if (mqj_1st_load) {
+                get_option('mqj_document_type', '1', 'document_name', 'documentName_id', 'documentName_desc', 'documentName_status', ' ', 'ref_id', 'documentName_type', 'init_rata');
+                mqj_1st_load = false;
+            }
+            $('#form_mqj_base, #form_mqj_form, #form_mqj_form_2, #form_mqj_verify, #form_mqj_hardCopy, #form_mqj_attach').trigger('reset');
             $('#form_mqj_form').bootstrapValidator('resetForm', true);
             $('#form_mqj_form_2').bootstrapValidator('resetForm', true);
             // $('#form_mqj_doc').bootstrapValidator('resetForm', true);
             $('#form_mqj_verify').bootstrapValidator('resetForm', true);
             $('#form_mqj_hardCopy').bootstrapValidator('resetForm', true);
+            $('#form_mqj_attach').bootstrapValidator('resetForm', true);
             $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled', true);
             $('#mqj_snote_qa_message').summernote('code', '');
             $('#mqj_snote_qa_message').summernote('disable');
@@ -1344,7 +1471,7 @@
             mqj_otable = otable;
             mqj_load_type = load_type;
 
-            $('.mqj_hide_view, .mqj_show_view, #mqj_alert_box, .mqj_div_verify, .mqj_div_hardCopy, #mqj_div_datePoolStart').hide();
+            $('.mqj_hide_view, .mqj_show_view, #mqj_alert_box, .mqj_div_verify, .mqj_div_hardCopy, #mqj_div_datePoolStart, .mqj_attach_form').hide();
             $('.mqj_show_view').show();
 
             var task_info = f_get_general_info('vw_task_info', {wfTask_id: wfTask_id}, 'mqj');
@@ -1401,6 +1528,7 @@
             // f_dataTable_draw(mqj_otable_responseTime, data_mqj_responseTime, 'datatable_mqj_responseTime', 3);
             // data_mqj_supportDoc = f_get_general_info_multiple('dt_qa_document', {qa_id:qa_id}, '', '', 'qa_id');
             // f_dataTable_draw(mqj_otable_supportDoc, data_mqj_supportDoc, 'datatable_mqj_supportDoc', 4);
+            f_mqj_gen_table_attach();
 
             $('#form_mqj_form_2').find('input').prop('disabled', true);
             $('.mqj_hide_view').hide();
@@ -1422,7 +1550,7 @@
                     }
                     $('.mqj_show_view').hide();
                     // $('#rr').hide();
-                    $('.mqj_hide_view').show();
+                    $('.mqj_hide_view, .mqj_attach_form').show();
                     $('#mqj_snote_qa_message').summernote('enable');
                     $('#form_mqj_form, #form_mqj_form_2').find('input, textarea, select').prop('disabled', false);
                     // -----------------------
@@ -1473,6 +1601,21 @@
             $('#mqj_wfTask_id').val(wfTask_id);
             $('#mqj_qa_id').val(qa_id);
             $('#modal_cems_rata').modal('show');
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
+    }
+
+    function f_mqj_gen_table_attach() {
+        data_mqj_attach = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mqj_indAll_id').val(), documentName_type:'init_rata'}, '', '', 'indDoc_id');
+        f_dataTable_draw(mqj_otable_attach, data_mqj_attach, 'datatable_mqj_attach', 5);
+    }
+
+    function f_mqj_delete_attach (indDoc_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            if (f_submit_normal('delete_industrial_docNormalize_cems', {indDoc_id: indDoc_id}, 'p_registration', 'Data successfully deleted.')) {
+                f_mqj_gen_table_attach();
+            }
             $('#modal_waiting').modal('hide');
             $(this).unbind(e);
         }).modal('show');
