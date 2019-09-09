@@ -135,6 +135,11 @@ include 'view/js/j_modal_consultant_cems.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="anz_btn_info" title="Info" onclick="f_load_consultant_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-info-circle"></i></button>';
+                            if (row['status_id'] === '0') {
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="anz_btn_activate" title="Activate" onclick="f_activate_analyzer_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-check"></i></button>';
+                            } else if (row['status_id'] === '1') {
+                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="anz_btn_deactivate" title="Deactivate" onclick="f_deactivate_analyzer_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-times"></i></button>';
+                            }
                             return $label;
                         }
                     }

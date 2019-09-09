@@ -816,6 +816,7 @@ class Class_sql {
                     t_consultant.wfGroup_id AS wfGroup_id,
                     wf_group.wfGroup_name AS wfGroup_name,
                     CONCAT(IF(consCems_isInstall=1,'Installation',''), IF(consCems_isInstall=1 AND consCems_isMaintain=1,' and ',''), IF(consCems_isMaintain=1,'Maintenance','')) AS cons_type,
+                    ref_status.status_id AS status_id,
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color
                 FROM t_consultant_cems
