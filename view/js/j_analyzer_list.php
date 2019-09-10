@@ -136,9 +136,9 @@ include 'view/js/j_modal_consultant_cems.php';
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="anz_btn_info" title="Info" onclick="f_load_consultant_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-info-circle"></i></button>';
                             if (row['status_id'] === '0') {
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="anz_btn_activate" title="Activate" onclick="f_activate_analyzer_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-check"></i></button>';
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="anz_btn_activate" title="Activate" onclick="f_activation_analyzer_cems (1, '+row.consAll_id+');"><i class="fa fa-check"></i></button>';
                             } else if (row['status_id'] === '1') {
-                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="anz_btn_deactivate" title="Deactivate" onclick="f_deactivate_analyzer_cems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'anz\');"><i class="fa fa-times"></i></button>';
+                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="anz_btn_deactivate" title="Deactivate" onclick="f_activation_analyzer_cems (0, '+row.consAll_id+');"><i class="fa fa-times"></i></button>';
                             }
                             return $label;
                         }
@@ -168,8 +168,19 @@ include 'view/js/j_modal_consultant_cems.php';
     });
     
     function f_table_anz () {
-        datas = f_get_general_info_multiple('dt_analyzer', {consCems_status:'1'});
+        datas = f_get_general_info_multiple('dt_analyzer', {consCems_status:'(0,1)'});
         f_dataTable_draw(dataNew, datas, 'datatable_anz', 10);
+    }
+
+    function f_activation_analyzer_cems(_status, _consAll_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            const success_msg = _status === 1 ? 'Analyzer successfully activated' : 'Analyzer successfully deactivated';
+            if (f_submit_normal('activation_analyzer', {consAll_id: _consAll_id, consCems_status: _status}, 'p_registration', success_msg)) {
+                f_table_anz ();
+            }
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
     }
             
 </script>

@@ -1239,6 +1239,14 @@ try {
             Class_db::getInstance()->db_delete('t_consultant_unregistered', array('consAll_id'=>$consAll_id));
             Class_db::getInstance()->db_delete('t_consultant_all', array('consAll_id'=>$consAll_id));
             $result = '1';
+        } else if ($_POST['funct'] == 'activation_analyzer') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5800) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['consAll_id']))       throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consAll_id empty');
+            if ($arrayParam['consCems_status'] !== '0' && $arrayParam['consCems_status'] !== '1')    throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consCems_status invalid');
+            Class_db::getInstance()->db_update('t_consultant_cems', array('consCems_status'=>$arrayParam['consCems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
+            Class_db::getInstance()->db_update('t_consultant_all', array('consAll_status'=>$arrayParam['consCems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
+            $result = '1';
         } else {
             throw new Exception('(ErrCode:5001) [' . __LINE__ . '] - Post[funct] not valid.');
         }
