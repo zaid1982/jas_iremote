@@ -10,7 +10,7 @@
         pageSetUp(); 
         
         $('#wid-id-cmn2').hide();
-        get_option('cmn_state_code', '1', 'ref_state', 'state_code', 'state_desc', 'state_status', ' ');
+        get_option('cmn_state_code', '1', 'ref_state', 'state_id', 'state_desc', 'state_status', ' ');
         
         $('#form_cmn').bootstrapValidator({
             excluded: ':disabled',
