@@ -143,7 +143,12 @@ include 'view/js/j_modal_consultant_mobile.php';
                     },
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
-                            var $label = '<button type="button" class="btn btn-info btn-xs" id="anz_btn_info" title="Info" onclick="f_load_'+(row.indAll_type=='2'?'pems':'cems')+'(3, \'\', '+row.indAll_id+',\'cpl\');"><i class="fa fa-info-circle"></i></button>';
+                            var $label = '<button type="button" class="btn btn-info btn-xs" id="cpl_btn_info" title="Info" onclick="f_load_'+(row.indAll_type=='2'?'pems':'cems')+'(3, \'\', '+row.indAll_id+',\'cpl\');"><i class="fa fa-info-circle"></i></button>';
+                            if (row['status_id'] === '0') {
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="cpl_btn_activate" title="Activate" onclick="f_activation_stack (1, '+row.indAll_id+');"><i class="fa fa-check"></i></button>';
+                            } else if (row['status_id'] === '1') {
+                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="cpl_btn_deactivate" title="Deactivate" onclick="f_activation_stack (0, '+row.indAll_id+');"><i class="fa fa-times"></i></button>';
+                            }
                             return $label;
                         }
                     }
@@ -174,9 +179,19 @@ include 'view/js/j_modal_consultant_mobile.php';
     });
     
     function f_table_cpl () {
-        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1)'});
+        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0)'});
         f_dataTable_draw(dataNew, datas, 'datatable_cpl', 10);
     }
-            
+
+    function f_activation_stack(_status, _indAll_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            const success_msg = _status === 1 ? 'Stack successfully activated' : 'Stack successfully deactivated';
+            if (f_submit_normal('activation_stack', {indAll_id: _indAll_id, indAll_status: _status}, 'p_registration', success_msg)) {
+                f_table_cpl ();
+            }
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
+    }
             
 </script>

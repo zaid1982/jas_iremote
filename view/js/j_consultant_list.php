@@ -131,6 +131,11 @@ include 'view/js/j_modal_consultant.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             $label = '<button type="button" class="btn btn-info btn-xs" title="Consultant Information" onclick="f_load_consultant(3, '+row.consultant_id+', \'cnl\');"><i class="fa fa-info-circle"></i></button>';
+                            if (row['status_id'] === '0') {
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="cnl_btn_activate" title="Activate" onclick="f_activation_consultant (1, '+row.consultant_id+');"><i class="fa fa-check"></i></button>';
+                            } else if (row['status_id'] === '1') {
+                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="cnl_btn_deactivate" title="Deactivate" onclick="f_activation_consultant (0, '+row.consultant_id+');"><i class="fa fa-times"></i></button>';
+                            }
                             return $label;
                         }
                     }
@@ -162,6 +167,17 @@ include 'view/js/j_modal_consultant.php';
         var total_appl = user_table.user_type == '1' ? '' : 'is not NULL';
         datas = f_get_general_info_multiple('dt_consultant_list', {totals:total_appl});
         f_dataTable_draw(dataNew, datas, 'datatable_cnl', 9);
+    }
+
+    function f_activation_consultant(_status, _consultant_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            const success_msg = _status === 1 ? 'Consultant successfully activated' : 'Consultant successfully deactivated';
+            if (f_submit_normal('activation_consultant', {consultant_id: _consultant_id, consultant_status: _status}, 'p_registration', success_msg)) {
+                f_table_cnl ();
+            }
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
     }
             
 </script>

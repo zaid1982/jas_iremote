@@ -786,6 +786,7 @@ class Class_sql {
                     t_consultant_alls.totals AS totals,
                     ref_city.city_desc AS city_desc,
                     ref_state.state_desc AS state_desc,
+                    ref_status.status_id AS status_id,
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color,
                     t_consultant.consultant_id AS consultant_id
@@ -1290,6 +1291,7 @@ class Class_sql {
                     t_consultant_cems.consCems_modelNo AS consCems_modelNo,
                     t_consultant_pems.consPems_model AS consPems_model, 
                     wf_transaction.wfTrans_timeCreated AS wfTrans_timeCreated,
+                    ref_status.status_id AS status_id,
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color,
                     t_industrial.wfGroup_id AS wfGroup_id,

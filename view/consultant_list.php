@@ -61,7 +61,7 @@
                                             <th data-hide="phone,tablet" width="10%">State</th>
                                             <th data-hide="phone,tablet" width="14%">Registered Time</th>
                                             <th data-hide="phone" width="75px">Status</th>
-                                            <th width="35px" style="min-width: 35px">&nbsp;</th>
+                                            <th width="56px" style="min-width: 56px">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
