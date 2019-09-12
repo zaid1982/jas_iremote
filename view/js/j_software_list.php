@@ -136,10 +136,12 @@ include 'view/js/j_modal_consultant_pems.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="sft_btn_info" title="Info" onclick="f_load_consultant_pems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'sft\');"><i class="fa fa-info-circle"></i></button>';
-                            if (row['status_id'] === '0') {
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="sft_btn_activate" title="Activate" onclick="f_activation_software_pems (1, '+row.consAll_id+');"><i class="fa fa-check"></i></button>';
-                            } else if (row['status_id'] === '1') {
-                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="sft_btn_deactivate" title="Deactivate" onclick="f_activation_software_pems (0, '+row.consAll_id+');"><i class="fa fa-times"></i></button>';
+                            if ($('#user_type').val() === '1') {
+                                if (row['status_id'] === '0') {
+                                    $label += ' <button type="button" class="btn btn-success btn-xs" id="sft_btn_activate" title="Activate" onclick="f_activation_software_pems (1, '+row.consAll_id+');"><i class="fa fa-check"></i></button>';
+                                } else if (row['status_id'] === '1') {
+                                    $label += ' <button type="button" class="btn btn-danger btn-xs" id="sft_btn_deactivate" title="Deactivate" onclick="f_activation_software_pems (0, '+row.consAll_id+');"><i class="fa fa-times"></i></button>';
+                                }
                             }
                             return $label;
                         }

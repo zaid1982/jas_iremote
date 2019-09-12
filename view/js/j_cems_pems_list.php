@@ -144,10 +144,12 @@ include 'view/js/j_modal_consultant_mobile.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="cpl_btn_info" title="Info" onclick="f_load_'+(row.indAll_type=='2'?'pems':'cems')+'(3, \'\', '+row.indAll_id+',\'cpl\');"><i class="fa fa-info-circle"></i></button>';
-                            if (row['status_id'] === '0') {
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="cpl_btn_activate" title="Activate" onclick="f_activation_stack (1, '+row.indAll_id+');"><i class="fa fa-check"></i></button>';
-                            } else if (row['status_id'] === '1') {
-                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="cpl_btn_deactivate" title="Deactivate" onclick="f_activation_stack (0, '+row.indAll_id+');"><i class="fa fa-times"></i></button>';
+                            if ($('#user_type').val() === '1') {
+                                if (row['status_id'] === '0') {
+                                    $label += ' <button type="button" class="btn btn-success btn-xs" id="cpl_btn_activate" title="Activate" onclick="f_activation_stack (1, '+row.indAll_id+');"><i class="fa fa-check"></i></button>';
+                                } else if (row['status_id'] === '1') {
+                                    $label += ' <button type="button" class="btn btn-danger btn-xs" id="cpl_btn_deactivate" title="Deactivate" onclick="f_activation_stack (0, '+row.indAll_id+');"><i class="fa fa-times"></i></button>';
+                                }
                             }
                             return $label;
                         }

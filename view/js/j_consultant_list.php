@@ -6,7 +6,7 @@ include 'view/js/j_modal_consultant.php';
     $(document).ready(function () {
         
         pageSetUp();
-        
+
         $('#cnl_dateRegistered').daterangepicker({
             "showDropdowns": true,
             locale: {
@@ -131,10 +131,12 @@ include 'view/js/j_modal_consultant.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             $label = '<button type="button" class="btn btn-info btn-xs" title="Consultant Information" onclick="f_load_consultant(3, '+row.consultant_id+', \'cnl\');"><i class="fa fa-info-circle"></i></button>';
-                            if (row['status_id'] === '0') {
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="cnl_btn_activate" title="Activate" onclick="f_activation_consultant (1, '+row.consultant_id+');"><i class="fa fa-check"></i></button>';
-                            } else if (row['status_id'] === '1') {
-                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="cnl_btn_deactivate" title="Deactivate" onclick="f_activation_consultant (0, '+row.consultant_id+');"><i class="fa fa-times"></i></button>';
+                            if ($('#user_type').val() === '1') {
+                                if (row['status_id'] === '0') {
+                                    $label += ' <button type="button" class="btn btn-success btn-xs" id="cnl_btn_activate" title="Activate" onclick="f_activation_consultant (1, '+row.consultant_id+');"><i class="fa fa-check"></i></button>';
+                                } else if (row['status_id'] === '1') {
+                                    $label += ' <button type="button" class="btn btn-danger btn-xs" id="cnl_btn_deactivate" title="Deactivate" onclick="f_activation_consultant (0, '+row.consultant_id+');"><i class="fa fa-times"></i></button>';
+                                }
                             }
                             return $label;
                         }
