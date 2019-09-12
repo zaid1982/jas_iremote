@@ -1,4 +1,4 @@
-<? 
+<?php
 include 'view/js/j_modal_consultant.php';
 ?>
 <script type="text/javascript">  

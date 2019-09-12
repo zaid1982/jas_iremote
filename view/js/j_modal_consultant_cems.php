@@ -1856,8 +1856,12 @@
             f_dataTable_draw(mac_otable_consParam, data_mac_consParam, 'datatable_mac_consParam', 6);
             data_mac_personnel = f_get_general_info_multiple('dt_consultant_personnel', {consAll_id:$('#mac_consAll_id').val()}, '', '', 'consPers_id');
             f_dataTable_draw(mac_otable_personnel, data_mac_personnel, 'datatable_mac_personnel', 8);
-            data_mac_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-            f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 9);
+            if (mac_otable !== 'anz') {
+                data_mac_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 9);
+            } else {
+                f_dataTable_draw(mac_otable_project, '', 'datatable_mac_project', 9);
+            }
             // ---------------- \\
             if (mac_load_type >= 3) {
                 mac_total_section = [];

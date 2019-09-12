@@ -862,8 +862,12 @@
             // --- tables --- //
             data_map_personnel = f_get_general_info_multiple('dt_consultant_personnel', {consAll_id:$('#map_consAll_id').val()}, '', '', 'consPers_id');
             f_dataTable_draw(map_otable_personnel, data_map_personnel, 'datatable_map_personnel', 8);
-            data_map_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-            f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 9);
+            if (map_otable !== 'sft') {
+                data_map_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 9);
+            } else {
+                f_dataTable_draw(map_otable_project, '', 'datatable_map_project', 9);
+            }
             // ---------------- \\
             if (map_load_type >= 3) {
                 map_total_section = [];
