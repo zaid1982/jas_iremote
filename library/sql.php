@@ -142,7 +142,7 @@ class Class_sql {
                 FROM t_consultant_cems
                 LEFT JOIN t_consultant ON t_consultant.consultant_id = t_consultant_cems.consultant_id
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = t_consultant.wfGroup_id
-                WHERE t_consultant.consultant_status <> 19 [where_status] 
+                WHERE t_consultant.consultant_status NOT IN (0,19) [where_status] 
                 GROUP BY ref_id";
             } else if ($title == 'vw_opt_pems_consultant') {
                 $sql = "SELECT 
@@ -151,7 +151,7 @@ class Class_sql {
                 FROM t_consultant_pems
                 LEFT JOIN t_consultant ON t_consultant.consultant_id = t_consultant_pems.consultant_id
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = t_consultant.wfGroup_id
-                WHERE t_consultant.consultant_status <> 19 [where_status] 
+                WHERE t_consultant.consultant_status NOT IN (0,19) [where_status] 
                 GROUP BY ref_id";
             } else if ($title == 'vw_opt_industrial') {
                 $sql = "SELECT 
@@ -830,6 +830,7 @@ class Class_sql {
                     wf_group.wfGroup_name AS wfGroup_name,
                     CONCAT(IF(consPems_isInstall=1,'Installation',''), IF(consPems_isInstall=1 AND consPems_isMaintain=1,' and ',''), IF(consPems_isMaintain=1,'Maintenance','')) AS cons_type,
                     t_software_method.softwareMethod_desc AS softwareMethod_desc,
+                    ref_status.status_id AS status_id,
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color
                 FROM t_consultant_pems

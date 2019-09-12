@@ -53,7 +53,7 @@
                                             <th data-hide="phone,tablet">Software Owner</th>
                                             <th data-hide="phone,tablet" width="13%">Registered Time</th>
                                             <th width="60px">Status</th>
-                                            <th width="35px" style="min-width: 35px">&nbsp;</th>
+                                            <th width="56px" style="min-width: 56px">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>

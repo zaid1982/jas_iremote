@@ -1247,6 +1247,28 @@ try {
             Class_db::getInstance()->db_update('t_consultant_cems', array('consCems_status'=>$arrayParam['consCems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
             Class_db::getInstance()->db_update('t_consultant_all', array('consAll_status'=>$arrayParam['consCems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
             $result = '1';
+        } else if ($_POST['funct'] == 'activation_software') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5800) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['consAll_id']))       throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consAll_id empty');
+            if ($arrayParam['consPems_status'] !== '0' && $arrayParam['consPems_status'] !== '1')    throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consPems_status invalid');
+            Class_db::getInstance()->db_update('t_consultant_pems', array('consPems_status'=>$arrayParam['consPems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
+            Class_db::getInstance()->db_update('t_consultant_all', array('consAll_status'=>$arrayParam['consPems_status']), array('consAll_id'=>$arrayParam['consAll_id']));
+            $result = '1';
+        } else if ($_POST['funct'] == 'activation_consultant') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5800) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['consultant_id']))       throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consultant_id empty');
+            if ($arrayParam['consultant_status'] !== '0' && $arrayParam['consultant_status'] !== '1')    throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter consultant_status invalid');
+            Class_db::getInstance()->db_update('t_consultant', array('consultant_status'=>$arrayParam['consultant_status']), array('consultant_id'=>$arrayParam['consultant_id']));
+            $result = '1';
+        } else if ($_POST['funct'] == 'activation_stack') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5800) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['indAll_id']))       throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter indAll_id empty');
+            if ($arrayParam['indAll_status'] !== '0' && $arrayParam['indAll_status'] !== '1')    throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter indAll_status invalid');
+            Class_db::getInstance()->db_update('t_industrial_all', array('indAll_status'=>$arrayParam['indAll_status']), array('indAll_id'=>$arrayParam['indAll_id']));
+            $result = '1';
         } else {
             throw new Exception('(ErrCode:5001) [' . __LINE__ . '] - Post[funct] not valid.');
         }

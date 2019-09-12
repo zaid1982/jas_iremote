@@ -136,6 +136,11 @@ include 'view/js/j_modal_consultant_pems.php';
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="sft_btn_info" title="Info" onclick="f_load_consultant_pems (3, '+row.wfGroup_id+', '+row.consAll_id+',\'sft\');"><i class="fa fa-info-circle"></i></button>';
+                            if (row['status_id'] === '0') {
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="sft_btn_activate" title="Activate" onclick="f_activation_software_pems (1, '+row.consAll_id+');"><i class="fa fa-check"></i></button>';
+                            } else if (row['status_id'] === '1') {
+                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="sft_btn_deactivate" title="Deactivate" onclick="f_activation_software_pems (0, '+row.consAll_id+');"><i class="fa fa-times"></i></button>';
+                            }
                             return $label;
                         }
                     }
@@ -163,8 +168,19 @@ include 'view/js/j_modal_consultant_pems.php';
     });
     
     function f_table_sft () {
-        datas = f_get_general_info_multiple('dt_software', {consPems_status:'(1)'});
+        datas = f_get_general_info_multiple('dt_software', {consPems_status:'(0,1)'});
         f_dataTable_draw(dataNew, datas, 'datatable_sft', 10);
     }
-            
+
+    function f_activation_software_pems(_status, _consAll_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            const success_msg = _status === 1 ? 'Software successfully activated' : 'Software successfully deactivated';
+            if (f_submit_normal('activation_software', {consAll_id: _consAll_id, consPems_status: _status}, 'p_registration', success_msg)) {
+                f_table_sft ();
+            }
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
+    }
+
 </script>
