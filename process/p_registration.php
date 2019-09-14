@@ -1020,7 +1020,7 @@ try {
             Class_db::getInstance()->db_update('t_qa', array('qa_dateActual'=>$_POST['mqj_qa_dateActual'], 'qa_message'=>$_POST['mqj_qa_message']), array('qa_id'=>$_POST['mqj_qa_id']));
             if ($_POST['mqj_wfTaskType_id'] == '37')
                 Class_db::getInstance()->db_update('t_industrial_all', array('indAll_datePoolStart'=>$_POST['mqj_indAll_datePoolStart'], 'indAll_dateRataActual'=>$_POST['mqj_qa_dateActual']), array('indAll_id'=>$_POST['mqj_indAll_id']));
-            $arr_qa_ra = Class_db::getInstance()->db_select('t_qa_ra', array('qa_id'=>$_POST['mqj_qa_id']));
+            /*$arr_qa_ra = Class_db::getInstance()->db_select('t_qa_ra', array('qa_id'=>$_POST['mqj_qa_id']));
             foreach($arr_qa_ra as $qa_ra) {
                 $qaRa_rmAverage = (isset($_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']]) && !empty($_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']])) ? $_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']] : '';
                 $qaRa_average = (isset($_POST['mqj_qaRa_average_'.$qa_ra['qaRa_id']]) && !empty($_POST['mqj_qaRa_average_'.$qa_ra['qaRa_id']])) ? $_POST['mqj_qaRa_average_'.$qa_ra['qaRa_id']] : '';
@@ -1063,7 +1063,7 @@ try {
             foreach($arr_qa_responseTime as $qa_responseTime) {
                 $qaRespTime_value = (isset($_POST['mqj_qaRespTime_value_'.$qa_responseTime['qaRespTime_id']]) && !empty($_POST['mqj_qaRespTime_value_'.$qa_responseTime['qaRespTime_id']])) ? $_POST['mqj_qaRespTime_value_'.$qa_responseTime['qaRespTime_id']] : '';
                 Class_db::getInstance()->db_update('t_qa_responsetime', array('qaRespTime_value'=>$qaRespTime_value), array('qaRespTime_id'=>$qa_responseTime['qaRespTime_id']));          
-            }
+            }*/
             $result = '1';
         } else if ($_POST['funct'] == 'save_qa_k') {
             if (empty($_POST['mqk_qa_id']))             throw new Exception('(ErrCode:5877) [' . __LINE__ . '] - Parameter qa_id empty.');  

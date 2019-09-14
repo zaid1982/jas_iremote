@@ -1330,16 +1330,14 @@
         $('#mqj_btn_submit').on('click', function () {
             var submit_status = '', submit_group = '', condition_no = '';
             if (mqj_otable == 'icm' && $('#mqj_wfTaskType_id').val() == '37') {             //Initial RATA
-                var bootstrapValidator = $("#form_mqj_form_2").data('bootstrapValidator');
+                var bootstrapValidator = $("#form_mqj_form").data('bootstrapValidator');
                 bootstrapValidator.validate();
                 if (!bootstrapValidator.isValid()) {
                     f_notify(2, 'Error', errMsg_validation);
                     return false;
                 }
-                var bootstrapValidator = $("#form_mqj_form").data('bootstrapValidator');
-                bootstrapValidator.validate();
-                if (!bootstrapValidator.isValid()) {
-                    f_notify(2, 'Error', errMsg_validation);
+                if (data_mqj_attach.length === 0) {
+                    f_notify(2, 'Error', 'Test Result Attachment is empty');
                     return false;
                 }
                 $.SmartMessageBox({
