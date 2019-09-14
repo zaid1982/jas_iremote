@@ -804,8 +804,8 @@
                             if (row.consultant_type === 'u') {
                                 if ($('#mce_load_type').val() === '1' || $('#mce_load_type').val() === '2')
                                     label += '<a type="button" class="btn btn-warning btn-xs" title="Edit Unregistered Analyzer" onClick="f_load_mcx (2, \'\', '+row.consAll_id+',\'mce\');"><i class="fa fa-pencil-square-o"></i></a>';
-                                else
-                                    label += '<a type="button" class="btn btn-info btn-xs" title="View Unregistered Analyzer" onClick="f_load_mcx (3, \'\', '+row.consAll_id+',\'mce\');"><i class="fa fa-info-circle"></i></a>';
+                                //else
+                                    //label += '<a type="button" class="btn btn-info btn-xs" title="View Unregistered Analyzer" onClick="f_load_mcx (3, \'\', '+row.consAll_id+',\'mce\');"><i class="fa fa-info-circle"></i></a>';
                                 label += ' <button type="button" class="btn btn-danger btn-xs mce_hideView" title="Delete" onclick="f_mcx_delete_consultant_unregirstered ('+row.indCons_id+',\'mce\');"><i class="fa fa-trash-o"></i></button>';
                             } else {
                                 label += '<a type="button" class="btn btn-info btn-xs" title="Analyzer Information" onClick="f_load_consultant_cems (3, \'\', '+row.consAll_id+',\'mce\');"><i class="fa fa-info-circle"></i></a>';
