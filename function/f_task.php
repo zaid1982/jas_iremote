@@ -627,8 +627,8 @@ class Class_task {
                     $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
                     $qa_type = $wfFlow_id == '4' ? '2' : '1';
                     $this->create_qa($wfFlow_id=='4'?'1':'2', $next_task_id, $indAll_id);
-                } else if ($status == '17' && in_array($wfFlow_id, array('4', '5'))) {   
-                    if (in_array($wfTaskType_id, array('38', '48'))) { // verify Initial RATA
+                } else if ($status == '10' && in_array($wfFlow_id, array('4', '5'))) {
+                    if (in_array($wfTaskType_id, array('31', '41'))) { // verify Initial RATA
                         $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
                         $industrial_id = Class_db::getInstance()->db_select_col('t_industrial_all', array('indAll_id'=>$indAll_id), 'industrial_id', NULL, 1);
                         $premise_id = Class_db::getInstance()->db_select_col('t_industrial', array('industrial_id'=>$industrial_id), 'industrial_premise_id', NULL, 1);
