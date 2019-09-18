@@ -172,7 +172,7 @@ class Class_sql {
                 LEFT JOIN t_industrial_parameter ON t_industrial_parameter.indAll_id = t_industrial_all.indAll_id
                 LEFT JOIN t_pub ON t_pub.pub_id = t_industrial_parameter.pub_id
                 WHERE t_industrial_all.industrial_id = [industrial_id] AND t_industrial_all.indAll_status IN (1,30) AND t_industrial_all.indAll_stackNo IS NOT NULL AND t_industrial_parameter.indParam_status = 1 
-                AND t_pub.pub_id IS NOT NULL AND t_industrial_all.indAll_datePoolStart <= '[date_pool_start]'
+                AND t_pub.pub_id IS NOT NULL 
                 GROUP BY ref_id";
             } else if ($title == 'vw_address') {
                 $sql = "SELECT 
@@ -2711,7 +2711,7 @@ class Class_sql {
             } else if ($title == 'dt_compliance_month') {
                 $sql = "SELECT 
                     UNIX_TIMESTAMP(CONVERT_TZ(data_timestamp, '+00:00', '+08:00'))*1000 AS time_utc,
-                    TIMESTAMPDIFF(MINUTE,'2017-01-01 00:00:00',data_timestamp) AS minute_index,
+                    TIMESTAMPDIFF(MINUTE,'[yr]-01-01 00:00:00',data_timestamp) AS minute_index,
                     data_[input_param] AS data_value 
                 FROM [tablename] 
                 WHERE YEAR(data_timestamp) = [yr] AND MONTH(data_timestamp) = [mnth] AND stack_id = [stack_id]";

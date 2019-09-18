@@ -93,7 +93,8 @@
             if (!bootstrapValidator.isValid()) {         
                 f_notify(2, 'Error', errMsg_validation);    
                 return false;
-            }   
+            }
+            var premise_no = f_get_value_from_table('t_industrial', 'industrial_id', $('#cmn_industrial_id').val(), 'industrial_premiseId');
             var data_plot = [];
             var total_minute = daysInMonth(parseInt($('#cmn_month').val()), parseInt($('#cmn_year').val()))*1440;
             var dateUtc_start = Date.UTC(parseInt($('#cmn_year').val()), parseInt($('#cmn_month').val())-1, 1, 0, 0);            
@@ -108,16 +109,22 @@
             if (pub_param != '' && pub_param.indParam_limitValue != null)
                 limit_value = pub_param.indParam_limitValue;
             limit_value = parseInt($('#cmn_input_param').val()) < 8 ? (limit_value*2) : limit_value;
-            var data_01 = f_get_general_info_multiple('dt_compliance_month', {}, {tablename:'z17_1003b0240593', yr:$('#cmn_year').val(), mnth:$('#cmn_month').val(), stack_id:$("#cmn_indAll_stackNo option:selected").text(), input_param:$('#cmn_input_param').val()}); 
+            const yrFull = $('#cmn_year').val();
+            const yrShort = yrFull.substr(2);
+            var data_01 = f_get_general_info_multiple('dt_compliance_month', {}, {tablename:'z'+yrShort+'_'+premise_no, yr:yrFull, mnth:$('#cmn_month').val(), stack_id:$("#cmn_indAll_stackNo option:selected").text(), input_param:$('#cmn_input_param').val()});
             $.each(data_01, function(uv){
                 var data_value = parseFloat(data_01[uv]['data_value']);
                 if (data_value != 0) {
                     var data_index = parseInt(data_01[uv]['minute_index']);
-                    data_plot[data_index] = {x:parseInt(data_01[uv]['time_utc']) , y:data_value};
+                    //data_plot.push({x:data_01[uv]['time_utc'] , y:data_value});
+                    data_plot[data_index] = {x:data_01[uv]['time_utc'] , y:data_value};
+
                 }
             });
             var units = 'mg/Nm<sup>3</sup>';
             var chart_title = '1-minute Chart';
+
+            var data_plot1 = [{x:1546433400000, y:5.8}, {x:1546433460000, y:5.2}];
             chart_complience_month('cmn_chart', $("#cmn_industrial_id option:selected").text(), chart_title, data_plot, units, limit_value);
             $('#wid-id-cmn2').show();     
             
