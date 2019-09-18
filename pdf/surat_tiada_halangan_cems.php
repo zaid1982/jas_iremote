@@ -78,85 +78,60 @@ class Class_surat_tiada_halangan_cems {
             // set default monospaced font
             $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
             // set margins
-            $pdf->SetMargins(15, 15, 15);
+            $pdf->SetMargins(25, 20, 25);
             $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
             $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
             // set auto page breaks
             $pdf->SetAutoPageBreak(TRUE, 15);
-            $pdf->SetFont('times', '', 11);
+            $pdf->SetFont('Helvetica', '', 12);
             $pdf->AddPage();
 
             $content = '
-                <br/><br/><br/><br/>
-                <br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/>
-                <table border="0" cellpadding="0" width="100%" align="center">
+                <p style="text-align: right; font-weight: bold">LAMPIRAN 2</p>
+                <p style="text-align: right">Rujukan: AS91/110/622/1489 (   )<br/>XXX 2015</p>
+                <p>Encik Wan M Muzani b Hj Wan Muda<br/>
+                Pengurus Besar<br/>
+                Jabatan Perkhidmatan Teknikal<br/>
+                Malaysia LNG Sdn Bhd<br/>
+                Petronas LNG Complex<br/>
+                Tanjung Kidurung<br/>
+                P.O.BOx 89<br/>
+                97007 BINTULU<br/>
+                Sarawak
+                </p>
+                <p>Tuan,</p>
+                <p style="text-align: justify; font-weight: bold">PERMOHONAN PEMASANGAN <i>CONTINUOUS EMISSION MONITORING SYSTEM (C.E.M.S)</i> BAGI LOJI XXX DI YYY, BAGI TUJUAN PEMANTAUAN BERTERUSAN OLEH ZZZ. BHD.</p>
+                <p style="text-align: justify">Saya dengan hormatnya merujuk kepada permohonan tuan dan Cadangan Pemasangan Continous Emission Monitoring System (CEMS) for XXX, YYY “yang diterima pada XXXXX adalah berkaitan.</p>
+                <p style="text-align: justify">2.	Jabatan ini telah meneliti cadangan pemasangan sistem CEMS di loji XXX yang telah dikemukakan, Jabatan ini mendapati skop keperluan minimum seperti di Lampiran 3 bagi pemasangan sistem CEMS telah diambilkira.</p>
+                <p style="text-align: justify">3.	Sehubungan dengan ini Jabatan ini tiada halangan untuk pelaksanaan pemasangan sistem CEMS di loji tersebut dalam tempoh BBB bulan. Oleh yang demikian pihak tuan hendaklah memastikan kesemua maklumat seperti di <b>Lampiran 7</b> hendaklah diambil kira bagi pembangunan sistem tersebut dan perlu dilaporkan di dalam Laporan Initial RATA yang akan dikemukakan kelak. </p>
+                <p style="text-align: justify">4.	Selain daripada itu, pihak tuan juga hendaklah memaklumkan kepada Jabatan ini tarikh verifikasi yang akan dilaksanakan dalam tempoh 2 minggu sebelum pelaksanaan verikasi tersebut.</p>
+                <p style="text-align: justify">5.	Kerjasama tuan dalam menjaga kualiti alam sekeliling kita adalah sangat dihargai.</p>
+                <p>Sekian, terima kasih.</p>                
+                <br/>
+                <p style="font-weight: bold">“BERKHIDMAT UNTUK NEGARA”<br/>
+                “INTEGRITI ASAS PENINGKATAN KUALITI”
+                </p>
+                ';
+            $pdf->writeHTML($content, true, false, true, false, '');
+
+            if ($pdf->GetY() > 250) {
+                $pdf->AddPage();
+                $pdf->setPage($pdf->getPage());
+            }
+            $content = '<p>Saya yang menurut perintah,</p>
+                <br/>
+                <p><b>(Dato’ Dr. Ahmad Kamarulnajuib bin Che Ibrahim)</b><br/>
+                Timbalan Ketua Pengarah (Pembangunan)<br/>
+                b.p. Ketua Pengarah Jabatan Alam Sekitar Malaysia<br/>
+                </p>
+                <p>s.k:</p>
+                <table border="0" cellpadding="0">
                     <tr>
-                        <td align="center" style="font-size: 33;"><strong>SIJIL PENYERTAAN</strong></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><i>Dengan ini disahkan bahawa</i></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 16;"><strong>jj</strong></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><i>Telah Menghadiri</i></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 16;"><strong>PERSIDANGAN PERLINDUNGAN DATA PERIBADI<br/>(AKTA 709)</strong></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><i>Pada</i></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><strong>jj</strong></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><i>Bertempat di</i></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 14;"><strong>jj</strong></td>
+                        <td style="width: 25px"></td>
+                        <td>Pengarah<br/>Jabatan Alam Sekitar Negeri Sarawak</td>
                     </tr>
                 </table>
-                <br/><br/><br/><br/>
-                <br/><br/><br/><br/>
-                <br/>
-                <table border="0" cellpadding="2" width="320px">
-                    <tr>
-                        <td align="center">...................................................</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><strong>MAZMALEK BIN MOHAMAD</strong></td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="font-size: 10;"><strong>KETUA PENGARAH<br/>PERLINDUNGAN DATA PERIBADI MALAYSIA</strong></td>
-                    </tr>
-                </table>';
+                ';
 
             $pdf->writeHTML($content, true, false, true, false, '');
             $folder_code = floor(intval($certificateId)/1000);
