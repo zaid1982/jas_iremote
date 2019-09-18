@@ -1,7 +1,7 @@
 <?php
 
 /* Error code range - 5000 */
-class Class_surat_tiada_halangan_cems {
+class Class_surat_terima_data {
 
     private $fn_task;
 
@@ -60,13 +60,6 @@ class Class_surat_tiada_halangan_cems {
             $industrial_all = Class_db::getInstance()->db_select_single('t_industrial_all', array('wfTrans_id'=>$wf_task['wfTrans_id']), null, 1);
             $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$industrial_all['industrial_id']), null, 1);
 
-            $designation = Class_db::getInstance()->db_select_col('wf_group_user', array('user_id'=>$industrial_all['indAll_contactPerson'], 'wfGroup_id'=>$industrial['wfGroup_id']), 'wfGroupUser_designation');
-            if (!empty($designation)) {
-                $designation = ucwords(strtolower($designation)).'<br/>';
-            }
-            $dateLetter = new DateTime($wf_task['wfTask_timeSubmitted']);
-            $dateLetterDisplay = $dateLetter->format('j M, Y');
-
             $contactPersonProfileId = Class_db::getInstance()->db_select_col('user', array('user_id'=>$industrial_all['indAll_contactPerson']), 'profile_id', null, 1);
             $contactPersonProfile = Class_db::getInstance()->db_select_single('profile', array('profile_id'=>$contactPersonProfileId), null, 1);
             $wfGroupName = Class_db::getInstance()->db_select_col('wf_group', array('wfGroup_id'=>$industrial['wfGroup_id']), 'wfGroup_name', null, 1);
@@ -75,7 +68,7 @@ class Class_surat_tiada_halangan_cems {
             $addressStack = Class_db::getInstance()->db_select_single('vw_address', array('address_id'=>$wfGroupProfile['wfGroup_address']), null, 1);
             $timeSubmitted = Class_db::getInstance()->db_select_col('wf_task', array('wfTrans_id'=>$wf_task['wfTrans_id'], 'wfTaskType_id'=>'31'), 'wfTask_timeSubmitted', null, 1);
             $dateSubmit = new DateTime($timeSubmitted);
-            $dateSubmitDisplay = $dateSubmit->format('j M, Y');
+            $dateSubmitDisplay = $dateSubmit->format('j/n/Y');
 
             // create new PDF document
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -94,30 +87,60 @@ class Class_surat_tiada_halangan_cems {
             // set default monospaced font
             $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
             // set margins
-            $pdf->SetMargins(25, 20, 25);
+            $pdf->SetMargins(25, 10, 25);
             $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
             $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
             // set auto page breaks
             $pdf->SetAutoPageBreak(TRUE, 15);
-            $pdf->SetFont('Helvetica', '', 12);
             $pdf->AddPage();
 
-            $content = '
-                <p style="text-align: right; font-weight: bold">LAMPIRAN 2</p>
-                <p style="text-align: right">Rujukan: '.$industrial['industrial_jasFileNo'].' (   )<br/>'.$this->fn_task->replace_month_bm($dateLetterDisplay).'</p>
-                <p>'.ucwords(strtolower($contactPersonProfile['profile_name'])).'<br/>
-                '.$designation.ucwords(strtolower($wfGroupName)).'<br/>
-                '.ucwords(strtolower($address['address_line1'])).'<br/>
-                '.$address['address_postcode'].' '.$address['city_desc'].'<br/>
-                '.$address['state_desc'].'
-                </p>
-                <p>Tuan,</p>
-                <p style="text-align: justify; font-weight: bold">PERMOHONAN PEMASANGAN <i>CONTINUOUS EMISSION MONITORING SYSTEM (C.E.M.S)</i> BAGI LOJI '.$industrial_all['indAll_stackNo'].' DI '.strtoupper($addressStack['city_desc']).', BAGI TUJUAN PEMANTAUAN BERTERUSAN OLEH '.strtoupper($wfGroupName).'</p>
-                <p style="text-align: justify">Saya dengan hormatnya merujuk kepada permohonan tuan dan Cadangan Pemasangan "Continous Emission Monitoring System (CEMS) for Stack '.$industrial_all['indAll_stackNo'].', '.$addressStack['city_desc'].'" yang diterima pada '.$this->fn_task->replace_month_bm($dateSubmitDisplay).' adalah berkaitan.</p>
-                <p style="text-align: justify">2.	Jabatan ini telah meneliti cadangan pemasangan sistem CEMS di Loji '.$industrial_all['indAll_stackNo'].' yang telah dikemukakan, Jabatan ini mendapati skop keperluan minimum seperti di Lampiran 3 bagi pemasangan sistem CEMS telah diambilkira.</p>
-                <p style="text-align: justify">3.	Sehubungan dengan ini Jabatan ini tiada halangan untuk pelaksanaan pemasangan sistem CEMS di loji tersebut dalam tempoh BBB bulan. Oleh yang demikian pihak tuan hendaklah memastikan kesemua maklumat seperti di <b>Lampiran 7</b> hendaklah diambil kira bagi pembangunan sistem tersebut dan perlu dilaporkan di dalam Laporan Initial RATA yang akan dikemukakan kelak. </p>
-                <p style="text-align: justify">4.	Selain daripada itu, pihak tuan juga hendaklah memaklumkan kepada Jabatan ini tarikh verifikasi yang akan dilaksanakan dalam tempoh 2 minggu sebelum pelaksanaan verikasi tersebut.</p>
-                <p style="text-align: justify">5.	Kerjasama tuan dalam menjaga kualiti alam sekeliling kita adalah sangat dihargai.</p>
+            $pdf->SetFont('times', '', 9);
+            $pdf->Image('../pdf/images/logo_negara.png', 10, 8, '', 23, 'PNG', '', '', true, 150, '', false, false, 0, false, false, false);
+            $pdf->Image('../pdf/images/logo_jas.jpg', 170, 8, '', 20, 'JPG', '', '', true, 150, '', false, false, 0, false, false, false);
+            $content = '<table border="0" cellpadding="0">
+                    <tr>
+                        <td width="50px"></td>
+                        <td width="350px">JABATAN ALAM SEKITAR,KEMENTERIAN SUMBER ASLI & ALAM SEKITAR,<br/>
+                            ARAS 1 – 4, PODIUM 2 & 3, WISMA SUMBER ASLI,<br/> 
+                            NO. 25, PERSIARAN PERDANA, PRESINT 4,<br/>
+                            PUSAT PENTADBIRAN KERAJAAN PERSEKUTUAN,<br/>
+                            <b>62574 PUTRAJAYA.</b><br/>
+                            http://www.doe.gov.my
+                        </td>
+                        <td width="28px"><br/><br/><br/><br/><br/><br/>Telefon<br/>Faks</td>
+                        <td width="5px"><br/><br/><br/><br/><br/><br/>:<br/>:</td>
+                        <td><br/><br/><br/><br/><br/><br/>03 - 8871 2000<br/>03 - 8888 9964</td>
+                    </tr>
+                </table>';
+            $pdf->writeHTML($content, true, false, true, false, '');
+            $pdf->Line(1, 42, 209, 42);
+
+            $pdf->SetFont('Helvetica', '', 11);
+            $content = '<br/> <p style="font-weight: bold">PREMIS INDUSTRI:</p>';
+            $pdf->writeHTML($content, true, false, true, false, '');
+
+            $boxTop = $pdf->GetY();
+            $content = '<br/><br/><table border="0" cellpadding="0">
+                    <tr>
+                        <td style="width: 8px"></td>
+                        <td style="line-height: 18px">'.ucwords(strtolower($wfGroupName)).'<br/>
+                            '.ucwords(strtolower($address['address_line1'])).'<br/>
+                            '.$address['address_postcode'].' '.$address['city_desc'].'<br/>
+                            '.$address['state_desc'].'
+                        </td>
+                    </tr>
+                </table>';
+            $pdf->writeHTML($content, true, false, true, false, '');
+            $boxBottom = $pdf->GetY();
+            $pdf->Line(25, $boxTop+2, 130, $boxTop+2);
+            $pdf->Line(25, $boxBottom-2, 130, $boxBottom-2);
+            $pdf->Line(25, $boxTop+2, 25, $boxBottom-2);
+            $pdf->Line(130, $boxTop+2, 130, $boxBottom-2);
+
+            $content = '<br/><p>Kepada yang berkenaan,</p>
+                <p style="text-align: justify; font-weight: bold">SISTEM PEMANTAUAN JARAK JAUH - PENGESAHAN PENERIMAAN DATA</p>
+                <p style="text-align: justify; line-height: 18px">Saya dengan ini mengesahkan bahawa <b>data pemantauan pelepasan asap dan gas</b> dari premis tuan telah diterima di dalam <b>Sistem Penguatkuasaan dan Pemantauan Jarak Jauh di Jabatan Alam Sekitar Putrajaya</b> mulai daripada '.$dateSubmitDisplay.' sehingga '.$dateSubmitDisplay.' telah diterima melalui <b>DATA INTERFACING SYSTEM (DIS)</b> yang teah dipasang oleh syarikat XXX di premis tuan.</p>
+                
                 <p>Sekian, terima kasih.</p>                
                 <br/>
                 <p style="font-weight: bold">“BERKHIDMAT UNTUK NEGARA”<br/>
@@ -149,17 +172,17 @@ class Class_surat_tiada_halangan_cems {
 
             $indAll_id = $industrial_all['indAll_id'];
             $folder_code = floor(intval($indAll_id)/1000);
-            $folder = '../pdf/surat_tiada_halangan_cems/'.$folder_code;
+            $folder = '../pdf/surat_terima_data/'.$folder_code;
 
             $result = $this->fn_task->folderExist($folder);
             if (!$result) {
                 mkdir ($folder,0777, true);
             }
-            $filename = 'surat_tiada_halangan_cems_'.(100000+intval($indAll_id)).'_'.time().'.pdf';
-            $filename_src = '\surat_tiada_halangan_cems\\'.$folder_code.'\\'.$filename;
+            $filename = 'surat_terima_data_'.(100000+intval($wfTask_id)).'_'.time().'.pdf';
+            $filename_src = '\surat_terima_data\\'.$folder_code.'\\'.$filename;
 
-            $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_cems', 'pdf_folder'=>$folder));
-            Class_db::getInstance()->db_update('t_industrial_all', array('pdf_suratLulus'=>$pdf_id), array('indAll_id'=>$indAll_id));
+            //$pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_terima_data', 'pdf_folder'=>$folder));
+            //Class_db::getInstance()->db_update('t_industrial_all', array('pdf_suratLulus'=>$pdf_id), array('indAll_id'=>$indAll_id));
             $pdf->Output(dirname(__FILE__). $filename_src, 'F');
 
             return array('filename'=>$filename, 'attachment'=>$folder.'/'.$filename);

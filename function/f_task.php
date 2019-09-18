@@ -1027,6 +1027,7 @@ class Class_task {
      */
     public function folderExist($folder) {
         $path = realpath($folder);
+        $result = ($path !== false AND file_exists($path)) ? $path : false;
         return ($path !== false AND is_dir($path)) ? $path : false;
     }
 }

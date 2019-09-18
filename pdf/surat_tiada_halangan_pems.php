@@ -149,13 +149,13 @@ class Class_surat_tiada_halangan_pems {
 
             $indAll_id = $industrial_all['indAll_id'];
             $folder_code = floor(intval($indAll_id)/1000);
-            $folder = 'pdf/surat_tiada_halangan_pems/'.$folder_code;
+            $folder = '../pdf/surat_tiada_halangan_pems/'.$folder_code;
 
             $result = $this->fn_task->folderExist($folder);
             if (!$result) {
                 mkdir ($folder,0777, true);
             }
-            $filename = 'surat_tiada_halangan_pems_'.(100000+intval($wfTask_id)).'_'.time().'.pdf';
+            $filename = 'surat_tiada_halangan_pems_'.(100000+intval($indAll_id)).'_'.time().'.pdf';
             $filename_src = '\surat_tiada_halangan_pems\\'.$folder_code.'\\'.$filename;
 
             $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_pems', 'pdf_folder'=>$folder));
