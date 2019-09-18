@@ -141,33 +141,29 @@ class Class_surat_terima_data {
                 <p style="text-align: justify; font-weight: bold">SISTEM PEMANTAUAN JARAK JAUH - PENGESAHAN PENERIMAAN DATA</p>
                 <p style="text-align: justify; line-height: 18px">Saya dengan ini mengesahkan bahawa <b>data pemantauan pelepasan asap dan gas</b> dari premis tuan telah diterima di dalam <b>Sistem Penguatkuasaan dan Pemantauan Jarak Jauh di Jabatan Alam Sekitar Putrajaya</b> mulai daripada '.$dateSubmitDisplay.' sehingga '.$dateSubmitDisplay.' telah diterima melalui <b>DATA INTERFACING SYSTEM (DIS)</b> yang teah dipasang oleh syarikat XXX di premis tuan.</p>
                 
-                <p>Sekian, terima kasih.</p>                
-                <br/>
-                <p style="font-weight: bold">“BERKHIDMAT UNTUK NEGARA”<br/>
-                “INTEGRITI ASAS PENINGKATAN KUALITI”
-                </p>
-                ';
+                <p><b>TARIKH PENGESAHAN: 24/07/2017</b><br/><br/><br/><br/><br/><br/><br/></p>';
+            $pdf->writeHTML($content, true, false, true, false, '');
+
+            $pdf->Line(25, $pdf->GetY(), 90, $pdf->GetY());
+            $pdf->SetFont('Helvetica', '', 10);
+            $content = '<p>Nama : TUAN HAJI ISMAIL BIN ITHNIN<br/>
+                Jawatan : TIMBALAN KETUA PENGARAH (PEMBANGUNAN)<br/>
+                Jabatan : JABATAN ALAM SEKITAR PUTRAJAYA</p>';
+            $pdf->writeHTML($content, true, false, true, false, '');
+
+            $pdf->SetFont('Helvetica', '', 8);
+            $content = '<br/><p>PENAFIAN : Jabatan Alam Sekitar Malaysia tidak akan bertanggungjawab bagi sebarang kehilangan dan kerugian yang disebabkan oleh penggunaan maklumat yang diperoleh dari sistem ini.</p>';
             $pdf->writeHTML($content, true, false, true, false, '');
 
             if ($pdf->GetY() > 250) {
                 $pdf->AddPage();
                 $pdf->setPage($pdf->getPage());
             }
-            $content = '<p>Saya yang menurut perintah,</p>
-                <br/>
-                <p><b>(Dato’ Dr. Ahmad Kamarulnajuib bin Che Ibrahim)</b><br/>
-                Timbalan Ketua Pengarah (Pembangunan)<br/>
-                b.p. Ketua Pengarah Jabatan Alam Sekitar Malaysia<br/>
-                </p>
-                <p>s.k:</p>
-                <table border="0" cellpadding="0">
-                    <tr>
-                        <td style="width: 25px"></td>
-                        <td>Pengarah<br/>Jabatan Alam Sekitar Negeri Sarawak</td>
-                    </tr>
-                </table>
-                ';
 
+            $pdf->SetFont('Helvetica', '', 10);
+            $content = '<br/><p><b>Salinan Kepada :</b></p>
+            <p>Pengarah,<br/>JAS Negeri Sarawak<br/>(u/p : En Fathuddin Bin Mohd Abbas)</p>
+            <p>Pengurus,<br/>XXX<br/>(u/p : YYY)</p>';
             $pdf->writeHTML($content, true, false, true, false, '');
 
             $indAll_id = $industrial_all['indAll_id'];
