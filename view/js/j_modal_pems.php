@@ -18,7 +18,7 @@
     let mpe_interval;
     let mpe_interval_cnt = 0;
     let mpe_total_section = [];
-    let mpe_check_1, mpe_check_2, mpe_check_3, mpe_check_4;
+    let mpe_check_1, mpe_check_2, mpe_check_3, mpe_check_4, mpe_check_35;
     
     $(document).ready(function () {
         
@@ -702,7 +702,7 @@
                                 $('#form_mpe_2_3').bootstrapValidator('resetForm', true);
                                 $('#mpe_div_doc_other').hide();
                                 $('#form_mpe_2_3').bootstrapValidator('enableFieldValidators', 'mpe_indDoc_others', false);
-                                data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18)'}, '', '', 'indDoc_id');
+                                data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18,35)'}, '', '', 'indDoc_id');
                                 f_dataTable_draw(mpe_otable_document, data_mpe_document, 'datatable_mpe_document', 4);
                             } else {
                                 f_notify(2, 'Error', resp.errors);
@@ -1451,13 +1451,20 @@
                 f_notify(2, 'Error', 'Please make sure any Written Approval or Notification Status of Specified Equipment provided!');    
                 return false;
             }            
-            mpe_check_1 = false; mpe_check_2 = false; mpe_check_3 = false; mpe_check_4 = false;
+            mpe_check_1 = false; mpe_check_2 = false; mpe_check_3 = false; mpe_check_4 = false; mpe_check_35 = false;
             $.each(data_mpe_document, function(u){
                 if (data_mpe_document[u].documentName_id === '5')        mpe_check_1 = true;
                 else if (data_mpe_document[u].documentName_id === '6')   mpe_check_2 = true;
                 else if (data_mpe_document[u].documentName_id === '7')   mpe_check_3 = true;
                 else if (data_mpe_document[u].documentName_id === '8')   mpe_check_4 = true;
+                else if (data_mpe_document[u].documentName_id === '35')   mpe_check_35 = true;
             });
+            if ($('[name="mpe_indAll_installType"][value=2]').is(':checked') && !mpe_check_35) {
+                $('#mpe_wizard').wizard('selectedItem', { step:2 });
+                $('#mpe_btn_add_document').focus();
+                f_notify(2, 'Error', 'Please make sure Existing Installation documents provided!');
+                return false;
+            }
             if (!mpe_check_1 || !mpe_check_2 || !mpe_check_3 || !mpe_check_4) {
                 $('#mpe_wizard').wizard('selectedItem', { step:2 });
                 $('#mpe_btn_add_document').focus();
@@ -1563,7 +1570,7 @@
     function f_mpe_delete_document (indDoc_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){
             if (f_submit_normal('delete_industrial_document', {indDoc_id: indDoc_id}, 'p_registration', 'Data successfully deleted.')) {
-                data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18)'}, '', '', 'indDoc_id');
+                data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18,35)'}, '', '', 'indDoc_id');
                 f_dataTable_draw(mpe_otable_document, data_mpe_document, 'datatable_mpe_document', 4);
             }
             $('#modal_waiting').modal('hide');
@@ -1801,7 +1808,7 @@
             f_dataTable_draw(mpe_otable_parameter, data_mpe_parameter, 'datatable_mpe_parameter', 5);
             data_mpe_written = f_get_general_info_multiple('dt_written_approval', {indAll_id:$('#mpe_indAll_id').val()}, '', '', 'indWritten_id');
             f_dataTable_draw(mpe_otable_written, data_mpe_written, 'datatable_mpe_written', 6);
-            data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18)'}, '', '', 'indDoc_id');
+            data_mpe_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(5,6,7,8,18,35)'}, '', '', 'indDoc_id');
             f_dataTable_draw(mpe_otable_document, data_mpe_document, 'datatable_mpe_document', 4);
             data_mpe_docNormalize = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mpe_indAll_id').val(), documentName_id:'(15,16,26)'}, '', '', 'indDoc_id');
             f_dataTable_draw(mpe_otable_docNormalize, data_mpe_docNormalize, 'datatable_mpe_docNormalize', 4);

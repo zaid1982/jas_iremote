@@ -292,10 +292,11 @@
                                                             <input type="radio" class="radiobox" name="mce_indAll_installType" value="1">
                                                             <span>New</span>
                                                         </label>
-                                                        <label class="radio radio-inline">
+                                                        <label class="radio radio-inline margin-bottom-5">
                                                             <input type="radio" class="radiobox" name="mce_indAll_installType" value="2">
                                                             <span>Existing</span>
                                                         </label>
+                                                        <p class="margin-bottom-0"><i>* Notes: Existing Installation required documents related to existing installation to be uploaded at section B.5.</i></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

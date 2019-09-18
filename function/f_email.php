@@ -412,11 +412,12 @@ class Class_email {     // 17++
         }
     }
     
-    public function send_email_approve($pic, $name, $app_type, $trans_no, $company_name, $reg_no) {
-        try {     
+    public function send_email_approve($pic, $name, $app_type, $trans_no, $company_name, $reg_no, $filename, $attachment) {
+        try {
+            $uid = md5(uniqid(time()));
             $headers = "From: iremote@doe.gov.my\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n"; 
+            $headers .= "Content-Type: multipart/mixed; boundary=\"".$uid."\"\r\n\r\n";
             $to = $pic; 
             $subject = "JAS iRemote System - ".$app_type." Application approved.";
             $message = "<html><body>";
@@ -432,8 +433,24 @@ class Class_email {     // 17++
             $message .= "<br><br><br>";
             $message .= "<i>Note: This is and automail from iRemote System. Please do not reply to the email.</i>";
             $message .= "</html></body>";
+
+            $nmessage = "--".$uid."\r\n";
+            $nmessage .= "Content-type:text/html; charset=utf-8\n";
+            $nmessage .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+            $nmessage .= $message."\r\n\r\n";
+            $nmessage .= "--".$uid."\r\n";
+
+            $content = file_get_contents($attachment);
+            $content = chunk_split(base64_encode($content));
+
+            $nmessage .= "Content-Type: application/octet-stream; name=\"".$filename."\"\r\n";
+            $nmessage .= "Content-Transfer-Encoding: base64\r\n";
+            $nmessage .= "Content-Disposition: attachment; filename=\"".$filename."\"\r\n\r\n";
+            $nmessage .= $content."\r\n\r\n";
+            $nmessage .= "--".$uid."--";
+
             $this->log_debug(__FUNCTION__, __LINE__, $pic.' - '.$message);
-            mail($to, $subject, $message, $headers);
+            mail($to, $subject, $nmessage, $headers);
         }
         catch(Exception $e) {
             error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, $this->log_dir.'/error/error_'.date("Ymd").'.log');

@@ -18,7 +18,7 @@
     let mce_interval;
     let mce_interval_cnt = 0;
     let mce_total_section = [];
-    let mce_check_1, mce_check_2, mce_check_3, mce_check_4, mce_check_5;
+    let mce_check_1, mce_check_2, mce_check_3, mce_check_4, mce_check_5, mce_check_34;
     
     $(document).ready(function () {
         
@@ -723,7 +723,7 @@
                                 $('#form_mce_2_3').bootstrapValidator('resetForm', true);
                                 $('#mce_div_doc_other').hide();
                                 $('#form_mce_2_3').bootstrapValidator('enableFieldValidators', 'mce_indDoc_others', false);
-                                data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17)'}, '', '', 'indDoc_id');
+                                data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17,25,34)'}, '', '', 'indDoc_id');
                                 f_dataTable_draw(mce_otable_document, data_mce_document, 'datatable_mce_document', 4);
                             } else {
                                 f_notify(2, 'Error', resp.errors);
@@ -1290,25 +1290,32 @@
         $('#mce_btn_submit').on('click', function () {
             let bootstrapValidator = $("#form_mce_2_1").data('bootstrapValidator');
             bootstrapValidator.validate();
-            if (!bootstrapValidator.isValid()) {         
+            if (!bootstrapValidator.isValid()) {
                 $('#mce_wizard').wizard('selectedItem', { step:2 });
-                f_notify(2, 'Error', errMsg_validation);    
+                f_notify(2, 'Error', errMsg_validation);
                 return false;
             }
             if (data_mce_written.length === 0) {
                 $('#mce_wizard').wizard('selectedItem', { step:2 });
                 $('#mce_btn_add_written').focus();
-                f_notify(2, 'Error', 'Please make sure any Written Approval or Notification Status of Specified Equipment provided');    
+                f_notify(2, 'Error', 'Please make sure any Written Approval or Notification Status of Specified Equipment provided');
                 return false;
-            }            
-            mce_check_1 = false; mce_check_2 = false; mce_check_3 = false; mce_check_4 = false; mce_check_5 = false;
+            }
+            mce_check_1 = false; mce_check_2 = false; mce_check_3 = false; mce_check_4 = false; mce_check_5 = false; mce_check_34 = false;
             $.each(data_mce_document, function(u){
                 if (data_mce_document[u].documentName_id === '1')        mce_check_1 = true;
                 else if (data_mce_document[u].documentName_id === '2')   mce_check_2 = true;
                 else if (data_mce_document[u].documentName_id === '3')   mce_check_3 = true;
                 else if (data_mce_document[u].documentName_id === '4')   mce_check_4 = true;
                 else if (data_mce_document[u].documentName_id === '17')  mce_check_5 = true;
+                else if (data_mce_document[u].documentName_id === '34')  mce_check_34 = true;
             });
+            if ($('[name="mce_indAll_installType"][value=2]').is(':checked') && !mce_check_34) {
+                $('#mce_wizard').wizard('selectedItem', { step:2 });
+                $('#mce_btn_add_document').focus();
+                f_notify(2, 'Error', 'Please make sure Existing Installation documents provided!');
+                return false;
+            }
             if (!mce_check_1 || !mce_check_2 || !mce_check_3 || !mce_check_4 || !mce_check_5) {
                 $('#mce_wizard').wizard('selectedItem', { step:2 });
                 $('#mce_btn_add_document').focus();
@@ -1432,7 +1439,7 @@
     function f_mce_delete_document (indDoc_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){
             if (f_submit_normal('delete_industrial_document', {indDoc_id: indDoc_id}, 'p_registration', 'Data successfully deleted.')) {
-                data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17)'}, '', '', 'indDoc_id');
+                data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17,25,34)'}, '', '', 'indDoc_id');
                 f_dataTable_draw(mce_otable_document, data_mce_document, 'datatable_mce_document', 4);
             }
             $('#modal_waiting').modal('hide');
@@ -1651,7 +1658,7 @@
             f_dataTable_draw(mce_otable_parameter, data_mce_parameter, 'datatable_mce_parameter', 5);
             data_mce_written = f_get_general_info_multiple('dt_written_approval', {indAll_id:$('#mce_indAll_id').val()}, '', '', 'indWritten_id');
             f_dataTable_draw(mce_otable_written, data_mce_written, 'datatable_mce_written', 6);
-            data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17,25)'}, '', '', 'indDoc_id');
+            data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17,25,34)'}, '', '', 'indDoc_id');
             f_dataTable_draw(mce_otable_document, data_mce_document, 'datatable_mce_document', 4);
             data_mce_consultant = f_get_general_info_multiple('dt_industrial_consultant', {indAll_id:$('#mce_indAll_id').val()});
             f_dataTable_draw(mce_otable_consultant, data_mce_consultant, 'datatable_mce_consultant', 6);

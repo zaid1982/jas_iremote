@@ -960,6 +960,75 @@ class Class_task {
             throw new Exception($this->get_exception('1301', __FUNCTION__, __LINE__, $e->getMessage()), $e->getCode());
         } 
     }
+
+    /**
+     * @param $param
+     * @param string $replaced
+     * @return string
+     * @throws Exception
+     */
+    public function clear_null ($param, $replaced='') {
+        try {
+            if (is_null($param)) {
+                return $replaced;
+            }
+            return $param;
+        }
+        catch(Exception $e) {
+            error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, $this->log_dir.'/error/error_'.date("Ymd").'.log');
+            throw new Exception($this->get_exception('1301', __FUNCTION__, __LINE__, $e->getMessage()), $e->getCode());
+        }
+    }
+
+    /**
+     * @param $dateStr
+     * @return mixed
+     * @throws Exception
+     */
+    public function replace_month_bm ($dateStr) {
+        try {
+            if (strpos($dateStr, 'January')) {
+                return str_replace('January','Januari',$dateStr);
+            }
+            if (strpos($dateStr, 'February')) {
+                return str_replace('February','Februari',$dateStr);
+            }
+            if (strpos($dateStr, 'March')) {
+                return str_replace('March','Mac',$dateStr);
+            }
+            if (strpos($dateStr, 'May')) {
+                return str_replace('May','Mei',$dateStr);
+            }
+            if (strpos($dateStr, 'June')) {
+                return str_replace('June','Jun',$dateStr);
+            }
+            if (strpos($dateStr, 'July')) {
+                return str_replace('July','Julai',$dateStr);
+            }
+            if (strpos($dateStr, 'August')) {
+                return str_replace('August','Ogos',$dateStr);
+            }
+            if (strpos($dateStr, 'October')) {
+                return str_replace('October','Oktober',$dateStr);
+            }
+            if (strpos($dateStr, 'December')) {
+                return str_replace('December','Disember',$dateStr);
+            }
+        }
+        catch(Exception $e) {
+            error_log(date("Y/m/d h:i:sa")." [".__FILE__.":".__LINE__."] - ".$e->getMessage()."\r\n", 3, $this->log_dir.'/error/error_'.date("Ymd").'.log');
+            throw new Exception($this->get_exception('1301', __FUNCTION__, __LINE__, $e->getMessage()), $e->getCode());
+        }
+    }
+
+    /**
+     * @param $folder
+     * @return bool|string
+     */
+    public function folderExist($folder) {
+        $path = realpath($folder);
+        return ($path !== false AND is_dir($path)) ? $path : false;
+    }
 }
 
 ?>

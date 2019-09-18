@@ -1,7 +1,7 @@
 <?php
 
 /* Error code range - 5000 */
-class Class_surat_tiada_halangan_cems {
+class Class_surat_tiada_halangan_pems {
 
     private $fn_task;
 
@@ -57,6 +57,7 @@ class Class_surat_tiada_halangan_cems {
     public function save_pdf ($wfTask_id) {
         try {
             $wf_task = Class_db::getInstance()->db_select_single('wf_task', array('wfTask_id'=>$wfTask_id), null, 1);
+            $wfTransNo = Class_db::getInstance()->db_select_col('wf_transaction', array('wfTrans_id'=>$wf_task['wfTrans_id']), 'wfTrans_no', null, 1);
             $industrial_all = Class_db::getInstance()->db_select_single('t_industrial_all', array('wfTrans_id'=>$wf_task['wfTrans_id']), null, 1);
             $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$industrial_all['industrial_id']), null, 1);
 
@@ -82,7 +83,7 @@ class Class_surat_tiada_halangan_cems {
             // set document information
             $pdf->SetCreator(PDF_CREATOR);
             //$pdf->setPageOrientation('L');
-            $pdf->SetTitle('Surat tiada halangan CEMS');
+            $pdf->SetTitle('Surat tiada halangan PEMS');
             // set default header data
             $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 009', PDF_HEADER_STRING);
             // set header and footer fonts
@@ -112,12 +113,11 @@ class Class_surat_tiada_halangan_cems {
                 '.$address['state_desc'].'
                 </p>
                 <p>Tuan,</p>
-                <p style="text-align: justify; font-weight: bold">PERMOHONAN PEMASANGAN <i>CONTINUOUS EMISSION MONITORING SYSTEM (C.E.M.S)</i> BAGI LOJI '.$industrial_all['indAll_stackNo'].' DI '.strtoupper($addressStack['city_desc']).', BAGI TUJUAN PEMANTAUAN BERTERUSAN OLEH '.strtoupper($wfGroupName).'</p>
-                <p style="text-align: justify">Saya dengan hormatnya merujuk kepada permohonan tuan dan Cadangan Pemasangan "Continous Emission Monitoring System (CEMS) for Stack '.$industrial_all['indAll_stackNo'].', '.$addressStack['city_desc'].'" yang diterima pada '.$this->fn_task->replace_month_bm($dateSubmitDisplay).' adalah berkaitan.</p>
-                <p style="text-align: justify">2.	Jabatan ini telah meneliti cadangan pemasangan sistem CEMS di Loji '.$industrial_all['indAll_stackNo'].' yang telah dikemukakan, Jabatan ini mendapati skop keperluan minimum seperti di Lampiran 3 bagi pemasangan sistem CEMS telah diambilkira.</p>
-                <p style="text-align: justify">3.	Sehubungan dengan ini Jabatan ini tiada halangan untuk pelaksanaan pemasangan sistem CEMS di loji tersebut dalam tempoh BBB bulan. Oleh yang demikian pihak tuan hendaklah memastikan kesemua maklumat seperti di <b>Lampiran 7</b> hendaklah diambil kira bagi pembangunan sistem tersebut dan perlu dilaporkan di dalam Laporan Initial RATA yang akan dikemukakan kelak. </p>
-                <p style="text-align: justify">4.	Selain daripada itu, pihak tuan juga hendaklah memaklumkan kepada Jabatan ini tarikh verifikasi yang akan dilaksanakan dalam tempoh 2 minggu sebelum pelaksanaan verikasi tersebut.</p>
-                <p style="text-align: justify">5.	Kerjasama tuan dalam menjaga kualiti alam sekeliling kita adalah sangat dihargai.</p>
+                <p style="text-align: justify; font-weight: bold">PERMOHONAN PEMBANGUNAN TEKNOLOGI (P.E.M.S) BAGI LOJI '.$industrial_all['indAll_stackNo'].' DI '.strtoupper($addressStack['city_desc']).', BAGI TUJUAN PEMANTAUAN BERTERUSAN OLEH '.strtoupper($wfGroupName).'</p>
+                <p style="text-align: justify">Saya dengan hormatnya merujuk kepada surat tuan rujukan '.$wfTransNo.' bertarikh '.$this->fn_task->replace_month_bm($dateSubmitDisplay).' dan laporan bertajuk "Development of Predictive Emission Monitoring System (PEMS) for Stack '.$industrial_all['indAll_stackNo'].', '.$addressStack['city_desc'].'" mengenai perkara di atas.</p>
+                <p style="text-align: justify">2.	Jabatan ini telah meneliti permohonan pembangunan sistem PEMS di Loji '.$industrial_all['indAll_stackNo'].' dan setelah penilaian, Jabatan ini mendapati skop keperluan minimum bagi pembangunan sistem PEMS telah diambilkira.</p>
+                <p style="text-align: justify">3.	Sehubungan dengan ini, Jabatan ini <b>tiada halangan</b> untuk pelaksanaan pembangunan sistem PEMS di loji tersebut. Namun demikian pihak tuan diminta untuk mengemukakan maklumat sebagaimana di dalam <b>Lampiran 3</b>.</p>
+                <p style="text-align: justify">4.	Kerjasama tuan dalam menjaga kualiti alam sekeliling kita adalah sangat dihargai.</p>
                 <p>Sekian, terima kasih.</p>                
                 <br/>
                 <p style="font-weight: bold">“BERKHIDMAT UNTUK NEGARA”<br/>
@@ -149,16 +149,16 @@ class Class_surat_tiada_halangan_cems {
 
             $indAll_id = $industrial_all['indAll_id'];
             $folder_code = floor(intval($indAll_id)/1000);
-            $folder = 'pdf/surat_tiada_halangan_cems/'.$folder_code;
+            $folder = 'pdf/surat_tiada_halangan_pems/'.$folder_code;
 
             $result = $this->fn_task->folderExist($folder);
             if (!$result) {
                 mkdir ($folder,0777, true);
             }
-            $filename = 'surat_tiada_halangan_cems_'.(100000+intval($wfTask_id)).'_'.time().'.pdf';
-            $filename_src = '\surat_tiada_halangan_cems\\'.$folder_code.'\\'.$filename;
+            $filename = 'surat_tiada_halangan_pems_'.(100000+intval($wfTask_id)).'_'.time().'.pdf';
+            $filename_src = '\surat_tiada_halangan_pems\\'.$folder_code.'\\'.$filename;
 
-            $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_cems', 'pdf_folder'=>$folder));
+            $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_pems', 'pdf_folder'=>$folder));
             Class_db::getInstance()->db_update('t_industrial_all', array('pdf_suratLulus'=>$pdf_id), array('indAll_id'=>$indAll_id));
             $pdf->Output(dirname(__FILE__). $filename_src, 'F');
 

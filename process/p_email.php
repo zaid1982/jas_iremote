@@ -4,6 +4,9 @@ session_start();
 require_once '../library/db.php';
 require_once '../function/f_email.php';
 require_once '../function/f_task.php';
+require_once '../tcpdf/tcpdf.php';
+require_once '../pdf/surat_tiada_halangan_cems.php';
+require_once '../pdf/surat_tiada_halangan_pems.php';
 
 $config = parse_ini_file('../library/config.ini');
 $log_dir = $config['log_dir'];
@@ -20,7 +23,7 @@ try {
         throw new Exception('(ErrCode:5000) [' . __LINE__ . '] - Post[funct] empty.');
     } else {
         $fn_email = new Class_email();  
-        $fn_task = new Class_task();  
+        $fn_task = new Class_task();
         Class_db::getInstance()->db_connect();        
         Class_db::getInstance()->db_beginTransaction();
         $result = '1';
@@ -109,8 +112,18 @@ try {
                     $fn_email->send_email_reject($profile['profile_email'], $profile['profile_name'], $app_type, $wf_transaction['wfTrans_no'], $wf_group['wfGroup_name'], $industrial['industrial_jasFileNo'], $wf_task['wfTask_remark']);
                 else if ($_POST['funct'] == 'email_return')
                     $fn_email->send_email_return($profile['profile_email'], $profile['profile_name'], $app_type, $wf_transaction['wfTrans_no'], $wf_group['wfGroup_name'], $industrial['industrial_jasFileNo'], $wf_task['wfTask_remark']);
-                else if ($_POST['funct'] == 'email_approve') 
-                    $fn_email->send_email_approve($profile['profile_email'], $profile['profile_name'], $app_type, (!empty($wf_transaction['wfTrans_regNo']) ? $wf_transaction['wfTrans_regNo'] : $wf_transaction['wfTrans_no']), $wf_group['wfGroup_name'], $industrial['industrial_jasFileNo']);
+                else if ($_POST['funct'] == 'email_approve') {
+                    if ($wfFlow_id === '4') {
+                        $pdfCemsApprove = new Class_surat_tiada_halangan_cems();
+                        $pdfCemsApprove->__set('fn_task', $fn_task);
+                        $returnAttachment = $pdfCemsApprove->save_pdf($arrayParam['wfTask_id']);
+                    } else if ($wfFlow_id === '5') {
+                        $pdfPemsApprove = new Class_surat_tiada_halangan_pems();
+                        $pdfPemsApprove->__set('fn_task', $fn_task);
+                        $returnAttachment = $pdfPemsApprove->save_pdf($arrayParam['wfTask_id']);
+                    }
+                    $fn_email->send_email_approve($profile['profile_email'], $profile['profile_name'], $app_type, (!empty($wf_transaction['wfTrans_regNo']) ? $wf_transaction['wfTrans_regNo'] : $wf_transaction['wfTrans_no']), $wf_group['wfGroup_name'], $industrial['industrial_jasFileNo'], $returnAttachment['filename'], $returnAttachment['attachment']);
+                }
                 else if ($_POST['funct'] == 'email_initialRATA')
                     $fn_email->send_email_initialRATA($profile['profile_email'], $profile['profile_name'], $app_type, $wf_transaction['wfTrans_regNo'], $wf_group['wfGroup_name'], $industrial['industrial_jasFileNo']);
                 else if ($_POST['funct'] == 'email_return_initRATA')
