@@ -2,5 +2,6 @@
 .idea/
 library/config.ini
 upload/logs/
-pdf/surat_tiada_halangan_cems/0/
-pdf/surat_tiada_halangan_pems/0/
+pdf/surat_lulus_cems/0/
+pdf/surat_lulus_pems/0/
+pdf/surat_terima_data/0/
