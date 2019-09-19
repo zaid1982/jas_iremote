@@ -45,6 +45,43 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-4 control-label">Year</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <select class="form-control" name="exr_year" id="exr_year">
+                                            <option value=""></option>
+                                            <?php
+                                            for($x=date('Y');$x>=2017;$x--) {
+                                                echo '<option value="'.$x.'">'.$x.'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Month</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <select class="form-control" name="exr_month" id="exr_month">
+                                            <option value=""></option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="div_dateAvailable">
+                                    <label class="col-md-4 control-label">&nbsp</label>
+                                    <label class="col-md-8" id="exr_dateAvailable"></label>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-4 control-label">Date</label>
                                     <div class="col-md-8">
                                         <div class="input-group">

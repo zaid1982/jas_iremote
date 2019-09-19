@@ -25,10 +25,10 @@
     $(document).ready(function () {
         
         pageSetUp(); 
-        
+
         get_option('exr_industrial_id', '', 'industrial_active', '', '', '', ' ', 'ref_desc');
         get_option('exr_state_id', '1', 'ref_state', 'state_id', 'state_desc', 'state_status', 'All State');
-        $('#exr_widget_stack').hide();
+        $('#exr_widget_stack, #div_dateAvailable').hide();
         
         $('#form_exr').bootstrapValidator({
             excluded: ':disabled',
