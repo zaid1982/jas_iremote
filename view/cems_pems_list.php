@@ -53,7 +53,7 @@
                                             <th data-hide="phone,tablet">Consultant</th>
                                             <th data-hide="phone,tablet" width="9%">Registered Time</th>
                                             <th width="70px">Status</th>
-                                            <th width="56px" style="min-width: 56px">&nbsp;</th>
+                                            <th width="102px" style="min-width: 102px">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>

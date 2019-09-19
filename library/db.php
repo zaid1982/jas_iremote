@@ -110,15 +110,15 @@ class Class_db{
     private function get_set_str($columnsArr) {
         $set_str = NULL;
         foreach ($columnsArr as $item => $value) {
-            if ($value != '') {
+            if ($value !== '') {
                 $l1 = substr($value, 0, 1);
-                if ($value == 'Now()')
+                if ($value === 'Now()')
                     $set_str .= "$item=Now(), ";
-                else if ($value == 'Curdate()')
+                else if ($value === 'Curdate()')
                     $set_str .= "$item=Curdate(), ";
-                else if ($value == 'NULL')
+                else if ($value === 'NULL')
                     $set_str .= "$item=$value, ";
-                else if ($l1 == '|') {
+                else if ($l1 ==='|') {
                     $r1 = substr($value, 1);
                     $set_str .= "$item=$r1, ";
                 } else
@@ -137,11 +137,11 @@ class Class_db{
     private function get_comma_str($valueArr) {
         $comma_str = NULL;
         foreach ($valueArr as $item => $value) {
-            if ($value != '') {
+            if ($value !== '') {
                 $comma_str .= "$item, ";
             }
         } 
-        if ($comma_str != NULL)
+        if ($comma_str !== NULL)
             $comma_str = " (".rtrim($comma_str, ", ").")";
         else
             $comma_str = " ";
@@ -152,14 +152,14 @@ class Class_db{
     private function get_commaVal_str($valueArr) {
         $comma_str = NULL;
         foreach ($valueArr as $item => $value) {
-            if ($value != '') {
+            if ($value !== '') {
                 $l1 = substr($value, 0, 1);
-                if ($value == 'Now()')
+                if ($value === 'Now()')
                     $comma_str .= "$value, ";
-                else if ($l1 == '|') {
+                else if ($l1 === '|') {
                     $r1 = substr($value, 1);
                     $comma_str .= "$r1, ";
-                } else if ($value == 'Curdate()') {
+                } else if ($value === 'Curdate()') {
                     $comma_str .= "$value, ";
                 } 
                 else

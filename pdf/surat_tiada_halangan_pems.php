@@ -54,18 +54,17 @@ class Class_surat_tiada_halangan_pems {
         }
     }
 
-    public function save_pdf ($wfTask_id) {
+    public function save_pdf ($indAll_id) {
         try {
-            $wf_task = Class_db::getInstance()->db_select_single('wf_task', array('wfTask_id'=>$wfTask_id), null, 1);
-            $wfTransNo = Class_db::getInstance()->db_select_col('wf_transaction', array('wfTrans_id'=>$wf_task['wfTrans_id']), 'wfTrans_no', null, 1);
-            $industrial_all = Class_db::getInstance()->db_select_single('t_industrial_all', array('wfTrans_id'=>$wf_task['wfTrans_id']), null, 1);
+            $industrial_all = Class_db::getInstance()->db_select_single('t_industrial_all', array('indAll_id'=>$indAll_id), null, 1);
+            $wfTransNo = Class_db::getInstance()->db_select_col('wf_transaction', array('wfTrans_id'=>$industrial_all['wfTrans_id']), 'wfTrans_no', null, 1);
             $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$industrial_all['industrial_id']), null, 1);
 
             $designation = Class_db::getInstance()->db_select_col('wf_group_user', array('user_id'=>$industrial_all['indAll_contactPerson'], 'wfGroup_id'=>$industrial['wfGroup_id']), 'wfGroupUser_designation');
             if (!empty($designation)) {
                 $designation = ucwords(strtolower($designation)).'<br/>';
             }
-            $dateLetter = new DateTime($wf_task['wfTask_timeSubmitted']);
+            $dateLetter = new DateTime();
             $dateLetterDisplay = $dateLetter->format('j M, Y');
 
             $contactPersonProfileId = Class_db::getInstance()->db_select_col('user', array('user_id'=>$industrial_all['indAll_contactPerson']), 'profile_id', null, 1);
@@ -74,7 +73,7 @@ class Class_surat_tiada_halangan_pems {
             $wfGroupProfile = Class_db::getInstance()->db_select_single('wf_group_profile', array('wfGroupProfile_id'=>$industrial_all['wfGroupProfile_id']), null, 1);
             $address = Class_db::getInstance()->db_select_single('vw_address', array('address_id'=>$wfGroupProfile['wfGroup_address_mail']), null, 1);
             $addressStack = Class_db::getInstance()->db_select_single('vw_address', array('address_id'=>$wfGroupProfile['wfGroup_address']), null, 1);
-            $timeSubmitted = Class_db::getInstance()->db_select_col('wf_task', array('wfTrans_id'=>$wf_task['wfTrans_id'], 'wfTaskType_id'=>'31'), 'wfTask_timeSubmitted', null, 1);
+            $timeSubmitted = Class_db::getInstance()->db_select_col('wf_task', array('wfTrans_id'=>$industrial_all['wfTrans_id'], 'wfTaskType_id'=>'31'), 'wfTask_timeSubmitted', null, 1);
             $dateSubmit = new DateTime($timeSubmitted);
             $dateSubmitDisplay = $dateSubmit->format('j M, Y');
 
@@ -118,51 +117,38 @@ class Class_surat_tiada_halangan_pems {
                 <p style="text-align: justify">2.	Jabatan ini telah meneliti permohonan pembangunan sistem PEMS di Loji '.$industrial_all['indAll_stackNo'].' dan setelah penilaian, Jabatan ini mendapati skop keperluan minimum bagi pembangunan sistem PEMS telah diambilkira.</p>
                 <p style="text-align: justify">3.	Sehubungan dengan ini, Jabatan ini <b>tiada halangan</b> untuk pelaksanaan pembangunan sistem PEMS di loji tersebut. Namun demikian pihak tuan diminta untuk mengemukakan maklumat sebagaimana di dalam <b>Lampiran 3</b>.</p>
                 <p style="text-align: justify">4.	Kerjasama tuan dalam menjaga kualiti alam sekeliling kita adalah sangat dihargai.</p>
-                <p>Sekian, terima kasih.</p>                
-                <br/>
-                <p style="font-weight: bold">“BERKHIDMAT UNTUK NEGARA”<br/>
-                “INTEGRITI ASAS PENINGKATAN KUALITI”
-                </p>
+                <p>Sekian, terima kasih.</p> 
+                <p></p>               
+                <p></p>               
+                <p></p>               
+                <p></p>               
+                <p></p>               
+                <p></p>                    
+                <p></p>          
+                <p style="font-size: smaller"><i>* This is computer generated invoice no signature required.</i></p>
                 ';
             $pdf->writeHTML($content, true, false, true, false, '');
 
-            if ($pdf->GetY() > 250) {
-                $pdf->AddPage();
-                $pdf->setPage($pdf->getPage());
-            }
-            $content = '<p>Saya yang menurut perintah,</p>
-                <br/>
-                <p><b>(Dato’ Dr. Ahmad Kamarulnajuib bin Che Ibrahim)</b><br/>
-                Timbalan Ketua Pengarah (Pembangunan)<br/>
-                b.p. Ketua Pengarah Jabatan Alam Sekitar Malaysia<br/>
-                </p>
-                <p>s.k:</p>
-                <table border="0" cellpadding="0">
-                    <tr>
-                        <td style="width: 25px"></td>
-                        <td>Pengarah<br/>Jabatan Alam Sekitar Negeri Sarawak</td>
-                    </tr>
-                </table>
-                ';
-
-            $pdf->writeHTML($content, true, false, true, false, '');
-
-            $indAll_id = $industrial_all['indAll_id'];
             $folder_code = floor(intval($indAll_id)/1000);
-            $folder = '../pdf/surat_tiada_halangan_pems/'.$folder_code;
+            $folder = '../pdf/surat_lulus_pems/'.$folder_code;
 
             $result = $this->fn_task->folderExist($folder);
             if (!$result) {
                 mkdir ($folder,0777, true);
             }
-            $filename = 'surat_tiada_halangan_pems_'.(100000+intval($indAll_id)).'_'.time().'.pdf';
-            $filename_src = '\surat_tiada_halangan_pems\\'.$folder_code.'\\'.$filename;
+            $filename = 'surat_lulus_pems_'.(100000+intval($indAll_id)).'_'.time().'.pdf';
+            $filename_src = '\surat_lulus_pems\\'.$folder_code.'\\'.$filename;
 
-            $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_pems', 'pdf_folder'=>$folder));
-            Class_db::getInstance()->db_update('t_industrial_all', array('pdf_suratLulus'=>$pdf_id), array('indAll_id'=>$indAll_id));
             $pdf->Output(dirname(__FILE__). $filename_src, 'F');
+            if (empty($industrial_all['pdf_suratLulus'])) {
+                $pdf_id = Class_db::getInstance()->db_insert('pdf', array('pdf_filename'=>$filename, 'pdf_type'=>'surat_lulus_pems', 'pdf_folder'=>$folder_code));
+                Class_db::getInstance()->db_update('t_industrial_all', array('pdf_suratLulus'=>$pdf_id), array('indAll_id'=>$indAll_id));
+            } else {
+                $pdf_id = $industrial_all['pdf_suratLulus'];
+                Class_db::getInstance()->db_update('pdf', array('pdf_filename'=>$filename, 'pdf_folder'=>$folder), array('pdf_id'=>$pdf_id));
+            }
 
-            return array('filename'=>$filename, 'attachment'=>$folder.'/'.$filename);
+            return array('pdf_id'=>$pdf_id, 'filename'=>$filename, 'attachment'=>$folder.'/'.$filename);
         }
         catch(Exception $ex) {
             //$this->fn_general->log_error(__FUNCTION__, __LINE__, $ex->getMessage());

@@ -145,10 +145,20 @@ include 'view/js/j_modal_consultant_mobile.php';
                         mRender: function (data, type, row) {
                             var $label = '<button type="button" class="btn btn-info btn-xs" id="cpl_btn_info" title="Info" onclick="f_load_'+(row.indAll_type=='2'?'pems':'cems')+'(3, \'\', '+row.indAll_id+',\'cpl\');"><i class="fa fa-info-circle"></i></button>';
                             if ($('#user_type').val() === '1') {
+                                if (row['pdf_suratLulus'] !== null) {
+                                    $label += ' <button type="button" class="btn btn-warning btn-xs" title="Surat Tiada Halangan" onclick="f_load_pdf (1, '+row.pdf_suratLulus+');"><i class="fa fa-file-pdf-o"></i></button>';
+                                } else {
+                                    $label += ' <button type="button" class="btn btn-warning btn-xs" title="Surat Tiada Halangan" onclick="f_generate_pdf ('+row.indAll_id+', \'surat_lulus_'+(row.indAll_type=='2'?'pems':'cems')+'\', \'cpl\');"><i class="fa fa-file-pdf-o"></i></button>';
+                                }
+                                if (row['pdf_suratTerimaData'] !== null) {
+                                    $label += ' <button type="button" class="btn btn-primary btn-xs" title="Surat Terima Data" onclick="f_load_pdf (1, '+row.pdf_suratTerimaData+');"><i class="fa fa-file-pdf-o"></i></button>';
+                                } else {
+                                    $label += ' <button type="button" class="btn btn-primary btn-xs" title="Surat Terima Data" onclick="f_generate_pdf ('+row.indAll_id+', \'surat_terima_data\', \'cpl\');"><i class="fa fa-file-pdf-o"></i></button>';
+                                }
                                 if (row['status_id'] === '0') {
                                     $label += ' <button type="button" class="btn btn-success btn-xs" id="cpl_btn_activate" title="Activate" onclick="f_activation_stack (1, '+row.indAll_id+');"><i class="fa fa-check"></i></button>';
                                 } else if (row['status_id'] === '1') {
-                                    $label += ' <button type="button" class="btn btn-danger btn-xs" id="cpl_btn_deactivate" title="Deactivate" onclick="f_activation_stack (0, '+row.indAll_id+');"><i class="fa fa-times"></i></button>';
+                                    $label += ' <button type="button" class="btn btn-danger btn-warning btn-xs" id="cpl_btn_deactivate" title="Deactivate" onclick="f_activation_stack (0, '+row.indAll_id+');"><i class="fa fa-times"></i></button>';
                                 }
                             }
                             return $label;
