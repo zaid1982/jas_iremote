@@ -631,7 +631,7 @@ class Class_task {
                     if (in_array($wfTaskType_id, array('31', '41'))) { // verify Initial RATA
                         $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
                         $industrial_id = Class_db::getInstance()->db_select_col('t_industrial_all', array('indAll_id'=>$indAll_id), 'industrial_id', NULL, 1);
-                        $premise_id = Class_db::getInstance()->db_select_col('t_industrial', array('industrial_id'=>$industrial_id), 'industrial_premise_id', NULL, 1);
+                        $premise_id = Class_db::getInstance()->db_select_col('t_industrial', array('industrial_id'=>$industrial_id), 'industrial_premiseId', NULL, 1);
                         Class_db::getInstance()->db_create_table('CREATE TABLE `z'.substr(date('Y'),2).'_'.$premise_id.'` (
                             `data_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                             `stack_id` varchar(10) NOT NULL,
