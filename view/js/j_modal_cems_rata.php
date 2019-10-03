@@ -1555,7 +1555,7 @@
                     //  ITP ------------------
                 } else if (mqj_otable == 'itp') {
                     $("input[name='mqj_qa_hardCopy'][value=" + qa_detail.qa_hardCopy + "]").prop('checked', true);
-                    if (task_info.wfTask_remark != null && qa_detail.qa_hardCopy_remark != '<p><br></p>')
+                    if (qa_detail.qa_hardCopy_remark != null && qa_detail.qa_hardCopy_remark != '<p><br></p>')
                         $('[name="mqj_snote_hardCopy_remark"]').summernote('code', qa_detail.qa_hardCopy_remark);
                     else
                         $('[name="mqj_snote_hardCopy_remark"]').summernote('code', '');

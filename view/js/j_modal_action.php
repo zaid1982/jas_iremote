@@ -29,8 +29,27 @@
                     $('#maw_snote_wfTask_remark').val(contents);
                 }
             }
-        }); 
-                
+        });
+
+        $('#maw_snote_hardCopy_remark').summernote({
+            height: 100,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']]
+                //['insert', ['link', 'picture', 'hr']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    $('#maw_snote_hardCopy_remark').val(contents);
+                }
+            }
+        });
+
         $('#form_maw').bootstrapValidator({      
             excluded: ':disabled',
             fields: {  
@@ -358,7 +377,13 @@
             if ($('[name="maw_check_process[]"]').val() === undefined)
                 $('#form_maw').bootstrapValidator('removeField', 'maw_check_process[]');
             // --- extract details --- //
-            var task_info = f_get_general_info('vw_task_info', {wfTask_id:wfTask_id}, 'maw');    
+            const task_info = f_get_general_info('vw_task_info', {wfTask_id:wfTask_id}, 'maw');
+            $("input[name='maw_wfTrans_hardCopy'][value=" + task_info.wfTrans_hardCopy + "]").prop('checked', true);
+            if (task_info.wfTrans_hardCopy_remark != null && task_info.wfTrans_hardCopy_remark != '<p><br></p>')
+                $('[name="maw_snote_hardCopy_remark"]').summernote('code', task_info.wfTrans_hardCopy_remark);
+            else
+                $('[name="maw_snote_hardCopy_remark"]').summernote('code', '');
+
             if (maw_load_type == 1) {   // unused!!
                 $('#maw_title').html('Resubmit '+task_info.wfFlow_desc+' '+'Application');
                 $('.maw_titleIcon').addClass('fa-check-square-o');
@@ -421,8 +446,11 @@
                 } else if (maw_load_type == 3) {
                     $('#maw_title').html('Transaction History');
                     $('.maw_titleIcon').addClass('fa-history');
-                    f_maw_checklist_view (task_info.wfTrans_id); 
+                    f_maw_checklist_view (task_info.wfTrans_id);
                     $('.maw_hide_action').hide();
+                    $('[name="maw_wfTrans_hardCopy"]').prop('disabled', true);
+                    $('#maw_wfTrans_hardCopy_receiver').prop('disabled', true);
+                    $('#maw_snote_hardCopy_remark').summernote('disable');
                 }
             }   
             $('#modal_maw').modal('show');

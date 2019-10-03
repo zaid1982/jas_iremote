@@ -761,7 +761,10 @@ class Class_sql {
                     cur_task.current_status AS current_status,
                     cur_task.wfTaskType_turn AS wfTaskType_turn,
                     cur_task.wfTaskType_statusName AS wfTaskType_statusName,
-                    wf_transaction.wfTrans_dateDue AS wfTrans_dateDue
+                    wf_transaction.wfTrans_dateDue AS wfTrans_dateDue,
+                    wf_transaction.wfTrans_hardCopy,
+                    wf_transaction.wfTrans_hardCopy_receiver,
+                    wf_transaction.wfTrans_hardCopy_remark                    
                 FROM wf_task 
                 LEFT JOIN wf_transaction ON wf_transaction.wfTrans_id = wf_task.wfTrans_id
                 LEFT JOIN wf_flow ON wf_flow.wfFlow_id = wf_transaction.wfFlow_id 

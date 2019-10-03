@@ -595,6 +595,10 @@ try {
             if ($_POST['funct'] == 'save_task_action')
                 $arr_set['wfTask_statusSave'] = $wfTask_status == '' ? (empty($_POST['maw_result'])?'':$_POST['maw_result']) : $wfTask_status;
             Class_db::getInstance()->db_update('wf_task', $arr_set, array('wfTask_id'=>$_POST['maw_wfTask_id']));
+            $arr_set2['wfTrans_hardCopy'] = (empty($_POST['maw_wfTrans_hardCopy'])?'':$_POST['maw_wfTrans_hardCopy']);
+            $arr_set2['wfTrans_hardCopy_receiver'] = (!empty($_POST['maw_wfTrans_hardCopy_receiver'])) ? $_POST['maw_wfTrans_hardCopy_receiver'] : '';
+            $arr_set2['wfTrans_hardCopy_remark'] = (!empty($_POST['maw_snote_hardCopy_remark'])) ? $_POST['maw_snote_hardCopy_remark'] : '';
+            Class_db::getInstance()->db_update('wf_transaction', $arr_set2, array('wfTrans_id'=>$_POST['maw_wfTrans_id']));
             $result = '1';
         } else if ($_POST['funct'] == 'update_industrial') {
             if (empty($_POST['iin_user_id']))               throw new Exception('(ErrCode:5801) [' . __LINE__ . '] - Parameter user_id empty.');

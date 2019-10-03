@@ -105,33 +105,31 @@
                     </div>
                     <h6 class="maw_div_hardCopy">Hard Copy Submission</h6>
                     <div class="well well-light maw_div_hardCopy">
-                        <form class="form-horizontal" id="form_maw_hardCopy">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Hard Copy Received</label>
-                                <div class="col-md-9">
-                                    <label class="radio radio-inline">
-                                        <input type="radio" class="radiobox" name="maw_qa_hardCopy" value="1">
-                                        <span>Yes</span>
-                                    </label>
-                                    <label class="radio radio-inline">
-                                        <input type="radio" class="radiobox" name="maw_qa_hardCopy" value="2">
-                                        <span>No</span>
-                                    </label>
-                                </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Hard Copy Received</label>
+                            <div class="col-md-9">
+                                <label class="radio radio-inline">
+                                    <input type="radio" class="radiobox" name="maw_wfTrans_hardCopy" value="1">
+                                    <span>Yes</span>
+                                </label>
+                                <label class="radio radio-inline">
+                                    <input type="radio" class="radiobox" name="maw_wfTrans_hardCopy" value="2">
+                                    <span>No</span>
+                                </label>
                             </div>
-                            <div class="form-group padding-top-5">
-                                <label class="col-md-3 control-label">Received By</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="maw_qa_hardCopy_receiver" id="maw_qa_hardCopy_receiver" />
-                                </div>
+                        </div>
+                        <div class="form-group padding-top-5">
+                            <label class="col-md-3 control-label">Received By</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="maw_wfTrans_hardCopy_receiver" id="maw_wfTrans_hardCopy_receiver" />
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Message/Feedback</label>
-                                <div class="col-md-9">
-                                    <textarea class="form-control" name="maw_snote_hardCopy_remark" id="maw_snote_hardCopy_remark" rows="6"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Message/Feedback</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="maw_snote_hardCopy_remark" id="maw_snote_hardCopy_remark" rows="6"></textarea>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <h6 class="maw_hide_action">Action</h6>
                     <div class="well well-light maw_hide_action">
