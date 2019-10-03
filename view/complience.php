@@ -81,7 +81,7 @@
                                     <label class="col-md-4 control-label">&nbsp</label>
                                     <label class="col-md-8" id="exr_dateAvailable"></label>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="div_dataTimestamp">
                                     <label class="col-md-4 control-label">Date</label>
                                     <div class="col-md-8">
                                         <div class="input-group">

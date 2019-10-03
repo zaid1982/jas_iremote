@@ -2763,6 +2763,12 @@ class Class_sql {
                 LEFT JOIN wf_flow ON wf_flow.wfFlow_id = wf_task_type.wfFlow_id
                 WHERE wf_task.wfTask_partition = 1 AND wf_task_type.wfTaskType_isEnd = 'N' AND wf_task_type.wfGroup_id = 1
                 GROUP BY wfTaskType_id ORDER BY wfTaskType_id";
+            } else if ($title == 'vw_data_dates_by_month') {
+                $sql = "SELECT
+                    DATE(data_timestamp) AS dates, COUNT(*) AS total
+                FROM [tablename]
+                WHERE YEAR(data_timestamp) = [data_year] AND MONTH(data_timestamp) = [data_month] 
+                GROUP BY dates";
             } else
                 throw new Exception($this->get_exception('0098', __FUNCTION__, __LINE__, 'Sql not exist : '.$title)); 
             return $sql;

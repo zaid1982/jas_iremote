@@ -20,6 +20,7 @@
     var arr_param_plot = []; 
     var premise_no;
     var shown = true;
+    let datePicked = '';
     setInterval(f_exr_blink, 200);
     
     $(document).ready(function () {
@@ -28,7 +29,7 @@
 
         get_option('exr_industrial_id', '', 'industrial_active', '', '', '', ' ', 'ref_desc');
         get_option('exr_state_id', '1', 'ref_state', 'state_id', 'state_desc', 'state_status', 'All State');
-        $('#exr_widget_stack, #div_dateAvailable').hide();
+        $('#exr_widget_stack, #div_dateAvailable, #div_dataTimestamp').hide();
         
         $('#form_exr').bootstrapValidator({
             excluded: ':disabled',
@@ -40,10 +41,17 @@
                         }
                     }
                 },
-                exr_data_timestamp : {
+                exr_year : {
                     validators: {
                         notEmpty: {
-                            message: 'Reference Date is required'
+                            message: 'Year is required'
+                        }
+                    }
+                },
+                exr_month : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Month is required'
                         }
                     }
                 }
@@ -243,8 +251,32 @@
         $('#exr_widget_0_title').html('Compliance Monitoring Chart');
         $('#exr_chart_0_1').html('<h1 class="padding-15"><i>** Please select Industrial Premise and date to view the Compliance Report</i></h1>');
         $('.exr_hideView').hide();
-                
-        $('#exr_btn_view').on('click', function () {     
+
+        $('#exr_btn_view').on('click', function () {
+            var bootstrapValidator = $("#form_exr").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (!bootstrapValidator.isValid()) {
+                f_notify(2, 'Error', errMsg_validation);
+                return false;
+            }
+            $('#modal_waiting').on('shown.bs.modal', function(e){
+                const date_year = $('#exr_year').val();
+                premise_no = f_get_value_from_table('t_industrial', 'industrial_id', $('#exr_industrial_id').val(), 'industrial_premiseId');
+                const dates = f_get_general_info_multiple('vw_data_dates_by_month', {}, {tablename:'z'+date_year.substr(2,2)+'_'+premise_no, data_year:date_year, data_month:$('#exr_month').val()});
+                $('#exr_dateAvailable').html('');
+                $.each(dates, function(u, v){
+                    if (u > 0) {
+                        $('#exr_dateAvailable').append(',&nbsp; ');
+                    }
+                    $('#exr_dateAvailable').append('<a href="javascript:void(0);" onclick="f_exr_run(\''+v['dates']+'\');">'+convert_date_to_display(v['dates'])+'</a>');
+                });
+                $('#div_dateAvailable').show();
+                $('#modal_waiting').modal('hide');
+                $(this).unbind(e);
+            }).modal('show');
+        });
+
+        $('#exr_btn_views').on('click', function () {
             var bootstrapValidator = $("#form_exr").data('bootstrapValidator');
             bootstrapValidator.validate();
             if (!bootstrapValidator.isValid()) {         
@@ -479,7 +511,236 @@
         });
 
     });
-    
+
+    function f_exr_run (datePicked_) {
+        datePicked = datePicked_;
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            $('.exr_hideView').hide();
+            $('#exr_chart_0_1').html('<h1 class="padding-15"><i>** Please select Industrial Premise and date to view the Compliance Report</i></h1>');
+            $('#exr_widget_0_title').html('Compliance Monitoring Chart');
+            $('#exr_widget_0_title_data').html('Stack Data for '+date_form+' - '+$("#exr_industrial_id option:selected").text());
+            var opt_indAll_id = get_option('exr_indAll_id', $('#exr_industrial_id').val(), 'stack_complience', datePicked, '', '', null, 'ref_desc');
+            if (opt_indAll_id.length === 0) {
+                f_notify(2, 'Error', 'No stack available to obtain data from the selected Industrial and Date');
+                return false;
+            }
+            var indAll_id_list = '';
+            $.each(opt_indAll_id, function(u){
+                indAll_id_list += ','+opt_indAll_id[u].ref_id;
+            });
+            var arr_input_param = f_get_general_info_multiple('vw_compliance_param_list', {indAll_id:'('+indAll_id_list.substr(1)+')'}, '', '', 'inputParam_id, indAll_id');
+            if (arr_input_param.length === 0) {
+                f_notify(2, 'Error', errMsg_default);
+                return false;
+            }
+            premise_no = f_get_value_from_table('t_industrial', 'industrial_id', $('#exr_industrial_id').val(), 'industrial_premiseId');
+            var date_form = datePicked;
+            var date_year = date_form.substr(2,2);
+            arr_param_all = [];
+            $.each(arr_input_param, function(u){
+                var index = 0;
+                $.each(opt_indAll_id, function(ux){
+                    if (opt_indAll_id[ux].ref_id == arr_input_param[u].indAll_id)
+                        index = ux;
+                });
+                var limit_value = arr_input_param[u].inputParam_id < 8 ? parseInt(arr_input_param[u].indParam_limitValue)*2 : parseInt(arr_input_param[u].indParam_limitValue);
+                if (u === 0) {
+                    arr_param_stack_in = [];
+                    arr_param_plot = [];
+                    arr_param_stack_in.push(arr_input_param[u]);
+                    arr_param_plot.push({name:'Stack '+arr_input_param[u].indAll_stackNo, indAll_id:arr_input_param[u].indAll_id, data:f_exr_default_plot(arr_input_param[u].inputParam_id, date_form), threshold: limit_value, negativeColor:color_set[index], color: 'red', indParam_limitValue:arr_input_param[u].indParam_limitValue});
+                } else if (arr_input_param[u].inputParam_id == arr_input_param[u-1].inputParam_id) {
+                    arr_param_stack_in.push(arr_input_param[u]);
+                    arr_param_plot.push({name:'Stack '+arr_input_param[u].indAll_stackNo, indAll_id:arr_input_param[u].indAll_id, data:f_exr_default_plot(arr_input_param[u].inputParam_id, date_form), threshold: limit_value, negativeColor:color_set[index], color: 'red', indParam_limitValue:arr_input_param[u].indParam_limitValue});
+                } else {
+                    arr_param_all.push({inputParam_id:arr_param_stack_in[0].inputParam_id,inputParam_desc:arr_param_stack_in[0].inputParam_desc, data:arr_param_stack_in, data_plot:arr_param_plot});
+                    arr_param_stack_in = [];
+                    arr_param_plot = [];
+                    arr_param_stack_in.push(arr_input_param[u]);
+                    arr_param_plot.push({name:'Stack '+arr_input_param[u].indAll_stackNo, indAll_id:arr_input_param[u].indAll_id, data:f_exr_default_plot(arr_input_param[u].inputParam_id, date_form), threshold: limit_value, negativeColor:color_set[index], color: 'red', indParam_limitValue:arr_input_param[u].indParam_limitValue});
+                }
+                if (u == arr_input_param.length - 1)
+                    arr_param_all.push({inputParam_id:arr_param_stack_in[0].inputParam_id,inputParam_desc:arr_param_stack_in[0].inputParam_desc, data:arr_param_stack_in, data_plot:arr_param_plot});
+            });
+            $('#exr_div_bar_0').html('');
+            $('#exr_div_bar_0, #exr_widget_stack').show();
+            var data_01 = f_get_general_info_multiple('z'+date_year+'_'+premise_no, {'date(data_timestamp)':date_form});
+            $.each(data_01, function(uv){
+                for(var ux=0;ux<arr_param_all.length;ux++){
+                    var inputParam_id = arr_param_all[ux].inputParam_id;
+                    if (parseInt(inputParam_id) >= 8) {
+                        var times = data_01[uv].data_timestamp;
+                        var data_hour = parseInt(times.substr(11,2));
+                        var data_minute = parseInt(times.substr(14,2));
+                        var data_index = data_hour*60 + data_minute;
+                        var stack_index = -1;
+                        for(var uw=0;uw<arr_param_all[ux]['data'].length;uw++){
+                            if (arr_param_all[ux]['data'][uw].indAll_stackNo == data_01[uv].stack_id) {
+                                stack_index = uw;
+                                break;
+                            }
+                        }
+                        if (stack_index != '-1') {
+                            if (typeof arr_param_all[ux]['data_plot'][stack_index] !== 'undefined') {
+                                var data_value = parseFloat(data_01[uv]['data_'+inputParam_id]);
+                                if (data_value != 0) {
+                                    arr_param_all[ux]['data_plot'][stack_index]['data'][data_index] = {
+                                        x: Date.UTC(parseInt(date_form.substr(0,4)), parseInt(date_form.substr(5,2))-1, parseInt(date_form.substr(8,2)), data_hour, data_minute),
+                                        y: parseFloat(data_value.toFixed(3))
+                                    };
+                                    if (data_value > parseInt(arr_param_all[ux]['data_plot'][stack_index]['indParam_limitValue'])) {
+                                        var total_not_comply = parseInt(arr_param_all[ux]['data'][stack_index]['total_not_comply']) + 1;
+                                        arr_param_all[ux]['data'][stack_index]['total_not_comply'] = total_not_comply;
+                                    }
+                                    var total_rows = parseInt(arr_param_all[ux]['data'][stack_index]['total_rows']) + 1;
+                                    arr_param_all[ux]['data'][stack_index]['total_rows'] = total_rows;
+                                    var sum_rows = parseFloat(arr_param_all[ux]['data'][stack_index]['sum_rows']) + data_value;
+                                    arr_param_all[ux]['data'][stack_index]['sum_rows'] = sum_rows;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            $.each(arr_param_all, function(ux){
+                if (parseInt(arr_param_all[ux].inputParam_id) >= 8) {
+                    $('#exr_widget_'+ux).show();
+                    $('#exr_widget_'+ux+'_title').html($("#exr_industrial_id option:selected").text()+' : '+arr_param_all[ux].inputParam_desc);
+                    chart_complience('exr_chart_'+ux+'_1', '<p style="font-size:16px"><strong>One-Minute Chart :</strong> '+arr_param_all[ux].inputParam_desc+'</p>', 'Date : '+date_form, arr_param_all[ux].data_plot, '%');
+                    var arr_param = arr_param_all[ux].data;
+                    $('#exr_div_bar_'+ux).html('');
+                    $.each(arr_param, function(u){
+                        $('#exr_div_bar_'+ux).append('<h6 class="margin-bottom-5 padding-top-15">Stack '+arr_param[u].indAll_stackNo+'&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary btn-xs" title="Add to Compliance Monitoring" onclick="f_exr_addMonitor('+arr_param[u].indParam_id+');" id="exr_btn_addMonitor_'+arr_param[u].indParam_id+'"><i class="fa fa-desktop"></i></a>' +
+                            '<a href="javascript:void(0);" class="btn btn-danger btn-xs" title="Remove from Compliance Monitoring" onclick="f_exr_removeMonitor('+arr_param[u].indParam_id+');" id="exr_btn_removeMonitor_'+arr_param[u].indParam_id+'"><i class="fa fa-minus-square"></i></a>' +
+                            '</h6>');
+                        var sum_rows = parseInt(arr_param[u]['sum_rows']);
+                        var total_rows = parseFloat(arr_param[u]['total_rows']);
+                        var total_not_comply = parseInt(arr_param[u]['total_not_comply']);
+                        var data_average = !isNaN(sum_rows/total_rows) ? parseFloat((sum_rows/total_rows).toFixed(3)) : 0;
+                        var percent_average  = data_average / parseFloat(arr_param[u].indParam_limitValue) * 100;
+                        percent_average = percent_average > 100 ? 100 : percent_average;
+                        var index = 0;
+                        $.each(opt_indAll_id, function(uw){
+                            if (opt_indAll_id[uw].ref_id == arr_param[u].indAll_id)
+                                index = uw;
+                        });
+                        var html_average = '<div class="bar-holder no-padding no-margin margin-bottom-5">' +
+                            '<p class="margin-bottom-5">Daily Average : <i class="'+(data_average>parseFloat(arr_param[u].indParam_limitValue)?'exr_blink txt-color-red':'txt-color-blue')+' text-bold">'+formattedNumber(data_average,3)+'%</i> <span class="pull-right semi-bold text-muted">'+parseInt(arr_param[u].indParam_limitValue)+'%</span> ' +
+                            '<div class="progress progress-sm progress-striped active">' +
+                            '<div class="progress-bar" style="width: '+percent_average+'%; background-color: '+color_set[index]+'"></div></div></div>';
+                        $('#exr_div_bar_'+ux).append(html_average);
+                        var html_average = '<div class="bar-holder no-padding no-margin">' +
+                            '<p class="margin-bottom-5">Total Data Received : <i class="'+(total_rows<1?'exr_blink txt-color-red':'txt-color-blue')+' text-bold">'+formattedNumber(total_rows)+'</i></br>Total Not Comply : <i class="'+(total_not_comply>0?'exr_blink txt-color-red':'txt-color-blue')+' text-bold"">'+formattedNumber(total_not_comply)+'</i> <span class="pull-right semi-bold text-muted">1,440</span></p>' +
+                            '<div class="progress progress-sm progress-striped active">' +
+                            '<div class="progress-bar bg-color-red" style="width: '+(total_rows/1440*100)+'%"></div>' +
+                            '<div class="progress-bar" style="width: '+((total_rows-total_not_comply)/1440*100)+'%; background-color: '+color_set[index]+'"></div></div></div>';
+                        $('#exr_div_bar_'+ux).append(html_average);
+                        if (arr_param[u].monitor_status == '1') {
+                            $('#exr_btn_addMonitor_'+arr_param[u].indParam_id).hide();
+                            $('#exr_btn_removeMonitor_'+arr_param[u].indParam_id).show();
+                        } else {
+                            $('#exr_btn_addMonitor_'+arr_param[u].indParam_id).show();
+                            $('#exr_btn_removeMonitor_'+arr_param[u].indParam_id).hide();
+                        }
+                    });
+                }
+            });
+            var data_30 = f_get_general_info_multiple('dt_30_minute', {}, {tablename:'z'+date_year+'_'+premise_no, 'data_timestamp':date_form});
+            $.each(data_30, function(uv){
+                for(var ux=0;ux<arr_param_all.length;ux++){
+                    var inputParam_id = arr_param_all[ux].inputParam_id;
+                    if (parseInt(inputParam_id) < 8) {
+                        var times = data_30[uv].thirtyHourInterval;
+                        var data_hour = parseInt(times.substr(11,2));
+                        var data_minute = parseInt(times.substr(14,2));
+                        var data_index = (data_hour*60 + data_minute) / 30;
+                        var stack_index = -1;
+                        for(var uw=0;uw<arr_param_all[ux]['data'].length;uw++){
+                            if (arr_param_all[ux]['data'][uw].indAll_stackNo == data_30[uv].stack_id) {
+                                stack_index = uw;
+                                break;
+                            }
+                        }
+                        if (stack_index != '-1') {
+                            var data_sum = parseFloat(data_30[uv]['sum_'+inputParam_id]);
+                            var data_count = parseFloat(data_30[uv]['count_'+inputParam_id]);
+                            if (data_count > 22 && data_sum != 0) {
+                                var data_value = data_sum/data_count;
+                                if (typeof arr_param_all[ux]['data_plot'][stack_index] !== 'undefined') {
+                                    if (data_value > parseInt(2*(arr_param_all[ux]['data_plot'][stack_index]['indParam_limitValue']))) {
+                                        arr_param_all[ux]['data_plot'][stack_index]['data'][data_index] = {
+                                            x: Date.UTC(parseInt(date_form.substr(0,4)), parseInt(date_form.substr(5,2))-1, parseInt(date_form.substr(8,2)), data_hour, data_minute),
+                                            y: parseFloat(data_value.toFixed(3)),
+                                            marker: { symbol: 'url(img/darkcloud.png)', height:25, width:35}
+                                        };
+                                        var total_not_comply = parseInt(arr_param_all[ux]['data'][stack_index]['total_not_comply']) + 1;
+                                        arr_param_all[ux]['data'][stack_index]['total_not_comply'] = total_not_comply;
+                                    } else {
+                                        arr_param_all[ux]['data_plot'][stack_index]['data'][data_index] = {
+                                            x: Date.UTC(parseInt(date_form.substr(0,4)), parseInt(date_form.substr(5,2))-1, parseInt(date_form.substr(8,2)), data_hour, data_minute),
+                                            y: parseFloat(data_value.toFixed(3))
+                                        };
+                                    }
+                                    var total_rows = parseInt(arr_param_all[ux]['data'][stack_index]['total_rows']) + 1;
+                                    arr_param_all[ux]['data'][stack_index]['total_rows'] = total_rows;
+                                    var sum_rows = parseFloat(arr_param_all[ux]['data'][stack_index]['sum_rows']) + data_value;
+                                    arr_param_all[ux]['data'][stack_index]['sum_rows'] = sum_rows;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            $.each(arr_param_all, function(ux){
+                if (parseInt(arr_param_all[ux].inputParam_id) < 8) {
+                    $('#exr_widget_'+ux).show();
+                    $('#exr_widget_'+ux+'_title').html($("#exr_industrial_id option:selected").text()+' : '+arr_param_all[ux].inputParam_desc);
+                    chart_complience('exr_chart_'+ux+'_1', '<p style="font-size:16px"><strong>30-Minute Chart :</strong> '+arr_param_all[ux].inputParam_desc+'</p>', 'Date : '+date_form, arr_param_all[ux].data_plot, 'mg/m<sup>3</sup>');
+                    var arr_param = arr_param_all[ux].data;
+                    $('#exr_div_bar_'+ux).html('');
+                    $.each(arr_param, function(u){
+                        $('#exr_div_bar_'+ux).append('<h6 class="margin-bottom-5 padding-top-15">Stack '+arr_param[u].indAll_stackNo+'&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary btn-xs" title="Add to Compliance Monitoring" onclick="f_exr_addMonitor('+arr_param[u].indParam_id+');" id="exr_btn_addMonitor_'+arr_param[u].indParam_id+'"><i class="fa fa-desktop"></i></a>' +
+                            '<a href="javascript:void(0);" class="btn btn-danger btn-xs" title="Remove from Compliance Monitoring" onclick="f_exr_removeMonitor('+arr_param[u].indParam_id+');" id="exr_btn_removeMonitor_'+arr_param[u].indParam_id+'"><i class="fa fa-minus-square"></i></a>' +
+                            '</h6>');
+                        var sum_rows = parseInt(arr_param[u]['sum_rows']);
+                        var total_rows = parseFloat(arr_param[u]['total_rows']);
+                        var total_not_comply = parseInt(arr_param[u]['total_not_comply']);
+                        var data_average = !isNaN(sum_rows/total_rows) ? parseFloat((sum_rows/total_rows).toFixed(3)) : 0;
+                        var percent_average = data_average / parseFloat(arr_param[u].indParam_limitValue) * 100;
+                        percent_average = percent_average > 100 ? 100 : percent_average;
+                        var index = 0;
+                        $.each(opt_indAll_id, function(uw){
+                            if (opt_indAll_id[uw].ref_id == arr_param[u].indAll_id)
+                                index = uw;
+                        });
+                        var html_average = '<div class="bar-holder no-padding no-margin margin-bottom-5">' +
+                            '<p class="margin-bottom-5">Daily Average : <i class="'+(data_average>parseFloat(arr_param[u].indParam_limitValue)?'exr_blink txt-color-red':'txt-color-blue')+' text-bold">'+formattedNumber(data_average,3)+' mg/m<sup>3</sup></i> <span class="pull-right semi-bold text-muted">'+parseInt(arr_param[u].indParam_limitValue)+' mg/m<sup>3</sup></span></p>' +
+                            '<div class="progress progress-sm progress-striped active">' +
+                            '<div class="progress-bar" style="width: '+percent_average+'%; background-color: '+color_set[index]+'"></div></div></div>';
+                        $('#exr_div_bar_'+ux).append(html_average);
+                        var html_average = '<div class="bar-holder no-padding no-margin">' +
+                            '<p class="margin-bottom-5">Total Data Received : <i class="'+(total_rows<1?'exr_blink txt-color-red':'txt-color-blue')+' text-bold">'+formattedNumber(total_rows)+'</i></br>Total Not Comply : <i class="'+(total_not_comply>0?'exr_blink txt-color-red':'txt-color-blue')+' text-bold">'+formattedNumber(total_not_comply)+'</i> <span class="pull-right semi-bold text-muted">48</span></p>' +
+                            '<div class="progress progress-sm progress-striped active">' +
+                            '<div class="progress-bar bg-color-red" style="width: '+(total_rows/48*100)+'%"></div>' +
+                            '<div class="progress-bar" style="width: '+((total_rows-total_not_comply)/48*100)+'%; background-color: '+color_set[index]+'"></div></div></div>';
+                        $('#exr_div_bar_'+ux).append(html_average);
+
+                        if (arr_param[u].monitor_status == '1') {
+                            $('#exr_btn_addMonitor_'+arr_param[u].indParam_id).hide();
+                            $('#exr_btn_removeMonitor_'+arr_param[u].indParam_id).show();
+                        } else {
+                            $('#exr_btn_addMonitor_'+arr_param[u].indParam_id).show();
+                            $('#exr_btn_removeMonitor_'+arr_param[u].indParam_id).hide();
+                        }
+                    });
+                }
+            });
+            f_exr_stack_data(opt_indAll_id[0].ref_id);
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
+    }
+
     function f_exr_data_listing(param_id, data, rows){
         var label = '-';
         if (data != null) {
@@ -528,7 +789,7 @@
     }
     
     function f_exr_stack_data (indAll_id) {
-        var date_form = $('#exr_data_timestamp').val(); 
+        var date_form = datePicked;
         $('#exr_div_bar_stack').html('');
         f_get_general_info('vw_pooling_selected_stack', {indAll_id:indAll_id}, 'exr');
         var date_year = date_form.substr(2,2);

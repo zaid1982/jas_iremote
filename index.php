@@ -483,7 +483,9 @@ if (isset($_POST['mid']) && isset($_POST['m2id']) && isset($_POST['m3id'])) {
         <script type="text/javascript" src="js/plugin/daterangepicker/daterangepicker.js"></script>
         <link rel="stylesheet" type="text/css" href="js/plugin/daterangepicker/daterangepicker.css" />
 
-        <script src="library/general.js"></script>
+        <script type="text/javascript">
+            document.write('<scr' + 'ipt src="library/general.js?' + new Date().valueOf() + '" type="text/javascript"></scr' + 'ipt>');
+        </script>
 
         <?php
         include 'view/js/j_modal_profile.php';

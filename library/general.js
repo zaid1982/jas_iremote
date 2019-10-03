@@ -165,8 +165,16 @@ function convert_date_to_picker2(date_in) {
     if (date_in.length == 10) date_out = date_in.substr(5,2) + '/' + date_in.substr(8,2) + '/'  + date_in.substr(0,4);     
     else if (date_in.length > 10)   date_out = date_in.substr(5,2) + '/' + date_in.substr(8,2) + '/'  + date_in.substr(0,4) + ' ' + date_in.substr(11);
     return date_out;
-}  
-  
+}
+
+function convert_date_to_display(date_in) {
+    if (date_in == null) return '';
+    var date_out = '';
+    if (date_in.length == 10) date_out = parseInt(date_in.substr(8,2)) + '/'  + parseInt(date_in.substr(5,2)) + '/' + date_in.substr(0,4);
+    else if (date_in.length > 10)   date_out = parseInt(date_in.substr(8,2)) + '/'  + parseInt(date_in.substr(5,2)) + '/' + date_in.substr(0,4) + ' ' + date_in.substr(11);
+    return date_out;
+}
+
 function get_today(){
     var today = new Date();
     var dd = today.getDate();
