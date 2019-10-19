@@ -628,7 +628,7 @@
         
         $('#mpe_document_type').on('change', function () {
             $('#mpe_indDoc_others').val('');
-            if($(this).val() === '18') {
+            if($(this).val() === '18' || $(this).val() === '101') {
                 $('#mpe_div_doc_other').show(); 
                 $('#form_mpe_2_3').bootstrapValidator('enableFieldValidators', 'mpe_indDoc_others', true);
             } else {
@@ -662,6 +662,7 @@
                     {mData: null},
                     {mData: 'documentName_desc'},
                     {mData: 'document_name'},
+                    {mData: 'document_remarks'},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             let label = '';

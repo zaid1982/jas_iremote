@@ -880,12 +880,12 @@ try {
         } else if ($_POST['funct'] == 'save_industrial_document_cems') {
             if (empty($_POST['mce_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
             if (empty($_POST['mce_document_type']))     throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
-            $document_id = !empty($_FILES['mce_file_document']['name']) ? $fn_upload->upload_file('1', $_FILES['mce_file_document'], $_POST['mce_file_document_name'], $_POST['mce_document_type'], '') : '';
+            $document_id = !empty($_FILES['mce_file_document']['name']) ? $fn_upload->upload_file('1', $_FILES['mce_file_document'], $_POST['mce_file_document_name'], $_POST['mce_document_type'], $_POST['mce_document_remarks']) : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mce_indAll_id'], 'documentName_id'=>$_POST['mce_document_type'], 'indDoc_others'=>$_POST['mce_indDoc_others'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'save_industrial_document_pems') {
             if (empty($_POST['mpe_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
             if (empty($_POST['mpe_document_type']))     throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
-            $document_id = !empty($_FILES['mpe_file_document']['name']) ? $fn_upload->upload_file('1', $_FILES['mpe_file_document'], $_POST['mpe_file_document_name'], $_POST['mpe_document_type'], '') : '';
+            $document_id = !empty($_FILES['mpe_file_document']['name']) ? $fn_upload->upload_file('1', $_FILES['mpe_file_document'], $_POST['mpe_file_document_name'], $_POST['mpe_document_type'], $_POST['mpe_document_remarks']) : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mpe_indAll_id'], 'documentName_id'=>$_POST['mpe_document_type'], 'indDoc_others'=>$_POST['mpe_indDoc_others'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'delete_industrial_document') {
             if (empty($_POST['param']))                 throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter param empty');

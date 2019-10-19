@@ -649,7 +649,7 @@
         
         $('#mce_document_type').on('change', function () {
             $('#mce_indDoc_others').val('');
-            if($(this).val() === '25') {
+            if($(this).val() === '25' || $(this).val() === '100') {
                 $('#mce_div_doc_other').show(); 
                 $('#form_mce_2_3').bootstrapValidator('enableFieldValidators', 'mce_indDoc_others', true);
             } else {
@@ -683,6 +683,7 @@
                     {mData: null},
                     {mData: 'documentName_desc'},
                     {mData: 'document_name'},
+                    {mData: 'document_remarks'},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             let label = '';

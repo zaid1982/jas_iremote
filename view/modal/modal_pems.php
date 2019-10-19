@@ -752,7 +752,13 @@
                                                         <div class="col-md-6">
                                                             <input type="file" class="form-control" id="mpe_file_document" name="mpe_file_document" style="width: 100%">
                                                         </div>
-                                                    </div> 
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Description</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="mpe_document_remarks" id="mpe_document_remarks" class="form-control" >
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <button type="button" class="btn btn-labeled btn-primary pull-right" id="mpe_btn_add_document">
@@ -769,8 +775,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center bg-color-teal txt-color-white" width="30px" data-hide="phone">No.</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" width="30%" data-hide="phone">Type</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="25%" data-hide="phone">Type</th>
                                                             <th class="text-center bg-color-teal txt-color-white" data-class="expand">Document Title</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="35%" data-hide="phone">Description</th>
                                                             <th class="text-center bg-color-teal txt-color-white" width="55px">&nbsp;</th>
                                                         </tr>
                                                     </thead>
