@@ -408,16 +408,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Controller</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" name="mam_consMobile_controller" id="mam_consMobile_controller"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </form>    
                                     <form class="form-horizontal" id="form_mam_2_2" method="post" enctype="multipart/form-data">
                                         <div class="form-group margin-bottom-10 mam_hideView" id="mqf_div_attach">      

@@ -414,16 +414,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Controller</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" name="mac_consCems_controller" id="mac_consCems_controller"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </form>    
                                     <form class="form-horizontal" id="form_mac_2_2" method="post" enctype="multipart/form-data">
                                         <div class="form-group margin-bottom-10 mac_hideView" id="mqf_div_attach">      
