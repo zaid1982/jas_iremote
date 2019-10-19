@@ -31,7 +31,7 @@ try {
             $total_pems = Class_db::getInstance()->db_count('t_industrial_all', array('indAll_type'=>'2', 'indAll_status'=>'1'));
             $total_cems_analyzer = Class_db::getInstance()->db_count('t_consultant_all', array('consAll_type'=>'1', 'consAll_status'=>'1'));
             $total_cems_software = Class_db::getInstance()->db_count('t_consultant_all', array('consAll_type'=>'2', 'consAll_status'=>'1'));
-            $result = array('total_industry'=>$total_industry, 'total_consultant'=>$total_consultant, 'total_cems'=>$total_cems, 'total_pems'=>$total_pems, 'total_cems_analyzer'=>$total_cems_analyzer, 'total_cems_software'=>$total_cems_software);
+            $result = array('total_industry'=>$total_industry, 'total_consultant'=>$total_consultant, 'total_cems'=>$total_cems, 'total_pems'=>$total_pems, 'total_cems_analyzer'=>$total_cems_analyzer, 'total_pems_software'=>$total_cems_software);
         } else {
             throw new Exception('(ErrCode:5001) [' . __LINE__ . '] - Post[funct] not valid.');
         }
