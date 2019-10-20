@@ -39,6 +39,7 @@
                                             <th><input type="text" class="form-control" maxlength="30" /></th>
                                             <th><input type="text" class="form-control" maxlength="30" /></th>
                                             <th><input type="text" class="form-control" maxlength="30" /></th>
+                                            <th><input type="text" class="form-control" maxlength="30" /></th>
                                             <th><input type="text" id="cpl_dateRegistered" class="form-control" readonly></th>
                                             <th><input type="text" class="form-control" maxlength="30" /></th>
                                             <th></th>
@@ -51,6 +52,7 @@
                                             <th data-hide="phone" width="8%">Installation Type</th>
                                             <th data-hide="phone,tablet" width="10%">Model No.</th>
                                             <th data-hide="phone,tablet">Consultant</th>
+                                            <th data-hide="phone" width="8%">State</th>
                                             <th data-hide="phone,tablet" width="9%">Registered Time</th>
                                             <th width="70px">Status</th>
                                             <th width="102px" style="min-width: 102px">&nbsp;</th>

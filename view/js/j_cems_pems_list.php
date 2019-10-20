@@ -56,7 +56,7 @@ include 'view/js/j_modal_consultant_mobile.php';
         
         var datatable_cpl = undefined;  var cnt_cpl = 1;
         dataNew = $('#datatable_cpl').DataTable({
-            "aaSorting": [[7,'desc']],
+            "aaSorting": [[8,'desc']],
             "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
                     "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
             "autoWidth": true,
@@ -84,9 +84,9 @@ include 'view/js/j_modal_consultant_mobile.php';
                                 cnt_cpl = 1;
                             if ( iColumn === 0 )
                                 return cnt_cpl++;
-                            else if ( iColumn === 8 )
-                                return datas[iDataIndex].status_desc;
                             else if ( iColumn === 9 )
+                                return datas[iDataIndex].status_desc;
+                            else if ( iColumn === 10 )
                                 return '';
                             return sValue;
                         }
@@ -103,9 +103,9 @@ include 'view/js/j_modal_consultant_mobile.php';
                                 cnt_cpl = 1;
                             if ( iColumn === 0 )
                                 return cnt_cpl++;
-                            else if ( iColumn === 8 )
-                                return datas[iDataIndex].status_desc;
                             else if ( iColumn === 9 )
+                                return datas[iDataIndex].status_desc;
+                            else if ( iColumn === 10 )
                                 return '';
                             return sValue;
                         }
@@ -135,6 +135,7 @@ include 'view/js/j_modal_consultant_mobile.php';
                         }
                     },
                     {mData: 'consultant_name'},
+                    {mData: 'state_desc'},
                     {mData: 'wfTrans_timeCreated'},
                     {mData: 'status_desc', sClass: 'text-center',
                         mRender: function (data, type, row) {
@@ -192,7 +193,7 @@ include 'view/js/j_modal_consultant_mobile.php';
     
     function f_table_cpl () {
         datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0)'});
-        f_dataTable_draw(dataNew, datas, 'datatable_cpl', 10);
+        f_dataTable_draw(dataNew, datas, 'datatable_cpl', 11);
     }
 
     function f_activation_stack(_status, _indAll_id) {

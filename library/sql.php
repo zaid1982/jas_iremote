@@ -1298,6 +1298,7 @@ class Class_sql {
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color,
                     t_industrial.wfGroup_id AS wfGroup_id,
+                    ref_state.state_desc,
                     t_industrial_all.*
                 FROM t_industrial_all 
                 LEFT JOIN t_industrial ON t_industrial.industrial_id = t_industrial_all.industrial_id
@@ -1307,6 +1308,10 @@ class Class_sql {
                 LEFT JOIN wf_group consGroup ON consGroup.wfGroup_id = t_consultant.wfGroup_id
                 LEFT JOIN t_consultant_cems ON t_consultant_cems.consAll_id = t_industrial_all.consAll_id
                 LEFT JOIN t_consultant_pems ON t_consultant_pems.consAll_id = t_industrial_all.consAll_id
+                LEFT JOIN wf_group_profile ON wf_group_profile.wfGroupProfile_id = t_industrial_all.wfGroupProfile_id
+                LEFT JOIN address ON address.address_id = wf_group_profile.wfGroup_address
+                LEFT JOIN ref_city ON ref_city.city_id = address.city_id
+                LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id
                 LEFT JOIN ref_status ON ref_status.status_id = t_industrial_all.indAll_status";
             } else if ($title == 'dt_installed_CEMS_PEMS') {
                 $sql = "SELECT 
