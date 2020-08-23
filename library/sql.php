@@ -171,7 +171,7 @@ class Class_sql {
                 FROM t_industrial_all
                 LEFT JOIN t_industrial_parameter ON t_industrial_parameter.indAll_id = t_industrial_all.indAll_id
                 LEFT JOIN t_pub ON t_pub.pub_id = t_industrial_parameter.pub_id
-                WHERE t_industrial_all.industrial_id = [industrial_id] AND t_industrial_all.indAll_status IN (1,30) AND t_industrial_all.indAll_stackNo IS NOT NULL AND t_industrial_parameter.indParam_status = 1 
+                WHERE t_industrial_all.industrial_id = [industrial_id] AND t_industrial_all.indAll_status IN (1,27,28,29,30) AND t_industrial_all.indAll_stackNo IS NOT NULL AND t_industrial_parameter.indParam_status = 1 
                 AND t_pub.pub_id IS NOT NULL 
                 GROUP BY ref_id";
             } else if ($title == 'vw_address') {
@@ -1430,7 +1430,7 @@ class Class_sql {
                     FROM data01_[short_year] 
                     GROUP BY indAll_id, inputParam_id, data_date
                 ) data_table_01 ON data_table_01.indAll_id = t_industrial_parameter.indAll_id AND data_table_01.inputParam_id = t_input_parameter.inputParam_id AND data_table_01.data_date = date_list.list_date
-                WHERE t_industrial_all.indAll_status IN (1,30) AND YEAR(list_date) = [pool_year]";
+                WHERE t_industrial_all.indAll_status IN (1,27,28,29,30) AND YEAR(list_date) = [pool_year]";
             } else if ($title == 'vw_map_pooling_status') {
                 $sql = "SELECT 
                     t_industrial_all.indAll_id AS indAll_id,

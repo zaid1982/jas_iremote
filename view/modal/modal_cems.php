@@ -914,7 +914,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">RAA (quarterly)</label>
+                                                    <label class="col-md-3 control-label">RAA/QAL3 (quarterly)</label>
                                                     <div class="col-md-1">
                                                         <div class="checkbox">
                                                             <label>
@@ -947,7 +947,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">RATA (yearly)</label>
+                                                    <label class="col-md-3 control-label">RATA/AST/QAL2 (yearly)</label>
                                                     <div class="col-md-1">
                                                         <div class="checkbox">
                                                             <label>
