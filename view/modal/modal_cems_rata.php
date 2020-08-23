@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" id="mqj_div_datePoolStart">
+                       <!-- <div class="form-group" id="mqj_div_datePoolStart">
                             <label class="col-md-2 control-label"><font color="red">*</font> Pooling Start Date</label>
                             <div class="col-md-3">
                                 <div class="input-group">
@@ -90,7 +90,7 @@
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-md-2 control-label">Additional Message</label>
                             <div class="col-md-10">

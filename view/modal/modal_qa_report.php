@@ -215,7 +215,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="form-group padding-top-15">      
+                       <!-- <div class="form-group padding-top-15">
                             <label class="col-md-3 control-label"><font color="red">*</font> Pooling Start Date</label>
                             <div class="col-md-3">
                                 <div class="input-group">
@@ -223,7 +223,7 @@
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>  
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-md-3 control-label"><font color="red">*</font> Additional Message</label>
                             <div class="col-md-9">

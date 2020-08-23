@@ -104,14 +104,15 @@
                             message: 'Actual Test Date is required'
                         }                     
                     }
-                },
+                }
+                /*,
                 mqk_indAll_datePoolStart : {
                     validators : {
                         notEmpty: {
                             message: 'Pooling Start Date is required'
                         }                     
                     }
-                }
+                }*/
             }
         });
         

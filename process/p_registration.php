@@ -1027,7 +1027,7 @@ try {
             if (empty($_POST['mqj_wfTaskType_id']))     throw new Exception('(ErrCode:5812) [' . __LINE__ . '] - Parameter wfTaskType_id empty.');
             Class_db::getInstance()->db_update('t_qa', array('qa_dateActual'=>$_POST['mqj_qa_dateActual'], 'qa_message'=>$_POST['mqj_qa_message']), array('qa_id'=>$_POST['mqj_qa_id']));
             if ($_POST['mqj_wfTaskType_id'] == '37')
-                Class_db::getInstance()->db_update('t_industrial_all', array('indAll_datePoolStart'=>$_POST['mqj_indAll_datePoolStart'], 'indAll_dateRataActual'=>$_POST['mqj_qa_dateActual']), array('indAll_id'=>$_POST['mqj_indAll_id']));
+                Class_db::getInstance()->db_update('t_industrial_all', array('indAll_datePoolStart'=>$_POST['mqj_qa_dateActual'], 'indAll_dateRataActual'=>$_POST['mqj_qa_dateActual']), array('indAll_id'=>$_POST['mqj_indAll_id']));
             /*$arr_qa_ra = Class_db::getInstance()->db_select('t_qa_ra', array('qa_id'=>$_POST['mqj_qa_id']));
             foreach($arr_qa_ra as $qa_ra) {
                 $qaRa_rmAverage = (isset($_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']]) && !empty($_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']])) ? $_POST['mqj_qaRa_rmAverage_'.$qa_ra['qaRa_id']] : '';
@@ -1080,7 +1080,7 @@ try {
             if (empty($_POST['mqk_wfTaskType_id']))     throw new Exception('(ErrCode:5812) [' . __LINE__ . '] - Parameter wfTaskType_id empty.');
             Class_db::getInstance()->db_update('t_qa', array('qa_dateActual'=>$_POST['mqk_qa_dateActual'], 'qa_message'=>$_POST['mqk_qa_message']), array('qa_id'=>$_POST['mqk_qa_id']));
             if ($_POST['mqk_wfTaskType_id'] == '47')
-                Class_db::getInstance()->db_update('t_industrial_all', array('indAll_datePoolStart'=>$_POST['mqk_indAll_datePoolStart'], 'indAll_dateRataActual'=>$_POST['mqk_qa_dateActual']), array('indAll_id'=>$_POST['mqk_indAll_id']));
+                Class_db::getInstance()->db_update('t_industrial_all', array('indAll_datePoolStart'=>$_POST['mqk_qa_dateActual'], 'indAll_dateRataActual'=>$_POST['mqk_qa_dateActual']), array('indAll_id'=>$_POST['mqk_indAll_id']));
             $arr_qa_ra = Class_db::getInstance()->db_select('t_qa_ra', array('qa_id'=>$_POST['mqk_qa_id']));
             foreach($arr_qa_ra as $qa_ra) {
                 $qaRa_rmAverage = (isset($_POST['mqk_qaRa_rmAverage_'.$qa_ra['qaRa_id']]) && !empty($_POST['mqk_qaRa_rmAverage_'.$qa_ra['qaRa_id']])) ? $_POST['mqk_qaRa_rmAverage_'.$qa_ra['qaRa_id']] : '';

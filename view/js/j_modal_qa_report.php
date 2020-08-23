@@ -174,14 +174,15 @@
                             }
                         }
                     }
-                },
+                }
+                /*,
                 mqa_indAll_datePoolStart : {
                     validators: {
                         notEmpty: {
                             message: 'Pooling Start Date is required'
                         }
                     }
-                },
+                },*/
                 mqa_snote_wfTask_remark : {
                     validators: {
                         callback: {

@@ -1,4 +1,4 @@
-<? 
+<?php
 include 'view/js/j_modal_action.php';
 include 'view/js/j_modal_consultant_cems.php';
 include 'view/js/j_modal_consultant_pems.php';
