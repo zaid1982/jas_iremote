@@ -297,7 +297,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_0').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -338,7 +338,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_1').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -379,7 +379,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_2').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -420,7 +420,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_3').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -461,7 +461,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_4').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -502,7 +502,7 @@
                                 var value_from = parseFloat($('#mac_consParamRange_from_5').val());
                                 return {
                                     valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
-                                    message: 'Specified Range To must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                    message: 'Analyzer Certified (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
                                 };
                             }
                         }
@@ -541,6 +541,252 @@
                     validators: {
                         notEmpty: {
                             message: 'Method is required'
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_0 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_0').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_0');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_0 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_0').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_1 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_1').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_1');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_1 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_1').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_2 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_2').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_2');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_2 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_2').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_3 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_3').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_3');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_3 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_3').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_4 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_4').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_4');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_4 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_4').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_from_5 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (From) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (From) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Measurement Range (From) must in the range of 0 and 10,000',
+                            callback: function (value, validator, $field) {
+                                if ($('#mac_consMeasureRange_to_5').val() != '')
+                                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_5');
+                                return (parseFloat(value) >= 0 && parseFloat(value) <= 10000);
+                            }
+                        }
+                    }
+                },
+                mac_consMeasureRange_to_5 : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Measurement Range (To) is required'
+                        },
+                        numeric: {
+                            message: 'Measurement Range (To) is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            callback: function (value, validator, $field) {
+                                var value_from = parseFloat($('#mac_consMeasureRange_from_5').val());
+                                return {
+                                    valid: parseFloat(value) >= (isNaN(value_from)?0:value_from) && parseFloat(value) <= 10000,
+                                    message: 'Measurement Range (To) must in the range of ' + (isNaN(value_from)?0:value_from) + ' and 10,000'
+                                };
+                            }
                         }
                     }
                 }
@@ -1194,11 +1440,13 @@
                         $('#form_mac_2_3').trigger('reset');
                         $('#mac_analyzerTechnique_id').val([]).trigger('change');
                         $('#form_mac_2_3').bootstrapValidator('resetForm', true);                        
-                        $('.mac_div_paramRange').hide();
-                        $('#mac_btn_add_range').prop('disabled', false);
+                        $('.mac_div_paramRange, .mac_div_measureRange').hide();
+                        $('#mac_btn_add_range, #mac_btn_add_measure').prop('disabled', false);
                         for (var i=1; i<=5; i++) {
                             $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParamRange_from_'+i, false);
                             $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParamRange_to_'+i, false);
+                            $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_from_'+i, false);
+                            $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_to_'+i, false);
                         }                        
                         $('#mac_consParam_reference, #mac_consParam_method').prop('disabled', true);
                         $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParam_reference', false)
@@ -1466,7 +1714,6 @@
                 [
                     {mData: null},
                     {mData: 'inputParam_desc'},
-                    {mData: 'parameter_range'},
                     {mData: 'consParam_reference'},
                     {mData: 'consParam_dataGeneration'},
                     {mData: 'consParam_method',
@@ -1480,6 +1727,8 @@
                         }
                     },
                     {mData: 'consParam_methodDetection'},
+                    {mData: 'parameter_range'},
+                    {mData: 'measurement_range'},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
                             $label = '<button type="button" class="btn btn-danger btn-xs mac_hideView" title="Delete" onclick="f_mac_delete_consParam ('+row.consParam_id+');"><i class="fa fa-trash-o"></i></button>';
@@ -1666,7 +1915,7 @@
         $('#form_mac_2_3').bootstrapValidator('resetField', 'mac_consParamRange_from_0', true);
         $('#form_mac_2_3').bootstrapValidator('resetField', 'mac_consParamRange_to_0', true);
     }
-    
+
     function f_mac_deleteRange(div_id) {
         for (var i=div_id; i<=5; i++) {
             if (i == 5) {
@@ -1690,8 +1939,58 @@
                     break;
                 }
             }
-        }        
+        }
         $('#mac_btn_add_range').prop('disabled', false);
+    }
+
+    function f_mac_addMeasureRange() {
+        for (var i=1; i<=5; i++) {
+            if (!$('#mac_div_measureRange_'+i).is(':visible')) {
+                $('#mac_div_measureRange_'+i).show();
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_from_'+i, true);
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_to_'+i, true);
+                for (var x=i; x>0; x--) {
+                    $('#mac_consMeasureRange_from_'+x).val($('#mac_consMeasureRange_from_'+(x-1)).val());
+                    $('#mac_consMeasureRange_to_'+x).val($('#mac_consMeasureRange_to_'+(x-1)).val());
+                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_from_'+x);
+                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_'+x);
+                }
+                $('#mac_consMeasureRange_from_0').val('');
+                $('#mac_consMeasureRange_to_0').val('');
+                if (i == 5)
+                    $('#mac_btn_add_measure').prop('disabled', true);
+                break;
+            }
+        }
+        $('#form_mac_2_3').bootstrapValidator('resetField', 'mac_consMeasureRange_from_0', true);
+        $('#form_mac_2_3').bootstrapValidator('resetField', 'mac_consMeasureRange_to_0', true);
+    }
+
+    function f_mac_deleteMeasureRange(div_id) {
+        for (var i=div_id; i<=5; i++) {
+            if (i == 5) {
+                $('#mac_div_measureRange_'+i).val('');
+                $('#mac_consMeasureRange_to_'+i).val('');
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_from_'+i, false);
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_to_'+i, false);
+                $('#mac_div_measureRange_'+i).hide();
+            } else {
+                if ($('#mac_div_measureRange_'+(i+1)).is(':visible')) {
+                    $('#mac_consMeasureRange_from_'+i).val($('#mac_consMeasureRange_from_'+(i+1)).val());
+                    $('#mac_consMeasureRange_to_'+i).val($('#mac_consMeasureRange_to_'+(i+1)).val());
+                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_from_'+i);
+                    $('#form_mac_2_3').bootstrapValidator('revalidateField', 'mac_consMeasureRange_to_'+i);
+                } else {
+                    $('#mac_div_measureRange_'+i).val('');
+                    $('#mac_consMeasureRange_to_'+i).val('');
+                    $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_from_'+i, false);
+                    $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_to_'+i, false);
+                    $('#mac_div_measureRange_'+i).hide();
+                    break;
+                }
+            }
+        }
+        $('#mac_btn_add_measure').prop('disabled', false);
     }
     
     function f_mac_method_detection(analyzerTechnique_id) {
@@ -1785,13 +2084,15 @@
             $('#form_mac,#form_mac_1,#form_mac_2_1,#form_mac_2_2,#form_mac_2_3,#form_mac_2_4,#form_mac_2_6,#form_mac_2_5,#form_mac_3,#form_mac_5,#form_mac_6').find('input, textarea, select').prop('disabled',false);
             $('.mac_hideView').show();
             $('.mac_disView, #mac_dis_outsource, #mac_consParam_reference, #mac_consParam_method').prop('disabled', true);
-            $('#mac_alert_box, .mac_checkView, .mac_div_paramRange, #mac_lbl_catalogue, #mac_star_document_name').hide();
+            $('#mac_alert_box, .mac_checkView, .mac_div_paramRange, .mac_div_measureRange, #mac_lbl_catalogue, #mac_star_document_name').hide();
             $('#mac_snote_wfTask_remark').summernote('enable');
             $("input[name='mac_declare_1'], input[name='mac_declare_2']").prop('checked', false);
             $('#mac_btn_add_range').prop('disabled', false);
             for (var i=1; i<=5; i++) {
                 $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParamRange_from_'+i, false);
                 $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParamRange_to_'+i, false);
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_from_'+i, false);
+                $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consMeasureRange_to_'+i, false);
             }
             $('#form_mac_2_3').bootstrapValidator('enableFieldValidators', 'mac_consParam_reference', false)
                 .bootstrapValidator('enableFieldValidators', 'mac_consParam_method', false);

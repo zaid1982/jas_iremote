@@ -592,40 +592,40 @@
                                                         <label class="col-md-2 control-label"><font color="red">*</font> Analyzer Certified</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_0" id="mac_consParamRange_from_0" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <span class="input-group-addon bg-color-white">To</span>
                                                                 <input type="text" name="mac_consParamRange_to_0" id="mac_consParamRange_to_0" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <button type="button" class="btn btn-success" title="Add" id="mac_btn_add_range" onclick="f_mac_addRange()"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
-                                                 </div>
-                                            </div>    
+                                                </div>
+                                            </div>
                                             <div class="row mac_div_paramRange" id="mac_div_paramRange_1">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-md-2 control-label">&nbsp;</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_1" id="mac_consParamRange_from_1" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <span class="input-group-addon bg-color-white">To</span>
                                                                 <input type="text" name="mac_consParamRange_to_1" id="mac_consParamRange_to_1" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
@@ -640,16 +640,16 @@
                                                         <label class="col-md-2 control-label">&nbsp;</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_2" id="mac_consParamRange_from_2" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <span class="input-group-addon bg-color-white">To</span>
                                                                 <input type="text" name="mac_consParamRange_to_2" id="mac_consParamRange_to_2" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
@@ -664,16 +664,16 @@
                                                         <label class="col-md-2 control-label">&nbsp;</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_3" id="mac_consParamRange_from_3" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <span class="input-group-addon bg-color-white">To</span>
                                                                 <input type="text" name="mac_consParamRange_to_3" id="mac_consParamRange_to_3" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
@@ -688,16 +688,16 @@
                                                         <label class="col-md-2 control-label">&nbsp;</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_4" id="mac_consParamRange_from_4" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <span class="input-group-addon bg-color-white">To</span>
                                                                 <input type="text" name="mac_consParamRange_to_4" id="mac_consParamRange_to_4" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
@@ -712,20 +712,164 @@
                                                         <label class="col-md-2 control-label">&nbsp;</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
-                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <span class="input-group-addon bg-color-white">From</span>
                                                                 <input type="text" name="mac_consParamRange_from_5" id="mac_consParamRange_from_5" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>
+                                                                <input type="text" name="mac_consParamRange_to_5" id="mac_consParamRange_to_5" class="form-control"/>
+                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteRange(5)"><i class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label"><font color="red">*</font> Measurement Range</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_0" id="mac_consMeasureRange_from_0" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon bg-color-white">To</span>       
-                                                                <input type="text" name="mac_consParamRange_to_5" id="mac_consParamRange_to_5" class="form-control"/>
-                                                                <span class="input-group-addon mac_consParam_unit">mg/m<sup>3</sup></span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_0" id="mac_consMeasureRange_to_0" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteRange(5)"><i class="fa fa-minus"></i></button>
+                                                            <button type="button" class="btn btn-success" title="Add" id="mac_btn_add_measure" onclick="f_mac_addMeasureRange()"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                            </div>    
+                                            <div class="row mac_div_measureRange" id="mac_div_measureRange_1">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">&nbsp;</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_1" id="mac_consMeasureRange_from_1" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_1" id="mac_consMeasureRange_to_1" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteMeasureRange(1)"><i class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mac_div_measureRange" id="mac_div_measureRange_2">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">&nbsp;</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_2" id="mac_consMeasureRange_from_2" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_2" id="mac_consMeasureRange_to_2" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteMeasureRange(2)"><i class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mac_div_measureRange" id="mac_div_measureRange_3">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">&nbsp;</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_3" id="mac_consMeasureRange_from_3" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_3" id="mac_consMeasureRange_to_3" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteMeasureRange(3)"><i class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mac_div_measureRange" id="mac_div_measureRange_4">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">&nbsp;</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_4" id="mac_consMeasureRange_from_4" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_4" id="mac_consMeasureRange_to_4" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteMeasureRange(4)"><i class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mac_div_measureRange" id="mac_div_measureRange_5">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">&nbsp;</label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">From</span>       
+                                                                <input type="text" name="mac_consMeasureRange_from_5" id="mac_consMeasureRange_from_5" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon bg-color-white">To</span>       
+                                                                <input type="text" name="mac_consMeasureRange_to_5" id="mac_consMeasureRange_to_5" class="form-control"/>
+                                                                <span class="input-group-addon mac_consMeasure_unit">mg/m<sup>3</sup></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger" title="Delete" onclick="f_mac_deleteMeasureRange(5)"><i class="fa fa-minus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -749,11 +893,12 @@
                                                         <tr>
                                                             <th class="text-center bg-color-teal txt-color-white" width="30px" data-hide="phone">No.</th>                                                            
                                                             <th class="text-center bg-color-teal txt-color-white" data-class="expand">Input Parameter</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" width="14%">Analyzer Certified</th>                                 
                                                             <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Consumable Gas Span</th>                       
                                                             <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Data Generation</th>                                                                  
                                                             <th class="text-center bg-color-teal txt-color-white" width="18%" data-hide="phone,tablet">Method</th> 
-                                                            <th class="text-center bg-color-teal txt-color-white" width="20%">Method of Detection</th>                                                         
+                                                            <th class="text-center bg-color-teal txt-color-white" width="12%">Method of Detection</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="11%">Analyzer Certified</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="11%">Measurement Range</th>
                                                             <th class="text-center bg-color-teal txt-color-white" width="40px">&nbsp;</th>
                                                         </tr>
                                                     </thead>

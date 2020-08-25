@@ -321,9 +321,13 @@ try {
             $consParam_method = (isset($_POST['mac_consParam_method'])) ? $_POST['mac_consParam_method'] : '';
             $consParam_id = Class_db::getInstance()->db_insert('t_consultant_parameter', array('consAll_id'=>$_POST['mac_consAll_id'], 'inputParam_id'=>$_POST['mac_inputParam_id'], 'consParam_reference'=>$consParam_reference, 'consParam_dataGeneration'=>$_POST['mac_consParam_dataGeneration'], 'consParam_method'=>$consParam_method));
             Class_db::getInstance()->db_insert('t_consultant_param_range', array('consParam_id'=>$consParam_id, 'consParamRange_from'=>$_POST['mac_consParamRange_from_0'], 'consParamRange_to'=>$_POST['mac_consParamRange_to_0']));
+            Class_db::getInstance()->db_insert('t_consultant_param_measure', array('consParam_id'=>$consParam_id, 'consParamMeasure_from'=>$_POST['mac_consMeasureRange_from_0'], 'consParamMeasure_to'=>$_POST['mac_consMeasureRange_to_0']));
             for ($i=1; $i<=5; $i++){
                 if (isset($_POST['mac_consParamRange_from_'.$i]) && !empty($_POST['mac_consParamRange_to_'.$i])) {
                     Class_db::getInstance()->db_insert('t_consultant_param_range', array('consParam_id'=>$consParam_id, 'consParamRange_from'=>$_POST['mac_consParamRange_from_'.$i], 'consParamRange_to'=>$_POST['mac_consParamRange_to_'.$i]));
+                }
+                if (isset($_POST['mac_consMeasureRange_from_'.$i]) && !empty($_POST['mac_consMeasureRange_to_'.$i])) {
+                    Class_db::getInstance()->db_insert('t_consultant_param_measure', array('consParam_id'=>$consParam_id, 'consParamMeasure_from'=>$_POST['mac_consMeasureRange_from_'.$i], 'consParamMeasure_to'=>$_POST['mac_consMeasureRange_to_'.$i]));
                 }
             }
             foreach ($_POST['mac_analyzerTechnique_id'] as $analyzerTechnique_id) {
@@ -389,6 +393,7 @@ try {
             $arrayParam = $_POST['param'];
             if (empty($arrayParam['consParam_id']))     throw new Exception('(ErrCode:5827) [' . __LINE__ . '] - Parameter consParam_id empty.');
             Class_db::getInstance()->db_delete('t_consultant_param_range', array('consParam_id'=>$arrayParam['consParam_id']));
+            Class_db::getInstance()->db_delete('t_consultant_param_measure', array('consParam_id'=>$arrayParam['consParam_id']));
             Class_db::getInstance()->db_delete('t_consultant_param_method', array('consParam_id'=>$arrayParam['consParam_id']));
             Class_db::getInstance()->db_delete('t_consultant_parameter', array('consParam_id'=>$arrayParam['consParam_id']));
             $result = '1';

@@ -551,10 +551,12 @@ class Class_sql {
                     t_consultant_parameter.*,
                     t_input_parameter.inputParam_desc AS inputParam_desc,
                     GROUP_CONCAT(DISTINCT(CONCAT(consParamRange_from, ' - ', consParamRange_to)) SEPARATOR ',</br>') AS parameter_range,
+                    GROUP_CONCAT(DISTINCT(CONCAT(consParamMeasure_from, ' - ', consParamMeasure_to)) SEPARATOR ',</br>') AS measurement_range,
                     GROUP_CONCAT(DISTINCT(CONCAT(analyzerTechnique_desc)) SEPARATOR ', ') AS consParam_methodDetection
                 FROM t_consultant_parameter 
                 LEFT JOIN t_input_parameter ON t_input_parameter.inputParam_id = t_consultant_parameter.inputParam_id
                 LEFT JOIN t_consultant_param_range ON t_consultant_param_range.consParam_id = t_consultant_parameter.consParam_id
+                LEFT JOIN t_consultant_param_measure ON t_consultant_param_measure.consParam_id = t_consultant_param_measure.consParam_id
                 LEFT JOIN t_consultant_param_method ON t_consultant_param_method.consParam_id = t_consultant_parameter.consParam_id
                 LEFT JOIN t_analyzer_technique ON t_analyzer_technique.analyzerTechnique_id = t_consultant_param_method.analyzerTechnique_id
                 GROUP BY consParam_id";
