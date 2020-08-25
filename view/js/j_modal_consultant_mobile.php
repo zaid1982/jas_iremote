@@ -521,11 +521,11 @@
                 mam_consParam_reference : {
                     validators: {
                         notEmpty: {
-                            message: 'Consumable Span Gas is required'
+                            message: 'Type of Consumable Span Gas is required'
                         },
                         stringLength : {
                             max : 100,
-                            message : 'Consumable Span Gas must be not more than 100 characters long'
+                            message : 'Type of Consumable Span Gas must be not more than 100 characters long'
                         }
                     }
                 },

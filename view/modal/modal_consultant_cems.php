@@ -548,7 +548,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-md-4 control-label"><font color="red">*</font> Consumable Span Gas</label>
+                                                        <label class="col-md-4 control-label"><font color="red">*</font> Type of Consumable Span Gas</label>
                                                         <div class="col-md-8">
                                                             <input type="text" class="form-control" name="mac_consParam_reference" id="mac_consParam_reference"/>
                                                         </div>
