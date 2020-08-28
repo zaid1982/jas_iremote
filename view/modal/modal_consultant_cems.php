@@ -577,11 +577,22 @@
                                                 </div>
                                             </div>                                            
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Method of Detection</label>
-                                                        <div class="col-md-10 selectContainer">
+                                                        <label class="col-md-3 control-label"><font color="red">*</font> Method of Detection</label>
+                                                        <div class="col-md-9 selectContainer">
                                                             <select multiple class="form-control select2" name="mac_analyzerTechnique_id[]" id="mac_analyzerTechnique_id"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label"> Volume</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" name="mac_consParam_volume" id="mac_consParam_volume" class="form-control"/>
+                                                                <span class="input-group-addon">m<sup>3</sup></span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -589,7 +600,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Analyzer Certified</label>
+                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Certification Range</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon bg-color-white">From</span>
@@ -733,7 +744,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Measurement Range</label>
+                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Measurement Range</label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon bg-color-white">From</span>       
@@ -893,12 +904,13 @@
                                                         <tr>
                                                             <th class="text-center bg-color-teal txt-color-white" width="30px" data-hide="phone">No.</th>                                                            
                                                             <th class="text-center bg-color-teal txt-color-white" data-class="expand">Input Parameter</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Consumable Gas Span</th>                       
-                                                            <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Data Generation</th>                                                                  
-                                                            <th class="text-center bg-color-teal txt-color-white" width="18%" data-hide="phone,tablet">Method</th> 
-                                                            <th class="text-center bg-color-teal txt-color-white" width="12%">Method of Detection</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" width="11%">Analyzer Certified</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" width="11%">Measurement Range</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Consumable Gas Span</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="8%" data-hide="phone,tablet">Data Generation</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="12%" data-hide="phone,tablet">Method</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="16%">Method of Detection</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="7%" data-hide="phone,tablet">Volume</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="10%">Analyzer Certified</th>
+                                                            <th class="text-center bg-color-teal txt-color-white" width="10%">Measurement Range</th>
                                                             <th class="text-center bg-color-teal txt-color-white" width="40px">&nbsp;</th>
                                                         </tr>
                                                     </thead>

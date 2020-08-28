@@ -319,7 +319,7 @@ try {
                 throw new Exception('(ErrCode:5845) [' . __LINE__ . '] - Input Parameter already exist.', 32);
             $consParam_reference = (isset($_POST['mac_consParam_reference'])) ? $_POST['mac_consParam_reference'] : '';
             $consParam_method = (isset($_POST['mac_consParam_method'])) ? $_POST['mac_consParam_method'] : '';
-            $consParam_id = Class_db::getInstance()->db_insert('t_consultant_parameter', array('consAll_id'=>$_POST['mac_consAll_id'], 'inputParam_id'=>$_POST['mac_inputParam_id'], 'consParam_reference'=>$consParam_reference, 'consParam_dataGeneration'=>$_POST['mac_consParam_dataGeneration'], 'consParam_method'=>$consParam_method));
+            $consParam_id = Class_db::getInstance()->db_insert('t_consultant_parameter', array('consAll_id'=>$_POST['mac_consAll_id'], 'inputParam_id'=>$_POST['mac_inputParam_id'], 'consParam_reference'=>$consParam_reference, 'consParam_dataGeneration'=>$_POST['mac_consParam_dataGeneration'], 'consParam_method'=>$consParam_method, 'consParam_volume'=>$_POST['mac_consParam_volume']));
             Class_db::getInstance()->db_insert('t_consultant_param_range', array('consParam_id'=>$consParam_id, 'consParamRange_from'=>$_POST['mac_consParamRange_from_0'], 'consParamRange_to'=>$_POST['mac_consParamRange_to_0']));
             Class_db::getInstance()->db_insert('t_consultant_param_measure', array('consParam_id'=>$consParam_id, 'consParamMeasure_from'=>$_POST['mac_consMeasureRange_from_0'], 'consParamMeasure_to'=>$_POST['mac_consMeasureRange_to_0']));
             for ($i=1; $i<=5; $i++){

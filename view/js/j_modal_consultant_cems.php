@@ -537,6 +537,21 @@
                         }
                     }
                 },
+                mac_consParam_volume : {
+                    validators: {
+                        numeric: {
+                            message: 'Volume is not a valid number',
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        },
+                        callback: {
+                            message: 'Data Generation must be greater than 0',
+                            callback: function (value, validator, $field) {
+                                return (parseFloat(value) > 0 && parseFloat(value) <= 1000);
+                            }
+                        }
+                    }
+                },
                 mac_consParam_method : {
                     validators: {
                         notEmpty: {
@@ -1727,6 +1742,7 @@
                         }
                     },
                     {mData: 'consParam_methodDetection'},
+                    {mData: 'consParam_volume'},
                     {mData: 'parameter_range'},
                     {mData: 'measurement_range'},
                     {mData: null, sClass: 'text-center',
