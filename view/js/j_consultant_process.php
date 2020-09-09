@@ -429,12 +429,12 @@ include 'view/js/j_modal_action.php';
     });
     
     function f_table_ctp_new () {
-        data_ctp_new = f_get_general_info_multiple('dt_task_consultant', {wfTaskType_id:'(3,13,23)', wfTask_partition:'1'});
+        data_ctp_new = f_get_general_info_multiple('dt_task_consultant', {wfTaskType_id:'(3,13,23)', wfTask_partition:'1', wfTask_claimedBy:$('#user_id').val()});
         f_dataTable_draw(dataNew, data_ctp_new, 'datatable_ctp', 10);
     }
     
     function f_table_ctp_history () {
-        data_ctp_history = f_get_general_info_multiple('dt_task_consultant', {wfTaskType_id:'(3,13,23)', wfTask_partition:'2'});
+        data_ctp_history = f_get_general_info_multiple('dt_task_consultant', {wfTaskType_id:'(3,13,23)', wfTask_partition:'2', wfTask_claimedBy:$('#user_id').val()});
         f_dataTable_draw(dataHistory, data_ctp_history, 'datatable_ctp2', 10);
     }
     

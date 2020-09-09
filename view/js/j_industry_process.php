@@ -441,12 +441,12 @@ include 'view/js/j_modal_action.php';
     });
     
     function f_table_itp_new () {
-        data_itp_new = f_get_general_info_multiple('dt_task_industrial', {wfTaskType_id:'(33, 43)', wfTask_partition:'1'});
+        data_itp_new = f_get_general_info_multiple('dt_task_industrial', {wfTaskType_id:'(33, 43)', wfTask_partition:'1', wfTask_claimedBy:$('#user_id').val()});
         f_dataTable_draw(dataNew, data_itp_new, 'datatable_itp', 10);
     }
     
     function f_table_itp_history () {
-        data_itp_history = f_get_general_info_multiple('dt_task_industrial', {wfTaskType_id:'(33, 43)', wfTask_partition:'2'});
+        data_itp_history = f_get_general_info_multiple('dt_task_industrial', {wfTaskType_id:'(33, 43)', wfTask_partition:'2', wfTask_claimedBy:$('#user_id').val()});
         f_dataTable_draw(dataHistory, data_itp_history, 'datatable_itp2', 10);
     }
     
