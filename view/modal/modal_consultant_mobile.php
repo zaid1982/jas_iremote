@@ -1251,19 +1251,13 @@
                                                         <label class="col-md-2 control-label"><font color="red">*</font> Project Description</label>
                                                         <div class="col-md-10"><input type="text" class="form-control" name="mam_consProject_desc" id="mam_consProject_desc"/></div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Scope of Work</label>
-                                                        <div class="col-md-10"><input type="text" class="form-control" name="mam_consProject_scope" id="mam_consProject_scope"/></div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">                                                
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label"><font color="red">*</font> Source of Activity</label>
-                                                        <div class="col-md-9 selectContainer">
-                                                            <select class="form-control" name="mam_consProject_source" id="mam_consProject_source"></select>
-                                                        </div>
+                                                        <label class="col-md-3 control-label"><font color="red">*</font> Scope of Work</label>
+                                                        <div class="col-md-9"><input type="text" class="form-control" name="mam_consProject_scope" id="mam_consProject_scope"/></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -1301,7 +1295,6 @@
                                                             <th class="text-center bg-color-teal txt-color-white" data-hide="phone,tablet">Client</th>
                                                             <th class="text-center bg-color-teal txt-color-white" data-hide="phone,tablet">Project Description</th>
                                                             <th class="text-center bg-color-teal txt-color-white" data-hide="phone,tablet">Scope of Work</th>
-                                                            <th class="text-center bg-color-teal txt-color-white" data-hide="phone,tablet">Source of Activity</th>
                                                             <th class="text-center bg-color-teal txt-color-white" width="80px">Project Value</th>
                                                             <th class="text-center bg-color-teal txt-color-white" width="40px">&nbsp;</th>
                                                         </tr>

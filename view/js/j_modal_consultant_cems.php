@@ -1153,13 +1153,6 @@
                         }
                     }
                 },
-                mac_consProject_source : {
-                    validators: {
-                        notEmpty: {
-                            message: 'Source of Activity is required'
-                        }
-                    }
-                },
                 mac_consProject_value : {
                     validators: {
                         numeric: {
@@ -1580,8 +1573,8 @@
                 $('#modal_waiting').on('shown.bs.modal', function(e){    
                     if (f_submit_forms('form_mac,#form_mac_5', 'p_registration', 'Company Working Experience successfully added.')) {
                         $('#form_mac_5').bootstrapValidator('resetForm', true);                    
-                        data_mac_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                        f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 9);
+                        data_mac_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                        f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 8);
                     }
                     $('#modal_waiting').modal('hide');
                     $(this).unbind(e);
@@ -1827,7 +1820,6 @@
                     {mData: 'consProject_client'},
                     {mData: 'consProject_desc'},
                     {mData: 'consProject_scope'},
-                    {mData: 'sourceActivity_desc'},
                     {mData: 'consProject_value', sClass: 'text-right', mRender: function(data) { return formattedNumber(data,2);}},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
@@ -1888,8 +1880,8 @@
     function f_mac_delete_project (consProject_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){
             if (f_submit_normal('delete_consultant_project', {consProject_id: consProject_id}, 'p_registration', 'Data successfully deleted.')) {
-                data_mac_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 9);
+                data_mac_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 8);
             }
             $('#modal_waiting').modal('hide');
             $(this).unbind(e);
@@ -2066,8 +2058,7 @@
                 // ---------------- \\
                 get_option('mac_cat_documentName_id', '1', 'document_name', 'documentName_id', 'documentName_desc', 'documentName_status', ' ', 'ref_id', 'documentName_type', 'analyz_man');           
                 get_option('mac_certIssuer_id', '1', 't_certificate_issuer', 'certIssuer_id', 'certIssuer_desc', 'certIssuer_status', ' ', 'ref_id');           
-                get_option('mac_consProject_source', '1', 't_source_activity', 'sourceActivity_id', 'sourceActivity_desc', 'sourceActivity_status', ' ', 'ref_id');           
-                get_option('mac_analyzerTechnique_id', '1', 't_analyzer_technique', 'analyzerTechnique_id', 'analyzerTechnique_desc', 'analyzerTechnique_status', '', 'ref_id');            
+                get_option('mac_analyzerTechnique_id', '1', 't_analyzer_technique', 'analyzerTechnique_id', 'analyzerTechnique_desc', 'analyzerTechnique_status', '', 'ref_id');
                 mac_1st_load = false;
             }
             if (load_type == 1) {            
@@ -2174,10 +2165,10 @@
             data_mac_personnel = f_get_general_info_multiple('dt_consultant_personnel', {consAll_id:$('#mac_consAll_id').val()}, '', '', 'consPers_id');
             f_dataTable_draw(mac_otable_personnel, data_mac_personnel, 'datatable_mac_personnel', 8);
             if (mac_otable !== 'anz') {
-                data_mac_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 9);
+                data_mac_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mac_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(mac_otable_project, data_mac_project, 'datatable_mac_project', 8);
             } else {
-                f_dataTable_draw(mac_otable_project, '', 'datatable_mac_project', 9);
+                f_dataTable_draw(mac_otable_project, '', 'datatable_mac_project', 8);
             }
             // ---------------- \\
             if (mac_load_type >= 3) {

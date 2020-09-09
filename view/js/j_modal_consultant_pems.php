@@ -377,13 +377,6 @@
                         }
                     }
                 },
-                map_consProject_source : {
-                    validators: {
-                        notEmpty: {
-                            message: 'Source of Activity is required'
-                        }
-                    }
-                },
                 map_consProject_value : {
                     validators: {
                         numeric: {
@@ -646,8 +639,8 @@
                 $('#modal_waiting').on('shown.bs.modal', function(e){   
                     if (f_submit_forms('form_map,#form_map_5', 'p_registration', 'Company Working Experience successfully added.')) {
                         $('#form_map_5').bootstrapValidator('resetForm', true);                    
-                        data_map_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                        f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 9);
+                        data_map_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                        f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 8);
                     }
                     $('#modal_waiting').modal('hide');
                     $(this).unbind(e);
@@ -731,7 +724,6 @@
                     {mData: 'consProject_client'},
                     {mData: 'consProject_desc'},
                     {mData: 'consProject_scope'},
-                    {mData: 'sourceActivity_desc'},
                     {mData: 'consProject_value', sClass: 'text-right', mRender: function(data) { return formattedNumber(data,2);}},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
@@ -760,8 +752,8 @@
     function f_map_delete_project (consProject_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){   
             if (f_submit_normal('delete_consultant_project', {consProject_id: consProject_id}, 'p_registration', 'Data successfully deleted.')) {
-                data_map_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 9);
+                data_map_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 8);
             }
             $('#modal_waiting').modal('hide');
             $(this).unbind(e);
@@ -863,10 +855,10 @@
             data_map_personnel = f_get_general_info_multiple('dt_consultant_personnel', {consAll_id:$('#map_consAll_id').val()}, '', '', 'consPers_id');
             f_dataTable_draw(map_otable_personnel, data_map_personnel, 'datatable_map_personnel', 8);
             if (map_otable !== 'sft') {
-                data_map_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 9);
+                data_map_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#map_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(map_otable_project, data_map_project, 'datatable_map_project', 8);
             } else {
-                f_dataTable_draw(map_otable_project, '', 'datatable_map_project', 9);
+                f_dataTable_draw(map_otable_project, '', 'datatable_map_project', 8);
             }
             // ---------------- \\
             if (map_load_type >= 3) {

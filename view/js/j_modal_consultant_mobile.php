@@ -902,13 +902,6 @@
                         }
                     }
                 },
-                mam_consProject_source : {
-                    validators: {
-                        notEmpty: {
-                            message: 'Source of Activity is required'
-                        }
-                    }
-                },
                 mam_consProject_value : {
                     validators: {
                         numeric: {
@@ -1373,8 +1366,8 @@
                 $('#modal_waiting').on('shown.bs.modal', function(e){    
                     if (f_submit_forms('form_mam,#form_mam_5', 'p_registration', 'Company Working Experience successfully added.')) {
                         $('#form_mam_5').bootstrapValidator('resetForm', true);                    
-                        data_mam_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                        f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 9);
+                        data_mam_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                        f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 8);
                     }
                     $('#modal_waiting').modal('hide');
                     $(this).unbind(e);
@@ -1710,7 +1703,6 @@
                     {mData: 'consProject_client'},
                     {mData: 'consProject_desc'},
                     {mData: 'consProject_scope'},
-                    {mData: 'sourceActivity_desc'},
                     {mData: 'consProject_value', sClass: 'text-right', mRender: function(data) { return formattedNumber(data,2);}},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
@@ -1771,8 +1763,8 @@
     function f_mam_delete_project (consProject_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){
             if (f_submit_normal('delete_consultant_project', {consProject_id: consProject_id}, 'p_registration', 'Data successfully deleted.')) {
-                data_mam_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-                f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 9);
+                data_mam_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+                f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 8);
             }
             $('#modal_waiting').modal('hide');
             $(this).unbind(e);
@@ -2025,8 +2017,8 @@
             f_dataTable_draw(mam_otable_consParam, data_mam_consParam, 'datatable_mam_consParam', 6);
             data_mam_personnel = f_get_general_info_multiple('dt_consultant_personnel', {consAll_id:$('#mam_consAll_id').val()}, '', '', 'consPers_id');
             f_dataTable_draw(mam_otable_personnel, data_mam_personnel, 'datatable_mam_personnel', 8);
-            data_mam_project = f_get_general_info_multiple('dt_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
-            f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 9);
+            data_mam_project = f_get_general_info_multiple('t_consultant_project', {consultant_id:$('#mam_consultant_id').val(), consProject_status:'1'}, '', '', 'consProject_year desc');
+            f_dataTable_draw(mam_otable_project, data_mam_project, 'datatable_mam_project', 8);
             // ---------------- \\
             f_mam_set_component(consultant_mobile.consMobile_techniqueType);
             // ---------------- \\

@@ -512,10 +512,9 @@ try {
             if (empty($_POST['mac_consProject_client']))       throw new Exception('(ErrCode:5834) [' . __LINE__ . '] - Client empty.', 32);
             if (empty($_POST['mac_consProject_desc']))         throw new Exception('(ErrCode:5835) [' . __LINE__ . '] - Project Description empty.', 32);
             if (empty($_POST['mac_consProject_scope']))        throw new Exception('(ErrCode:5836) [' . __LINE__ . '] - Scope of Work empty.', 32);
-            if (empty($_POST['mac_consProject_source']))       throw new Exception('(ErrCode:5837) [' . __LINE__ . '] - Source of Activity empty.', 32);
             if (empty($_POST['mac_consProject_value']))        throw new Exception('(ErrCode:5838) [' . __LINE__ . '] - Project Value empty.', 32);
             $result = Class_db::getInstance()->db_insert('t_consultant_project', array('consultant_id'=>$_POST['mac_consultant_id'], 'consProject_title'=>$_POST['mac_consProject_title'], 'consProject_year'=>$_POST['mac_consProject_year'],
-                'consProject_client'=>$_POST['mac_consProject_client'], 'consProject_desc'=>$_POST['mac_consProject_desc'], 'consProject_scope'=>$_POST['mac_consProject_scope'], 'sourceActivity_id'=>$_POST['mac_consProject_source'], 'consProject_value'=>$_POST['mac_consProject_value']));
+                'consProject_client'=>$_POST['mac_consProject_client'], 'consProject_desc'=>$_POST['mac_consProject_desc'], 'consProject_scope'=>$_POST['mac_consProject_scope'], 'consProject_value'=>$_POST['mac_consProject_value']));
         } else if ($_POST['funct'] == 'save_consultant_project_pems') {
             if (empty($_POST['map_consultant_id']))            throw new Exception('(ErrCode:5815) [' . __LINE__ . '] - Parameter consultant_id empty.');
             if (empty($_POST['map_consProject_title']))        throw new Exception('(ErrCode:5832) [' . __LINE__ . '] - Project Title empty.', 32);
@@ -523,10 +522,9 @@ try {
             if (empty($_POST['map_consProject_client']))       throw new Exception('(ErrCode:5834) [' . __LINE__ . '] - Client empty.', 32);
             if (empty($_POST['map_consProject_desc']))         throw new Exception('(ErrCode:5835) [' . __LINE__ . '] - Project Description empty.', 32);
             if (empty($_POST['map_consProject_scope']))        throw new Exception('(ErrCode:5836) [' . __LINE__ . '] - Scope of Work empty.', 32);
-            if (empty($_POST['map_consProject_source']))       throw new Exception('(ErrCode:5837) [' . __LINE__ . '] - Source of Activity empty.', 32);
             if (empty($_POST['map_consProject_value']))        throw new Exception('(ErrCode:5838) [' . __LINE__ . '] - Project Value empty.', 32);
             $result = Class_db::getInstance()->db_insert('t_consultant_project', array('consultant_id'=>$_POST['map_consultant_id'], 'consProject_title'=>$_POST['map_consProject_title'], 'consProject_year'=>$_POST['map_consProject_year'],
-                'consProject_client'=>$_POST['map_consProject_client'], 'consProject_desc'=>$_POST['map_consProject_desc'], 'consProject_scope'=>$_POST['map_consProject_scope'], 'sourceActivity_id'=>$_POST['map_consProject_source'], 'consProject_value'=>$_POST['map_consProject_value']));
+                'consProject_client'=>$_POST['map_consProject_client'], 'consProject_desc'=>$_POST['map_consProject_desc'], 'consProject_scope'=>$_POST['map_consProject_scope'], 'consProject_value'=>$_POST['map_consProject_value']));
         } else if ($_POST['funct'] == 'save_consultant_project_mobile') {
             if (empty($_POST['mam_consultant_id']))            throw new Exception('(ErrCode:5815) [' . __LINE__ . '] - Parameter consultant_id empty.');
             if (empty($_POST['mam_consProject_title']))        throw new Exception('(ErrCode:5832) [' . __LINE__ . '] - Project Title empty.', 32);
@@ -534,10 +532,9 @@ try {
             if (empty($_POST['mam_consProject_client']))       throw new Exception('(ErrCode:5834) [' . __LINE__ . '] - Client empty.', 32);
             if (empty($_POST['mam_consProject_desc']))         throw new Exception('(ErrCode:5835) [' . __LINE__ . '] - Project Description empty.', 32);
             if (empty($_POST['mam_consProject_scope']))        throw new Exception('(ErrCode:5836) [' . __LINE__ . '] - Scope of Work empty.', 32);
-            if (empty($_POST['mam_consProject_source']))       throw new Exception('(ErrCode:5837) [' . __LINE__ . '] - Source of Activity empty.', 32);
             if (empty($_POST['mam_consProject_value']))        throw new Exception('(ErrCode:5838) [' . __LINE__ . '] - Project Value empty.', 32);
             $result = Class_db::getInstance()->db_insert('t_consultant_project', array('consultant_id'=>$_POST['mam_consultant_id'], 'consProject_title'=>$_POST['mam_consProject_title'], 'consProject_year'=>$_POST['mam_consProject_year'],
-                'consProject_client'=>$_POST['mam_consProject_client'], 'consProject_desc'=>$_POST['mam_consProject_desc'], 'consProject_scope'=>$_POST['mam_consProject_scope'], 'sourceActivity_id'=>$_POST['mam_consProject_source'], 'consProject_value'=>$_POST['mam_consProject_value']));
+                'consProject_client'=>$_POST['mam_consProject_client'], 'consProject_desc'=>$_POST['mam_consProject_desc'], 'consProject_scope'=>$_POST['mam_consProject_scope'], 'consProject_value'=>$_POST['mam_consProject_value']));
         } else if ($_POST['funct'] == 'delete_consultant_project') {
             if (empty($_POST['param']))                 throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter param empty');
             $arrayParam = $_POST['param'];

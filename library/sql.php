@@ -569,13 +569,7 @@ class Class_sql {
                 FROM t_consultant_personnel 
                 LEFT JOIN t_personnel ON t_personnel.personnel_id = t_consultant_personnel.personnel_id
                 LEFT JOIN document ON document.document_id = t_consultant_personnel.consPers_document";
-            } else if ($title == 'dt_consultant_project') {
-                $sql = "SELECT 
-                    t_consultant_project.*,
-                    t_source_activity.sourceActivity_desc AS sourceActivity_desc
-                FROM t_consultant_project 
-                LEFT JOIN t_source_activity ON t_source_activity.sourceActivity_id = t_consultant_project.sourceActivity_id";
-            } else if ($title == 'dt_consultant_cems_cons') {   
+            } else if ($title == 'dt_consultant_cems_cons') {
                 $sql = "SELECT 
                     t_consultant_cems.*,
                     t_consultant.wfGroup_id AS wfGroup_id,
