@@ -352,7 +352,7 @@
                         if (visibleRows[j].inputParam_id === '9' || visibleRows[j].inputParam_id === '10')
                             bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
                         else
-                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{notEmpty:{message:'Required'},numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
                     }
                 }
             },

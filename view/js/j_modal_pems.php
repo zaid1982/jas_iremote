@@ -341,7 +341,7 @@
                 if(visibleRows.length >= 1){
                     for(let j=0;j<visibleRows.length;j++){
                         let bootstrapValidator = $("#form_mpe_2_1").data('bootstrapValidator');
-                        bootstrapValidator.addField('mpe_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{notEmpty:{message:'Concentration required'},numeric:{message:'Concentration not a valid number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                        bootstrapValidator.addField('mpe_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Concentration not a valid number',thousandsSeparator: '',decimalSeparator: '.'}}});
                     }
                 }
             },

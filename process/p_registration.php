@@ -664,7 +664,7 @@ try {
             if (empty($_POST['mce_industrial_id']))     throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter mce_industrial_id empty.');
             if (empty($_POST['mce_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');
             if (empty($_POST['mce_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
-            if (empty($_POST['mce_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Parameter mce_indAll_installType empty.');
+            if (empty($_POST['mce_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Please select Type of Installation.', 32);
             $arr_indReason = Class_db::getInstance()->db_select_colm ('t_industrial_reason', array('indAll_id'=>$_POST['mce_indAll_id']), 'indReason_id');
             $arrPost_indReason = (!empty($_POST['mce_indReason_id'])) ? $_POST['mce_indReason_id'] : array();
             if ($arr_indReason != $arrPost_indReason) {
@@ -734,7 +734,7 @@ try {
             if (empty($_POST['mpe_industrial_id']))     throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter mpe_industrial_id empty.');
             if (empty($_POST['mpe_wfTask_id']))         throw new Exception('(ErrCode:5816) [' . __LINE__ . '] - Parameter wfTask_id empty.');
             if (empty($_POST['mpe_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
-            if (empty($_POST['mpe_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Parameter mpe_indAll_installType empty.');
+            if (empty($_POST['mpe_indAll_installType']))    throw new Exception('(ErrCode:58xx) [' . __LINE__ . '] - Please select Type of Installation.', 32);
             $arr_indReason = Class_db::getInstance()->db_select_colm ('t_industrial_reason', array('indAll_id'=>$_POST['mpe_indAll_id']), 'indReason_id');
             $arrPost_indReason = (!empty($_POST['mpe_indReason_id'])) ? $_POST['mpe_indReason_id'] : array();
             if ($arr_indReason != $arrPost_indReason) {
