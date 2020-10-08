@@ -23,7 +23,7 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
             <ul id="sparks" class="">
                 <li class="sparks-info">
-                    <h5> Registered Stacks <span class="txt-color-blue" id="gcp_count_registered"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
+                    <h5> Registration Submitted <span class="txt-color-blue" id="gcp_count_registered"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
                 </li>
             </ul>
         </div>

@@ -14,8 +14,9 @@
         f_chart_color();
         
         $('#gid_count_registered').html('<i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;'+formattedNumber(f_get_general_info('vw_gid_count_registered').total)+'&nbsp;&nbsp;&nbsp;');
-        $('#gid_count_active').html('<i class="fa fa-toggle-right"></i>&nbsp;&nbsp;'+formattedNumber(f_get_general_info('vw_gid_count_active').total)+'&nbsp;&nbsp;&nbsp;');
-        
+        $('#gid_count_submitted').html('<i class="fa fa-check-square"></i>&nbsp;&nbsp;'+formattedNumber(f_get_general_info('vw_gid_count_submitted').total)+'&nbsp;&nbsp;&nbsp;');
+        $('#gid_count_approved').html('<i class="fa fa-toggle-right"></i>&nbsp;&nbsp;'+formattedNumber(f_get_general_info('vw_gid_count_approved').total)+'&nbsp;&nbsp;&nbsp;');
+
         f_gid_1($('#gid1_opt_year').html(), monthname.indexOf($('#gid1_opt_month').html()));
         f_gid_2();
         f_gid_3();

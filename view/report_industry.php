@@ -26,7 +26,10 @@
                     <h5> Registered <span class="txt-color-blue" id="gid_count_registered"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
                 </li>
                 <li class="sparks-info">
-                    <h5> Active <span class="txt-color-greenDark" id="gid_count_active"><i class="fa fa-toggle-right"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
+                    <h5> Submitted <span class="txt-color-orangeDark" id="gid_count_submitted"><i class="fa fa-toggle-right"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
+                </li>
+                <li class="sparks-info">
+                    <h5> Approved <span class="txt-color-greenDark" id="gid_count_approved"><i class="fa fa-toggle-right"></i>&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;</span></h5>
                 </li>
             </ul>
         </div>

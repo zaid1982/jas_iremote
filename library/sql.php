@@ -2276,11 +2276,10 @@ class Class_sql {
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = t_consultant.wfGroup_id";
             } else if ($title == 'vw_gid_count_registered') {
                 $sql = "SELECT COUNT(*) AS total FROM t_industrial";
-            } else if ($title == 'vw_gid_count_active') {
-                $sql = "SELECT COUNT(*) AS total FROM (
-                    SELECT industrial_id FROM t_industrial_all 
-                    WHERE indAll_status IN (1,30) 
-                GROUP BY industrial_id) indAll";
+            } else if ($title == 'vw_gid_count_submitted') {
+                $sql = "SELECT COUNT(*) AS total FROM t_industrial WHERE industrial_status IN (32, 24)";
+            } else if ($title == 'vw_gid_count_approved') {
+                $sql = "SELECT COUNT(*) AS total FROM t_industrial WHERE industrial_status = 24";
             } else if ($title == 'vw_gid_chart_1') {
                 $sql = "SELECT 
                     list_time, 
@@ -2454,7 +2453,7 @@ class Class_sql {
                 WHERE indAll_status IN (1,30)
                 GROUP BY consultant_id, wfGroup_name";
             } else if ($title == 'vw_gcp_count_registered') {
-                $sql = "SELECT COUNT(*) AS total FROM t_industrial_all WHERE indAll_status IN (1,30)";
+                $sql = "SELECT COUNT(*) AS total FROM t_industrial_all WHERE indAll_status NOT IN (2, 8)";
             } else if ($title == 'vw_gcp_chart_1') {
                 $sql = "SELECT 
                     list_time, 

@@ -313,6 +313,9 @@ class Class_task {
                         $wfFlow_duration = Class_db::getInstance()->db_select_col('wf_flow', array('wfFlow_id'=>$wfFlow_id), 'wfFlow_duration', NULL, 1);
                         Class_db::getInstance()->db_update('wf_transaction', array('wfTrans_status'=>'4', 'wfTrans_timeSubmit'=>'Now()', 'wfTrans_dateDue'=>'|DATE_ADD(CURDATE(),INTERVAL '.$wfFlow_duration.' DAY)'), array('wfTrans_id'=>$wfTrans_id));
                         Class_db::getInstance()->db_update('t_industrial_all', array('indAll_status'=>'4', 'indAll_dateDeclaration'=>'Curdate()'), array('wfTrans_id'=>$wfTrans_id));
+                        $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
+                        $industrial_id = Class_db::getInstance()->db_select_col('t_industrial_all', array('indAll_id'=>$indAll_id), 'industrial_id', NULL, 1);
+                        Class_db::getInstance()->db_update('t_industrial', array('industrial_status'=>'32'), array('industrial_id'=>$industrial_id));
                     } else if (in_array($wfTaskType_id, array('37', '47'))) {
                         Class_db::getInstance()->db_update('wf_transaction', array('wfTrans_status'=>'4'), array('wfTrans_id'=>$wfTrans_id));
                         $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
