@@ -312,11 +312,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-6 control-label"><font color="red">*</font> Technique</label>
                                                     <div class="col-md-6 selectContainer">
-                                                        <select class="form-control" name="mam_consMobile_techniqueType" id="mam_consMobile_techniqueType">
-                                                            <option value=""></option>
-                                                            <option value="1">Extractive Analyzer</option>
-                                                            <option value="2">In-Situ Analyzer</option>
-                                                        </select>
+                                                        <select class="form-control" name="mam_consMobile_techniqueType" id="mam_consMobile_techniqueType"></select>
                                                     </div>
                                                 </div>  
                                                 <div class="form-group">

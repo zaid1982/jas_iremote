@@ -278,8 +278,17 @@ class Class_sql {
                 $sql = "SELECT document_name.*, ref_status.status_desc, ref_status.status_color  
                 FROM document_name 
                 LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status
-                WHERE documentName_type = 'pems'"; 
-            } else if ($title == 'dt_document_name') {  
+                WHERE documentName_type = 'pems'";
+            } else if ($title == 'dt_ref_mobile_technique') {
+                $sql = "SELECT t_mobile_technique.*, ref_status.status_desc, ref_status.status_color 
+                FROM t_mobile_technique 
+                LEFT JOIN ref_status ON ref_status.status_id = t_mobile_technique.mobileTechnique_status";
+            } else if ($title == 'dt_ref_mobile_cataloque') {
+                $sql = "SELECT document_name.*, ref_status.status_desc, ref_status.status_color  
+                FROM document_name 
+                LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status
+                WHERE documentName_type = 'analyz_man'";
+            } else if ($title == 'dt_document_name') {
                 $sql = "SELECT document_name.*, ref_status.status_desc 
                 FROM document_name 
                 LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status";
@@ -1041,6 +1050,7 @@ class Class_sql {
             } else if ($title == 'vw_consultant_mobile_details') {
                 $sql = "SELECT
                     t_consultant_mobile.*,
+                    t_consultant_mobile.mobileTechnique_id AS consMobile_techniqueType,
                     wf_group.wfGroup_id AS wfGroup_id,
                     wf_group.wfGroup_name AS wfGroup_name,
                     wf_group.wfGroup_regNo AS wfGroup_regNo,

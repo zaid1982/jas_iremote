@@ -1,13 +1,13 @@
 <?php
 include 'view/js/j_modal_reference.php';
 ?>
-<script type="text/javascript">  
+<script type="text/javascript">
 
     $(document).ready(function () {
-        
+
         pageSetUp();
-        
-        $('#stt_created_date').daterangepicker({
+
+        $('#rmt_created_date').daterangepicker({
             "showDropdowns": true,
             locale: {
                 cancelLabel: 'Clear',
@@ -42,31 +42,31 @@ include 'view/js/j_modal_reference.php';
                 val += filteredData[count] + "|";
             }
             val = val.slice(0, -1);
-            dataNew.column(2).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw(); 
-            $('#stt_table_title').html('<i>(Registered Date : '+$(this).val()+')</i>');
+            dataNew.column(2).search(val ? "^" + val + "$" : "^" + "-" + "$", true, false, true).draw();
+            $('#rmt_table_title').html('<i>(Registered Date : '+$(this).val()+')</i>');
         }).on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
             dataNew.column(2).search('').draw();
-            $('#stt_table_title').html('');
+            $('#rmt_table_title').html('');
         }).val('');
-        
-        var datatable_stt = undefined;  var cnt_stt = 1;
-        dataNew = $('#datatable_stt').DataTable({
+
+        var datatable_rmt = undefined;  var cnt_rmt = 1;
+        dataNew = $('#datatable_rmt').DataTable({
             "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
-                    "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
+                "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
             "autoWidth": true,
             "preDrawCallback": function () {
-                if (!datatable_stt) {
-                    datatable_stt = new ResponsiveDatatablesHelper($('#datatable_stt'), breakpointDefinition);
+                if (!datatable_rmt) {
+                    datatable_rmt = new ResponsiveDatatablesHelper($('#datatable_rmt'), breakpointDefinition);
                 }
             },
             "rowCallback": function (nRow, aData, index) {
-                datatable_stt.createExpandIcon(nRow);
+                datatable_rmt.createExpandIcon(nRow);
                 var info = dataNew.page.info();
                 $('td', nRow).eq(0).html(info.page * info.length + (index + 1));
             },
             "drawCallback": function (oSettings) {
-                datatable_stt.respond();
+                datatable_rmt.respond();
             },
             "oTableTools": {
                 "aButtons": [
@@ -75,10 +75,10 @@ include 'view/js/j_modal_reference.php';
                         "sTitle": "iRemote_xls",
                         "mColumns": "all",
                         "fnCellRender": function ( sValue, iColumn, nTr, iDataIndex ) {
-                            if (datas.length < cnt_stt)
-                                cnt_stt = 1;
+                            if (datas.length < cnt_rmt)
+                                cnt_rmt = 1;
                             if ( iColumn === 0 )
-                                return cnt_stt++;
+                                return cnt_rmt++;
                             else if ( iColumn === 3 )
                                 return datas[iDataIndex].status_desc;
                             else if ( iColumn === 4 )
@@ -93,11 +93,11 @@ include 'view/js/j_modal_reference.php';
                         "sPdfSize": "letter",
                         "sPdfOrientation": "landscape",
                         "mColumns": "visible",
-                        "fnCellRender": function ( sValue, iColumn, nTr, iDataIndex ) {                            
-                            if (datas.length < cnt_stt)
-                                cnt_stt = 1;
+                        "fnCellRender": function ( sValue, iColumn, nTr, iDataIndex ) {
+                            if (datas.length < cnt_rmt)
+                                cnt_rmt = 1;
                             if ( iColumn === 0 )
-                                return cnt_stt++;
+                                return cnt_rmt++;
                             else if ( iColumn === 3 )
                                 return datas[iDataIndex].status_desc;
                             else if ( iColumn === 4 )
@@ -111,54 +111,56 @@ include 'view/js/j_modal_reference.php';
                         "sMessage": "iRemote System"
                     }
                 ],
-               "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+                "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
             },
             "aoColumns":
                 [
                     {mData: null, bSortable: false},
-                    {mData: 'state_desc'},
-                    {mData: 'state_timeCreated'},
+                    {mData: 'mobileTechnique_desc'},
+                    {mData: 'mobileTechnique_timeCreated'},
                     {mData: 'status_desc', sClass: 'text-center',
                         mRender: function (data, type, row) {
                             if (data == 'Active')
                                 $label = '<b class="badge bg-color-'+row.status_color+'"> '+data+' </b>';
-                            else 
+                            else
                                 $label = '<b class="badge bg-color-red"> '+data+' </b>';
                             return $label;
                         }
                     },
                     {mData: null, bSortable: false, sClass: 'text-center',
                         mRender: function (data, type, row) {
-                            $label = '<button type="button" class="btn btn-warning btn-xs" id="stt_btn_info" title="Edit Reference Data" onclick="f_load_reference (2, '+row.state_id+',\'dt_ref_state\',\'stt\');"><i class="fa fa-edit"></i></button>';
-                            if (row.status_desc == 'Active')
-                                $label += ' <button type="button" class="btn btn-danger btn-xs" id="stt_btn_delegate" title="Deactivate" onclick="f_update_status_ref(0,\'ref_state\', '+row.state_id+', \'state\', \'State\', \'deactivated\', \'dt_ref_state\');"><i class="fa fa-minus-square"></i></button>';
-                            else
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="stt_btn_history" title="Activate" onclick="f_update_status_ref(1,\'ref_state\', '+row.state_id+', \'state\', \'State\', \'activated\', \'dt_ref_state\');"><i class="fa fa-check-square"></i></button>';
+                            $label = '<button type="button" class="btn btn-warning btn-xs" id="rmt_btn_info" title="Edit Reference Data" onclick="f_load_reference (2, '+row.mobileTechnique_id+',\'dt_ref_mobile_technique\',\'rmt\');"><i class="fa fa-edit"></i></button>';
+                            if (row['mobileTechnique_id'] !== '1') {
+                                if (row.status_desc == 'Active')
+                                    $label += ' <button type="button" class="btn btn-danger btn-xs" id="rmt_btn_activate" title="Deactivate" onclick="f_update_status_ref(0,\'t_mobile_technique\', '+row.mobileTechnique_id+', \'mobileTechnique\', \'CEMS Mobile Technique\', \'deactivated\', \'dt_ref_mobile_technique\');"><i class="fa fa-minus-square"></i></button>';
+                                else
+                                    $label += ' <button type="button" class="btn btn-success btn-xs" id="rmt_btn_deactivate" title="Activate" onclick="f_update_status_ref(1,\'t_mobile_technique\', '+row.mobileTechnique_id+', \'mobileTechnique\', \'CEMS Mobile Technique\', \'activated\', \'dt_ref_mobile_technique\');"><i class="fa fa-check-square"></i></button>';
+                            }
                             return $label;
                         }
                     }
                 ]
         });
-        $("#datatable_stt thead th input[type=text]").on('keyup change', function () {
+        $("#datatable_rmt thead th input[type=text]").on('keyup change', function () {
             dataNew.column($(this).parent().index() + ':visible').search(this.value).draw();
         });
-        $("#datatable_stt thead th input[type=number]").on('keyup change', function () {
+        $("#datatable_rmt thead th input[type=number]").on('keyup change', function () {
             dataNew.column($(this).parent().index() + ':visible').search('^'+this.value+'$', true, false, true).draw();
         });
-        $("#datatable_stt thead th select").on('change', function () {
+        $("#datatable_rmt thead th select").on('change', function () {
             if (this.value == '')
                 dataNew.column($(this).parent().index() + ':visible').search(this.value).draw();
             else
                 dataNew.column($(this).parent().index() + ':visible').search('^'+this.value+'$', true, false, true).draw();
-        });        
-        
-        $('#modal_waiting').on('shown.bs.modal', function(e){ 
-            datas = f_get_general_info_multiple('dt_ref_state');
+        });
+
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            datas = f_get_general_info_multiple('dt_ref_mobile_technique');
             f_dataTable_draw(dataNew, datas);
             $('#modal_waiting').modal('hide');
             $(this).unbind(e);
-        }).modal('show');  
-        
+        }).modal('show');
+
     });
-            
+
 </script>

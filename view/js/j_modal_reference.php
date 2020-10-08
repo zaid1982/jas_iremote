@@ -167,6 +167,26 @@
                     $('#mrf_infoTitle_2').html(mrf_parent);
                     $('#mrf_infoValue_2').html(analyzerTechnique.analyzerTechnique_type==='1'?'CEMS':'PEMS');
                 }
+            } else if (mrf_otable == 'rmt') {
+                mrf_title = 'Mobile CEMS Technique';
+                $("#form_mrf").find("#funct").val(mrf_load_type == 1?'create_mobileTechnique':'edit_mobileTechnique');
+                if (mrf_load_type == 2) {
+                    var mobileTechnique = f_get_general_info(ref_refresh, {mobileTechnique_id:ref_id});
+                    $('#mrf_ref_desc').val(mobileTechnique.mobileTechnique_desc);
+                    $('#mrf_infoValue_1').html(mobileTechnique.mobileTechnique_desc);
+                    $('#mrf_infoValue_3').html(mobileTechnique.mobileTechnique_timeCreated);
+                    $('#mrf_infoValue_4').html(mobileTechnique.status_desc);
+                }
+            } else if (mrf_otable == 'rmc') {
+                mrf_title = 'Mobile CEMS Manual/Catalogue';
+                $("#form_mrf").find("#funct").val(mrf_load_type == 1?'create_mobile_cataloque':'edit_mobile_cataloque');
+                if (mrf_load_type == 2) {
+                    var mobileTechnique = f_get_general_info(ref_refresh, {documentName_id:ref_id});
+                    $('#mrf_ref_desc').val(mobileTechnique.documentName_desc);
+                    $('#mrf_infoValue_1').html(mobileTechnique.documentName_desc);
+                    $('#mrf_infoValue_3').html(mobileTechnique.documentName_timeCreated);
+                    $('#mrf_infoValue_4').html(mobileTechnique.status_desc);
+                }
             }
             $('#mrf_title').html(mrf_title);
             $('#mrf_infoTitle_1').html(mrf_title);

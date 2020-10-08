@@ -303,7 +303,7 @@ try {
             $consMobile_compStatus = (!empty($_POST['mam_consMobile_compStatus'])) ? $_POST['mam_consMobile_compStatus'] : '';
             Class_db::getInstance()->db_update('t_consultant_mobile', array('consMobile_refMethod'=>$consMobile_refMethod, 'consMobile_compStatus'=>$consMobile_compStatus, 'consMobile_correction'=>$_POST['mam_consMobile_correction'],
                 'consMobile_modelNo'=>$_POST['mam_consMobile_modelNo'], 'consMobile_isNormalize'=>$_POST['mam_consMobile_isNormalize'], 'consMobile_brand'=>$_POST['mam_consMobile_brand'],
-                'consMobile_manufacturer'=>$_POST['mam_consMobile_manufacturer'], 'consMobile_probeEnabled'=>$consMobile_probeEnabled, 'consMobile_probeType'=>$consMobile_probeType, 'consMobile_probeLength'=>$consMobile_probeLength, 'consMobile_techniqueType'=>$_POST['mam_consMobile_techniqueType'],
+                'consMobile_manufacturer'=>$_POST['mam_consMobile_manufacturer'], 'consMobile_probeEnabled'=>$consMobile_probeEnabled, 'consMobile_probeType'=>$consMobile_probeType, 'consMobile_probeLength'=>$consMobile_probeLength, 'mobileTechnique_id'=>$_POST['mam_consMobile_techniqueType'],
                 'consMobile_samplingEnabled'=>$consMobile_samplingEnabled, 'consMobile_samplingLine'=>$consMobile_samplineLine, 'consMobile_software'=>$_POST['mam_consMobile_software']), array('consAll_id'=>$_POST['mam_consAll_id']));
             $dis_outsource = (isset($_POST['mam_dis_outsource'])) ? $_POST['mam_dis_outsource'] : '';
             Class_db::getInstance()->db_update('t_dis', array('dis_name'=>$_POST['mam_dis_name'], 'dis_type'=>$_POST['mam_dis_type'], 'dis_outsource'=>$dis_outsource, 'dis_description'=>$_POST['mam_dis_description']), array('dis_id'=>$_POST['mam_dis_id']));

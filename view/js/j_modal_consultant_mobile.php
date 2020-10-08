@@ -1909,7 +1909,8 @@
                 get_option('mam_cat_documentName_id', '1', 'document_name', 'documentName_id', 'documentName_desc', 'documentName_status', ' ', 'ref_id', 'documentName_type', 'analyz_man');           
                 get_option('mam_certIssuer_id', '1', 't_certificate_issuer', 'certIssuer_id', 'certIssuer_desc', 'certIssuer_status', ' ', 'ref_id');           
                 get_option('mam_consProject_source', '1', 't_source_activity', 'sourceActivity_id', 'sourceActivity_desc', 'sourceActivity_status', ' ', 'ref_id');           
-                get_option('mam_analyzerTechnique_id', '1', 't_analyzer_technique', 'analyzerTechnique_id', 'analyzerTechnique_desc', 'analyzerTechnique_status', '', 'ref_id');            
+                get_option('mam_analyzerTechnique_id', '1', 't_analyzer_technique', 'analyzerTechnique_id', 'analyzerTechnique_desc', 'analyzerTechnique_status', '', 'ref_id');
+                get_option('mam_consMobile_techniqueType', '1', 't_mobile_technique', 'mobileTechnique_id', 'mobileTechnique_desc', 'mobileTechnique_status', ' ', 'ref_id');
                 mam_1st_load = false;
             }
             if (load_type == 1) {            

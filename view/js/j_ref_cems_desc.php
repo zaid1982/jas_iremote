@@ -1,4 +1,4 @@
-<? 
+<?php
 include 'view/js/j_modal_reference.php';
 ?>
 <script type="text/javascript">  
