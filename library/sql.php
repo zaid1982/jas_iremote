@@ -2461,10 +2461,10 @@ class Class_sql {
                     DAY(list_time) AS list_day,
                     IFNULL(totals, 0) AS total,
                     (
-                        SELECT COUNT(indAll_id) FROM t_industrial_all WHERE DATE(indAll_datePoolStart) <= list_time AND indAll_status IN (1,30)
+                        SELECT COUNT(indAll_id) FROM t_industrial_all WHERE DATE(indAll_dateDeclaration) <= list_time AND indAll_status NOT IN (2, 8)
                     ) AS total_sum
                 FROM 
-                (SELECT DATE(indAll_datePoolStart) AS dates, COUNT(*) AS totals FROM t_industrial_all WHERE indAll_status IN (1,30) GROUP BY dates) industy 
+                (SELECT DATE(indAll_dateDeclaration) AS dates, COUNT(*) AS totals FROM t_industrial_all WHERE indAll_status NOT IN (2, 8) GROUP BY dates) industy 
                 RIGHT JOIN 
                 (	
                     SELECT ADDDATE(MAKEDATE([year],1)+INTERVAL ([month]) MONTH, INTERVAL (@i:=@i+1) DAY) AS list_time 
@@ -2492,7 +2492,7 @@ class Class_sql {
                     LEFT JOIN address ON address.address_id = wf_group_profile.wfGroup_address
                     LEFT JOIN ref_city ON ref_city.city_id = address.city_id
                     LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id 
-                    WHERE indAll_status IN (1,30)
+                    WHERE indAll_status NOT IN (2, 8)
                     GROUP BY state_id
                 ) table_data ON table_data.state_id = ref_state.state_id ";
             } else if ($title == 'vw_gcp_chart_2_sub') {
@@ -2508,7 +2508,7 @@ class Class_sql {
                     LEFT JOIN wf_group_profile ON wf_group_profile.wfGroupProfile_id = wf_group.wfGroupProfile_id
                     LEFT JOIN address ON address.address_id = wf_group_profile.wfGroup_address
                     LEFT JOIN ref_city ON ref_city.city_id = address.city_id
-                    WHERE indAll_status IN (1,30)
+                    WHERE indAll_status NOT IN (2, 8)
                     GROUP BY city_id
                 ) table_data ON table_data.city_id = ref_city.city_id 
                 WHERE city_status = 1";
@@ -2520,7 +2520,7 @@ class Class_sql {
                     END AS indAll_type_desc, 
                     COUNT(*) AS total
                 FROM t_industrial_all
-                WHERE indAll_status IN (1,30)
+                WHERE indAll_status NOT IN (2, 8)
                 GROUP BY indAll_type";
             } else if ($title == 'vw_gcp_chart_4') {
                 $sql = "SELECT 
@@ -2532,7 +2532,7 @@ class Class_sql {
                     COUNT(*) AS total 
                 FROM t_industrial_all 	
                 LEFT JOIN t_industrial_pollution ON t_industrial_pollution.indAll_id = t_industrial_all.indAll_id
-                WHERE indAll_status IN (1,30)
+                WHERE indAll_status NOT IN (2, 8)
                 GROUP BY pollutionMonitored_id";
             } else if ($title == 'vw_gcp_chart_5') {
                 $sql = "SELECT 
@@ -2541,7 +2541,7 @@ class Class_sql {
                 LEFT JOIN (
                     SELECT sourceActivity_id, COUNT(*) AS total
                     FROM t_industrial_all 
-                    WHERE indAll_status IN (1,30)
+                    WHERE indAll_status NOT IN (2, 8)
                     GROUP BY sourceActivity_id
                 ) table_data ON table_data.sourceActivity_id = t_source_activity.sourceActivity_id";
             } else if ($title == 'vw_gcp_chart_5_sub') {
@@ -2556,9 +2556,38 @@ class Class_sql {
                 LEFT JOIN (
                     SELECT sourceCapacity_id, COUNT(*) AS total 
                     FROM t_industrial_all 
-                    WHERE indAll_status IN (1,30) 
+                    WHERE indAll_status NOT IN (2, 8)
                     GROUP BY sourceCapacity_id 
                 ) table_data ON table_data.sourceCapacity_id = t_source_capacity.sourceCapacity_id";
+            } else if ($title == 'vw_gcp_chart_6') {
+                $sql = "SELECT 
+                        YEAR(indAll_dateDeclaration) AS years, 
+                        MONTH(indAll_dateDeclaration) AS months, 
+                        ref_city.state_id AS state_id,
+                        ref_state.state_desc AS state_desc,
+                        COUNT(*) AS totals 
+                    FROM t_industrial_all 
+                    LEFT JOIN t_industrial ON t_industrial.industrial_id = t_industrial_all.industrial_id
+                    LEFT JOIN location ON location.location_id = t_industrial.location_id
+                    LEFT JOIN ref_city ON ref_city.city_id = location.city_id
+                    LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id
+                    WHERE indAll_status NOT IN (2, 8) 
+                    GROUP BY years, months, state_id
+                    ORDER BY years DESC, months DESC";
+            } else if ($title == 'vw_gcp_chart_7') {
+                $sql = "SELECT 
+                        YEAR(indAll_dateDeclaration) AS years, 
+                        MONTH(indAll_dateDeclaration) AS months, 
+                        ref_sic.sic_id AS sic_id,
+                        ref_sic.sic_desc AS sic_desc,
+                        COUNT(*) AS totals 
+                    FROM t_industrial_all 
+                    LEFT JOIN t_industrial ON t_industrial.industrial_id = t_industrial_all.industrial_id
+                    LEFT JOIN ref_sub_sic ON ref_sub_sic.subSic_id = t_industrial.subSic_id                
+                    LEFT JOIN ref_sic ON ref_sic.sic_id = ref_sub_sic.sic_id 
+                    WHERE indAll_status NOT IN (2, 8) 
+                    GROUP BY years, months, sic_id
+                    ORDER BY years DESC, months DESC";
             } else if ($title == 'vw_gca_count_active') {
                 $sql = "SELECT COUNT(*) AS total FROM t_consultant_cems WHERE consCems_status = 1";
             } else if ($title == 'vw_gca_chart_1') {

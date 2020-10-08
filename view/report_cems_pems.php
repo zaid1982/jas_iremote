@@ -147,6 +147,69 @@
                     </div>
                 </div>
             </article>
+            <article class="col-md-12">
+                <div class="jarviswidget jarviswidget-color-blueLight" id="wid-id-gcp5" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-pie-chart"></i> </span>
+                        <h2>Total CEMS/PEMS Monthly Registration by State</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <div class="table-responsive bordered no-padding">
+                                <table id="datatable_gcp_state" class="table table-bordered table-hover" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Year</th>
+                                        <th class="text-center">Month</th>
+                                        <th class="text-center">Johor</th>
+                                        <th class="text-center">Kedah</th>
+                                        <th class="text-center">Kelantan</th>
+                                        <th class="text-center">KL</th>
+                                        <th class="text-center">Labuan</th>
+                                        <th class="text-center">Melaka</th>
+                                        <th class="text-center">NS</th>
+                                        <th class="text-center">Pahang</th>
+                                        <th class="text-center">Perak</th>
+                                        <th class="text-center">Perlis</th>
+                                        <th class="text-center">PP</th>
+                                        <th class="text-center">Putrajaya</th>
+                                        <th class="text-center">Sabah</th>
+                                        <th class="text-center">Sarawak</th>
+                                        <th class="text-center">Selangor</th>
+                                        <th class="text-center">Terengganu</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-md-12">
+                <div class="jarviswidget jarviswidget-color-blueLight" id="wid-id-gcp5" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-pie-chart"></i> </span>
+                        <h2>Total CEMS/PEMS Monthly Registration by Type of Industry</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <div class="table-responsive bordered no-padding">
+                                <table id="datatable_gcp_sic" class="table table-bordered table-hover" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Year</th>
+                                        <th class="text-center">Month</th>
+                                        <th class="text-center">Type of Industry</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </div>
     </section>
 </div>

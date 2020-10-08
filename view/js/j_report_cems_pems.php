@@ -21,6 +21,8 @@
         f_gcp_3();
         f_gcp_4();
         f_gcp_5();
+        f_gcp_6();
+        f_gcp_7();
         
     });
     
@@ -215,6 +217,126 @@
                 }]
             }
         }); 
+    }
+
+    function f_gcp_6(){
+        var dataState = $('#datatable_gcp_state').DataTable({
+            "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
+                "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
+            "autoWidth": true,
+            "scrollX": true,
+            ordering: false,
+            "oTableTools": {
+                "aButtons": [
+                    {
+                        "sExtends": "xls",
+                        "sTitle": "iRemote_xls",
+                        "mColumns": "all"
+                    },
+                    {
+                        "sExtends": "pdf",
+                        "sTitle": "iRemote_pdf",
+                        "sPdfMessage": "iRemote PDF Export",
+                        "sPdfSize": "letter",
+                        "sPdfOrientation": "landscape",
+                        "mColumns": "visible"
+                    },
+                    {
+                        "sExtends": "print",
+                        "sTitle": "iRemote_print",
+                        "sMessage": "iRemote System"
+                    }
+                ],
+                "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+            "aoColumns":
+                [
+                    {mData: 'years'},
+                    {mData: 'months'},
+                    {mData: 'state_1'},
+                    {mData: 'state_2'},
+                    {mData: 'state_3'},
+                    {mData: 'state_4'},
+                    {mData: 'state_5'},
+                    {mData: 'state_6'},
+                    {mData: 'state_7'},
+                    {mData: 'state_8'},
+                    {mData: 'state_9'},
+                    {mData: 'state_10'},
+                    {mData: 'state_11'},
+                    {mData: 'state_12'},
+                    {mData: 'state_13'},
+                    {mData: 'state_14'},
+                    {mData: 'state_15'},
+                    {mData: 'state_16'},
+                    {mData: 'total'}
+                ]
+        });
+
+        var dataNew = [];
+        var curYear = '', curMonth = '', rowTotal = 0;
+        var dataDb = f_get_general_info_multiple('vw_gcp_chart_6');
+        $.each(dataDb, function( n, row ) {
+            if (curYear !== row['years'] || curMonth !== row['months']) {
+                var rowNew = {years:row['years'], months:monthname[row['months']-1], state_1:0, state_2:0, state_3:0, state_4:0, state_5:0,
+                    state_6:0, state_7:0, state_8:0, state_9:0, state_10:0, state_11:0, state_12:0, state_13:0, state_14:0, state_15:0,
+                    state_16:0, total:0}
+                dataNew.push(rowNew);
+                curYear = row['years'];
+                curMonth = row['months'];
+                rowTotal = 0;
+            }
+            rowTotal += parseInt(row['totals']);
+            dataNew[dataNew.length-1]['state_'+row['state_id']] = row['totals'];
+            dataNew[dataNew.length-1]['total'] = rowTotal;
+        });
+        f_dataTable_draw(dataState, dataNew);
+    }
+
+    function f_gcp_7(){
+        var dataSic = $('#datatable_gcp_sic').DataTable({
+            "sDom": "<'dt-toolbar'<'col-sm-5 hidden-xs'l><'col-sm-7 col-xs-12'CT>r>" + "t" +
+                "<'dt-toolbar-footer'<'col-xs-5'i><'col-xs-7'p>>",
+            "autoWidth": true,
+            "scrollX": true,
+            ordering: false,
+            "oTableTools": {
+                "aButtons": [
+                    {
+                        "sExtends": "xls",
+                        "sTitle": "iRemote_xls",
+                        "mColumns": "all"
+                    },
+                    {
+                        "sExtends": "pdf",
+                        "sTitle": "iRemote_pdf",
+                        "sPdfMessage": "iRemote PDF Export",
+                        "sPdfSize": "letter",
+                        "sPdfOrientation": "landscape",
+                        "mColumns": "visible"
+                    },
+                    {
+                        "sExtends": "print",
+                        "sTitle": "iRemote_print",
+                        "sMessage": "iRemote System"
+                    }
+                ],
+                "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+            "aoColumns":
+                [
+                    {mData: 'years'},
+                    {mData: 'months',
+                        mRender: function (data) {
+                            return monthname[data-1];
+                        }},
+                    {mData: 'sic_desc'},
+                    {mData: 'totals'}
+                ]
+        });
+
+        var dataNew = f_get_general_info_multiple('vw_gcp_chart_7');
+        f_dataTable_draw(dataSic, dataNew);
     }
         
 </script>
