@@ -115,7 +115,20 @@ try {
             else if (empty($_POST['mrf_ref_desc'])) throw new Exception('(ErrCode:6531) [' . __LINE__ . '] - Field PEMS Industrial Process Description empty.', 32);
             else if (Class_db::getInstance()->db_count('document_name', array('documentName_desc' => $_POST['mrf_ref_desc'], 'documentName_type' => 'pems', 'documentName_id' => '<>'.$_POST['mrf_ref_id'])) > 0)
                 throw new Exception('(ErrCode:6532) [' . __LINE__ . '] - PEMS Industrial Process Description already exist.', 32);
-            $result = Class_db::getInstance()->db_update('document_name', array('documentName_desc' => $_POST['mrf_ref_desc']), array('documentName_id' => $_POST['mrf_ref_id']));             
+            $result = Class_db::getInstance()->db_update('document_name', array('documentName_desc' => $_POST['mrf_ref_desc']), array('documentName_id' => $_POST['mrf_ref_id']));
+        } else if ($_POST['funct'] == 'create_analyzerTechnique') {
+            if (empty($_POST['mrf_ref_desc']))          throw new Exception('(ErrCode:6543) [' . __LINE__ . '] - Field Method of Detection empty.', 32);
+            else if (empty($_POST['mrf_opt_parent']))   throw new Exception('(ErrCode:6544) [' . __LINE__ . '] - Field Installation Type empty.', 32);
+            else if (Class_db::getInstance()->db_count('t_analyzer_technique', array('analyzerTechnique_desc' => $_POST['mrf_ref_desc'], 'analyzerTechnique_type' => $_POST['mrf_opt_parent'])) > 0)
+                throw new Exception('(ErrCode:6520) [' . __LINE__ . '] - Method of Detection already exist.', 32);
+            $result = Class_db::getInstance()->db_insert('t_analyzer_technique', array('analyzerTechnique_desc' => $_POST['mrf_ref_desc'], 'analyzerTechnique_type' => $_POST['mrf_opt_parent']));
+        } else if ($_POST['funct'] == 'edit_analyzerTechnique') {
+            if (empty($_POST['mrf_ref_id']))            throw new Exception('(ErrCode:6514) [' . __LINE__ . '] - Parameter ref_id empty.');
+            else if (empty($_POST['mrf_ref_desc']))     throw new Exception('(ErrCode:6543) [' . __LINE__ . '] - Field Method of Detection empty.', 32);
+            else if (empty($_POST['mrf_opt_parent']))   throw new Exception('(ErrCode:6544) [' . __LINE__ . '] - Field Installation Type empty.', 32);
+            else if (Class_db::getInstance()->db_count('t_analyzer_technique', array('analyzerTechnique_desc' => $_POST['mrf_ref_desc'], 'analyzerTechnique_type' => $_POST['mrf_opt_parent'], 'analyzerTechnique_id' => '<>'.$_POST['mrf_ref_id'])) > 0)
+                throw new Exception('(ErrCode:5514) [' . __LINE__ . '] - Method of Detection already exist.', 32);
+            $result = Class_db::getInstance()->db_update('t_analyzer_technique', array('analyzerTechnique_desc' => $_POST['mrf_ref_desc']), array('analyzerTechnique_id' => $_POST['mrf_ref_id']));
         } else if ($_POST['funct'] == 'add_user') {
             if (empty($_POST['mus_profile_mobileNo']))              throw new Exception('(ErrCode:6504) [' . __LINE__ . '] - Field Mobile No. empty.', 32);
             else if (empty($_POST['mus_profile_email']))            throw new Exception('(ErrCode:6505) [' . __LINE__ . '] - Field Email Address empty.', 32);

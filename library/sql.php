@@ -264,7 +264,11 @@ class Class_sql {
             } else if ($title == 'dt_ref_softwareMethod') {  
                 $sql = "SELECT t_software_method.*, ref_status.status_desc, ref_status.status_color  
                 FROM t_software_method 
-                LEFT JOIN ref_status ON ref_status.status_id = t_software_method.softwareMethod_status"; 
+                LEFT JOIN ref_status ON ref_status.status_id = t_software_method.softwareMethod_status";
+            } else if ($title == 'dt_analyzer_technique') {
+                $sql = "SELECT t_analyzer_technique.*, ref_status.status_desc, ref_status.status_color 
+                FROM t_analyzer_technique 
+                LEFT JOIN ref_status ON ref_status.status_id = t_analyzer_technique.analyzerTechnique_status";
             } else if ($title == 'dt_ref_cemsDesc') {  
                 $sql = "SELECT document_name.*, ref_status.status_desc, ref_status.status_color  
                 FROM document_name 

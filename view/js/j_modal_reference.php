@@ -146,6 +146,27 @@
                     $('#mrf_infoValue_3').html(pemsDescription.documentName_timeCreated);
                     $('#mrf_infoValue_4').html(pemsDescription.status_desc);
                 }
+            } else if (mrf_otable == 'atq') {
+                mrf_title = 'Method of Detection';
+                mrf_parent = 'Installation Type';
+                $('.mrf_info_2').show();
+                $("#form_mrf").find("#funct").val(mrf_load_type == 1?'create_analyzerTechnique':'edit_analyzerTechnique');
+                $('#mrf_opt_parent').html('<option value="" selected> </option>');
+                $('#mrf_opt_parent').append('<option value="1">CEMS</option>');
+                $('#mrf_opt_parent').append('<option value="2">PEMS</option>');
+                if (mrf_load_type == 1) {
+                    $('.mrf_column').show();
+                    $('#mrf_formTitle_2').html(mrf_parent);
+                } else {
+                    var analyzerTechnique = f_get_general_info(ref_refresh, {analyzerTechnique_id:ref_id});
+                    $('#mrf_ref_desc').val(analyzerTechnique.analyzerTechnique_desc);
+                    $('#mrf_opt_parent').val(analyzerTechnique.analyzerTechnique_type);
+                    $('#mrf_infoValue_1').html(analyzerTechnique.analyzerTechnique_desc);
+                    $('#mrf_infoValue_3').html(analyzerTechnique.analyzerTechnique_timeCreated);
+                    $('#mrf_infoValue_4').html(analyzerTechnique.status_desc);
+                    $('#mrf_infoTitle_2').html(mrf_parent);
+                    $('#mrf_infoValue_2').html(analyzerTechnique.analyzerTechnique_type==='1'?'CEMS':'PEMS');
+                }
             }
             $('#mrf_title').html(mrf_title);
             $('#mrf_infoTitle_1').html(mrf_title);
