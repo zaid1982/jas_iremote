@@ -463,7 +463,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"> </label>
                                                 <div class="col-md-9">
-                                                    <table class="table table-bordered table-hover margin-bottom-5" id="datatable_mce_exclude">
+                                                    <table class="table table-bordered margin-bottom-5" id="datatable_mce_exclude">
                                                         <thead>
                                                         <tr>
                                                             <th width="4%" class="text-center bg-color-teal txt-color-white">No.</th>

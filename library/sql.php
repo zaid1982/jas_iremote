@@ -1212,6 +1212,18 @@ class Class_sql {
                 LEFT JOIN t_monitor ON t_monitor.indParam_id = t_industrial_parameter.indParam_id
                 INNER JOIN t_industrial_pollution ON t_industrial_pollution.indAll_id = t_industrial_parameter.indAll_id AND t_industrial_pollution.pollutionMonitored_id = t_input_parameter.inputParam_type
                 WHERE t_pub.pub_status = 1";
+            } else if ($title == 'dt_industrial_exclude') {
+                $sql = "SELECT 
+                    document.*,
+                    t_industrial_exclude.indExclude_id,
+                    t_industrial_exclude.indAll_id,
+                    t_industrial_exclude.inputParam_id,
+                    t_industrial_exclude.indExclude_reason,
+                    t_industrial_exclude.pub_id,
+                    t_input_parameter.inputParam_desc AS inputParam_desc
+                FROM t_industrial_exclude
+                LEFT JOIN t_input_parameter ON t_input_parameter.inputParam_id = t_industrial_exclude.inputParam_id
+                LEFT JOIN document ON document.document_id = t_industrial_exclude.document_id";
             } else if ($title == 'dt_written_approval') {
                 $sql = "SELECT 
                     document.*,

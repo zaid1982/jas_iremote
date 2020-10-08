@@ -5,6 +5,8 @@
     let mce_1st_load = true;
     let mce_otable_parameter;
     let data_mce_parameter;
+    let mce_otable_exclude;
+    let data_mce_exclude;
     let mce_otable_written;
     let data_mce_written;
     let mce_otable_document;
@@ -432,6 +434,43 @@
                     }
                 }
             }
+        });
+
+        let datatable_mce_exclude = undefined;
+        mce_otable_exclude = $('#datatable_mce_exclude').DataTable({
+            "paging": false,
+            "ordering": false,
+            "autoWidth": false,
+            "info": false,
+            "bFilter": false,
+            "preDrawCallback": function () {
+                if (!datatable_mce_exclude) {
+                    datatable_mce_exclude = new ResponsiveDatatablesHelper($('#datatable_mce_exclude'), breakpointDefinition);
+                }
+            },
+            "rowCallback": function (nRow, aData, index) {
+                datatable_mce_exclude.createExpandIcon(nRow);
+                const info = mce_otable_exclude.page.info();
+                $('td', nRow).eq(0).html(info.page * info.length + (index + 1));
+            },
+            "drawCallback": function () {
+                datatable_mce_exclude.respond();
+            },
+            "aoColumns":
+                [
+                    {mData: null},
+                    {mData: 'inputParam_desc'},
+                    {mData: 'indExclude_reason'},
+                    {mData: null, sClass: 'text-center',
+                        mRender: function (data, type, row) {
+                            let label = '';
+                            if (row.document_id !== null)
+                                label += '<a type="button" class="btn btn-success btn-xs" title="Download Document" href="process/download.php?doc_id='+row.document_id+'"><i class="fa fa-download"></i></a>';
+                            label += ' <button type="button" class="btn btn-danger btn-xs mce_hideView" title="Delete" onclick="f_mce_delete_docEclude ('+row.indExclude_id+');"><i class="fa fa-trash-o"></i></button>';
+                            return label;
+                        }
+                    }
+                ]
         });
 
         $('#form_mce_2_2').bootstrapValidator({
@@ -1671,6 +1710,8 @@
             // ---------------- \\
             data_mce_parameter = f_get_general_info_multiple('dt_pub_param', {indAll_id:$('#mce_indAll_id').val(), indParam_status:'1'}, '', '', 'inputParam_id');
             f_dataTable_draw(mce_otable_parameter, data_mce_parameter, 'datatable_mce_parameter', 5);
+            data_mce_exclude = f_get_general_info_multiple('dt_industrial_exclude', {indAll_id:$('#mce_indAll_id').val()}, '', '', 'indExclude_id');
+            f_dataTable_draw(mce_otable_exclude, data_mce_exclude, 'datatable_mce_exclude', 4);
             data_mce_written = f_get_general_info_multiple('dt_written_approval', {indAll_id:$('#mce_indAll_id').val()}, '', '', 'indWritten_id');
             f_dataTable_draw(mce_otable_written, data_mce_written, 'datatable_mce_written', 6);
             data_mce_document = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mce_indAll_id').val(), documentName_id:'(1,2,3,4,17,25,34)'}, '', '', 'indDoc_id');
