@@ -150,7 +150,116 @@
                             message : 'At least 1 Pollution Monitored required'
                         }                        
                     }
-                },
+                }
+            }
+        });  
+        
+        let datatable_mce_parameter = undefined;
+        mce_otable_parameter = $('#datatable_mce_parameter').DataTable({
+            "paging": false,
+            "ordering": false,
+            "autoWidth": false,
+            "info": false,
+            "bFilter": false,
+            "preDrawCallback": function () {
+                if (!datatable_mce_parameter) {
+                    datatable_mce_parameter = new ResponsiveDatatablesHelper($('#datatable_mce_parameter'), breakpointDefinition);
+                }
+            },
+            "rowCallback": function (nRow, aData, index) {
+                datatable_mce_parameter.createExpandIcon(nRow);
+                const info = mce_otable_parameter.page.info();
+                $('td', nRow).eq(0).html(info.page * info.length + (index + 1)); 
+            },
+            "drawCallback": function () {
+                datatable_mce_parameter.respond();
+                const api = this.api();
+                const visibleRows=api.rows().data();
+                if(visibleRows.length >= 1){
+                    for(let j=0;j<visibleRows.length;j++){
+                        let bootstrapValidator = $("#form_mce_2_1").data('bootstrapValidator');
+                        if (visibleRows[j].inputParam_id === '9' || visibleRows[j].inputParam_id === '10')
+                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                        else
+                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                    }
+                }
+            },
+            "aoColumns":
+                [
+                    {mData: null},
+                    {mData: 'inputParam_desc', sClass: 'text-center'},
+                    {mData: 'pub_referenceValue', sClass: 'text-center',
+                        mRender: function (data, type, row) {
+                            let label = '';
+                            if (row.pub_referenceGas !== null && data !== null) {
+                                if (row.sourceActivity_id === '2' && row.sourceCapacity_id === '1' && row.fuelType_id === '1' && parseInt(row.inputParam_id) <= 8)
+                                    label = 'Solid - O<sub>2</sub> : 6%</br>Liquid - O<sub>2</sub> : 3%';
+                                else
+                                    label = row.pub_referenceGas + ' : ' + data + '%';
+                            }
+                            return label;
+                        }
+                    },
+                    {mData: 'indParam_limitValue', sClass: 'text-right',
+                        mRender: function (data, type, row) {
+                            return (row.inputParam_id>8?'-':data + ' ' + row.inputParam_unit); 
+                        }
+                    },
+                    {mData: null, sClass: 'padding-5',
+                        mRender: function (data, type, row) {
+                            return '<div class="form-group margin-bottom-0"><div class="col-md-12"><div class="input-group">' +
+                                '<input type="text" class="form-control" name="mce_indParam_concentration_'+row.indParam_id+'" id="mce_indParam_concentration_'+row.indParam_id+'" value="'+(row.indParam_concentration!==null?row.indParam_concentration:'')+'"/>' +
+                                '<span class="input-group-addon font-xs">' + row.inputParam_unit + '</span>' +
+                                '</div></div></div>';
+                        }
+                    }
+                ]
+        });
+        
+        $('#form_mce_2_1').find('[name="mce_indReason_id[]"][value=4]').on('click', function () {
+            $('#mce_indReason_other').val('');
+            $('#form_mce_2_1').bootstrapValidator('enableFieldValidators', 'mce_indReason_other', $(this).is(':checked'));
+            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indReason_other');
+            $(this).is(':checked') ? $('.mce_disReason').prop('disabled', false) : $('.mce_disReason').prop('disabled', true);
+        });
+            
+        $('#mce_sourceActivity_id').on('change', function () {
+            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_sourceCapacity_id');
+            f_mce_set_sourceCapacity('', $(this).val()); 
+            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_metalType_id');
+            f_mce_set_metalType ('',  $(this).val());
+            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_fuelType_id');
+            $('#mce_fuelType_id').prop('disabled', true).val('');
+            f_mce_insert_parameter ();  
+            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indAll_fuelQuantity');     
+            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indAll_sourceCapacity');            
+        });
+        
+        $('#mce_sourceCapacity_id').on('change', function () {
+            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_fuelType_id');
+            if ($(this).val() === '1' || $(this).val() === '2')
+                $('#mce_fuelType_id').prop('disabled', false).val('');
+            else{                
+                $('#mce_fuelType_id').prop('disabled', true).val('');
+            }
+            $('#mce_fuelType_id option[value="1"]').attr("disabled", $(this).val() !== '1');
+            $('#mce_fuelType_id option[value="3"]').attr("disabled", $(this).val() !== '2');
+            f_mce_insert_parameter (); 
+        });
+        
+        $('#mce_fuelType_id').on('change', function () {
+            if ($('#mce_sourceCapacity_id').val() === '1' || $('#mce_sourceCapacity_id').val() === '2')
+                f_mce_insert_parameter (); 
+        });
+        
+        $('#form_mce_2_1').find('[name="mce_pollutionMonitored_id[]"]').on('click', function () {
+            f_mce_insert_parameter (); 
+        });
+
+        $('#form_mce_2_11').bootstrapValidator({
+            excluded: ':disabled',
+            fields: {
                 mce_indAll_stackNo : {
                     validators: {
                         notEmpty: {
@@ -323,112 +432,9 @@
                     }
                 }
             }
-        });  
-        
-        let datatable_mce_parameter = undefined;
-        mce_otable_parameter = $('#datatable_mce_parameter').DataTable({
-            "paging": false,
-            "ordering": false,
-            "autoWidth": false,
-            "info": false,
-            "bFilter": false,
-            "preDrawCallback": function () {
-                if (!datatable_mce_parameter) {
-                    datatable_mce_parameter = new ResponsiveDatatablesHelper($('#datatable_mce_parameter'), breakpointDefinition);
-                }
-            },
-            "rowCallback": function (nRow, aData, index) {
-                datatable_mce_parameter.createExpandIcon(nRow);
-                const info = mce_otable_parameter.page.info();
-                $('td', nRow).eq(0).html(info.page * info.length + (index + 1)); 
-            },
-            "drawCallback": function () {
-                datatable_mce_parameter.respond();
-                const api = this.api();
-                const visibleRows=api.rows().data();
-                if(visibleRows.length >= 1){
-                    for(let j=0;j<visibleRows.length;j++){
-                        let bootstrapValidator = $("#form_mce_2_1").data('bootstrapValidator');
-                        if (visibleRows[j].inputParam_id === '9' || visibleRows[j].inputParam_id === '10')
-                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
-                        else
-                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
-                    }
-                }
-            },
-            "aoColumns":
-                [
-                    {mData: null},
-                    {mData: 'inputParam_desc', sClass: 'text-center'},
-                    {mData: 'pub_referenceValue', sClass: 'text-center',
-                        mRender: function (data, type, row) {
-                            let label = '';
-                            if (row.pub_referenceGas !== null && data !== null) {
-                                if (row.sourceActivity_id === '2' && row.sourceCapacity_id === '1' && row.fuelType_id === '1' && parseInt(row.inputParam_id) <= 8)
-                                    label = 'Solid - O<sub>2</sub> : 6%</br>Liquid - O<sub>2</sub> : 3%';
-                                else
-                                    label = row.pub_referenceGas + ' : ' + data + '%';
-                            }
-                            return label;
-                        }
-                    },
-                    {mData: 'indParam_limitValue', sClass: 'text-right',
-                        mRender: function (data, type, row) {
-                            return (row.inputParam_id>8?'-':data + ' ' + row.inputParam_unit); 
-                        }
-                    },
-                    {mData: null, sClass: 'padding-5',
-                        mRender: function (data, type, row) {
-                            return '<div class="form-group margin-bottom-0"><div class="col-md-12"><div class="input-group">' +
-                                '<input type="text" class="form-control" name="mce_indParam_concentration_'+row.indParam_id+'" id="mce_indParam_concentration_'+row.indParam_id+'" value="'+(row.indParam_concentration!==null?row.indParam_concentration:'')+'"/>' +
-                                '<span class="input-group-addon font-xs">' + row.inputParam_unit + '</span>' +
-                                '</div></div></div>';
-                        }
-                    }
-                ]
         });
-        
-        $('#form_mce_2_1').find('[name="mce_indReason_id[]"][value=4]').on('click', function () {
-            $('#mce_indReason_other').val('');
-            $('#form_mce_2_1').bootstrapValidator('enableFieldValidators', 'mce_indReason_other', $(this).is(':checked'));
-            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indReason_other');
-            $(this).is(':checked') ? $('.mce_disReason').prop('disabled', false) : $('.mce_disReason').prop('disabled', true);
-        });
-            
-        $('#mce_sourceActivity_id').on('change', function () {
-            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_sourceCapacity_id');
-            f_mce_set_sourceCapacity('', $(this).val()); 
-            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_metalType_id');
-            f_mce_set_metalType ('',  $(this).val());
-            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_fuelType_id');
-            $('#mce_fuelType_id').prop('disabled', true).val('');
-            f_mce_insert_parameter ();  
-            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indAll_fuelQuantity');     
-            $('#form_mce_2_1').bootstrapValidator('revalidateField', 'mce_indAll_sourceCapacity');            
-        });
-        
-        $('#mce_sourceCapacity_id').on('change', function () {
-            $('#form_mce_2_1').data('bootstrapValidator').resetField('mce_fuelType_id');
-            if ($(this).val() === '1' || $(this).val() === '2')
-                $('#mce_fuelType_id').prop('disabled', false).val('');
-            else{                
-                $('#mce_fuelType_id').prop('disabled', true).val('');
-            }
-            $('#mce_fuelType_id option[value="1"]').attr("disabled", $(this).val() !== '1');
-            $('#mce_fuelType_id option[value="3"]').attr("disabled", $(this).val() !== '2');
-            f_mce_insert_parameter (); 
-        });
-        
-        $('#mce_fuelType_id').on('change', function () {
-            if ($('#mce_sourceCapacity_id').val() === '1' || $('#mce_sourceCapacity_id').val() === '2')
-                f_mce_insert_parameter (); 
-        });
-        
-        $('#form_mce_2_1').find('[name="mce_pollutionMonitored_id[]"]').on('click', function () {
-            f_mce_insert_parameter (); 
-        });
-        
-        $('#form_mce_2_2').bootstrapValidator({    
+
+        $('#form_mce_2_2').bootstrapValidator({
             excluded: ':disabled',
             fields: {  
                 mce_indWritten_equipmentName : {
@@ -1278,7 +1284,7 @@
                 $('#mce_funct').val('save_installation_cems');
                 $('#mce_wfTask_remark').val($('[name="mce_snote_wfTask_remark"]').summernote('code'));
                 $('#modal_waiting').on('shown.bs.modal', function(e){
-                    if (f_submit_forms('form_mce,#form_mce_2_1,#form_mce_3_1,#form_mce_5', 'p_registration', 'Data successfully saved.')) {
+                    if (f_submit_forms('form_mce,#form_mce_2_1,#form_mce_2_11,#form_mce_3_1,#form_mce_5', 'p_registration', 'Data successfully saved.')) {
                         if (mce_otable === 'icm')
                             f_table_icm ();
                     }
@@ -1290,6 +1296,13 @@
         
         $('#mce_btn_submit').on('click', function () {
             let bootstrapValidator = $("#form_mce_2_1").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (!bootstrapValidator.isValid()) {
+                $('#mce_wizard').wizard('selectedItem', { step:2 });
+                f_notify(2, 'Error', errMsg_validation);
+                return false;
+            }
+            bootstrapValidator = $("#form_mce_2_11").data('bootstrapValidator');
             bootstrapValidator.validate();
             if (!bootstrapValidator.isValid()) {
                 $('#mce_wizard').wizard('selectedItem', { step:2 });
@@ -1380,7 +1393,7 @@
             }
             $('#mce_funct').val('save_installation_cems');
             $('#mce_wfTask_remark').val($('[name="mce_snote_wfTask_remark"]').summernote('code'));
-            if (f_submit_forms('form_mce,#form_mce_2_1,#form_mce_3_1,#form_mce_5', 'p_registration')) {
+            if (f_submit_forms('form_mce,#form_mce_2_1,#form_mce_2_11,#form_mce_3_1,#form_mce_5', 'p_registration')) {
                 $.SmartMessageBox({
                     title : "<i class='fa fa-exclamation-circle'></i> Confirmation!",
                     content : "Are you sure to submit the CEMS Installation Registration Form?",
@@ -1568,8 +1581,9 @@
                     return false;
                 }
             }
-            $('#form_mce,#form_mce_2_1,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_3_3,#form_mce_4,#form_mce_5').trigger('reset');
+            $('#form_mce,#form_mce_2_1,#form_mce_2_11,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_3_3,#form_mce_4,#form_mce_5').trigger('reset');
             $('#form_mce_2_1').bootstrapValidator('resetForm', true);
+            $('#form_mce_2_11').bootstrapValidator('resetForm', true);
             $('#form_mce_2_2').bootstrapValidator('resetForm', true);
             $('#form_mce_2_3').bootstrapValidator('resetForm', true);
             $('#form_mce_3_1').bootstrapValidator('resetForm', true);
@@ -1582,7 +1596,7 @@
             $('#mce_indAll_id').val(indAll_id);
             mce_otable = otable;
             mce_load_type = load_type;
-            $('#form_mce,#form_mce_2_1,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_5').find('input, textarea, select').prop('disabled',false);
+            $('#form_mce,#form_mce_2_1,#form_mce_2_11,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_5').find('input, textarea, select').prop('disabled',false);
             $('.mce_hideView').show();
             $('.mce_disView, .mce_disReason').attr('disabled',true);
             $('#mce_alert_box, .mce_checkView, #mce_div_doc_other, .mce_q_daily, .mce_q_quarter, .mce_q_year').hide();
@@ -1670,7 +1684,7 @@
             // ---------------- \\
             if (mce_load_type >= 3) {
                 mce_total_section = [];
-                $('#form_mce,#form_mce_2_1,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_5').find('input, textarea, select').prop('disabled',true);
+                $('#form_mce,#form_mce_2_1,#form_mce_2_11,#form_mce_2_2,#form_mce_2_3,#form_mce_3_1,#form_mce_3_2,#form_mce_5').find('input, textarea, select').prop('disabled',true);
                 $('#mce_snote_wfTask_remark').summernote('disable');
                 $("input[name='mce_declare']").prop('checked', true);
                 $('.mce_hideView').hide();

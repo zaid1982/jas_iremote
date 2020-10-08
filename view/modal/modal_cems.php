@@ -428,9 +428,57 @@
                                                         <p class="margin-bottom-0"><i>* Notes: Limit value for each parameter may subjects to the limits mentioned in CAR 2014 and/or EIA Approval Condition</i></p>
                                                         <p><i>** Concentration Refer to ISO Kinetic Sampling</i></p>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </div>
                                         </div>
+                                    </form>
+                                    <form class="form-horizontal padding-top-15" id="form_mce_2_12" method="post" enctype="multipart/form-data">
+                                        <div class="well margin-bottom-15 padding-bottom-0">
+                                            <div class="form-group margin-bottom-10">
+                                                <label class="col-md-3 control-label"><font color="red">*</font> Parameter to be Excluded</label>
+                                                <div class="col-md-2 selectContainer">
+                                                    <select class="form-control" name="mce_exclude_param_id" id="mce_exclude_param_id"></select>
+                                                </div>
+                                                <label class="col-md-1 control-label"><font color="red">*</font> Reason</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="mce_exclude_reason" id="mce_exclude_reason"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group margin-bottom-10 mac_hideView">
+                                                <label class="col-md-3 control-label"><font color="red">*</font> Supportive Document</label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" id="mce_file_exclude" name="mce_file_exclude" style="width: 100%">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-info" type="button" id="mce_btn_upload_exclude"><i class="fa fa-upload"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="button" class="btn btn-primary pull-right" id="mce_btn_add_exclude">
+                                                        Add
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label"> </label>
+                                                <div class="col-md-9">
+                                                    <table class="table table-bordered table-hover margin-bottom-5" id="datatable_mce_exclude">
+                                                        <thead>
+                                                        <tr>
+                                                            <th width="4%" class="text-center bg-color-teal txt-color-white">No.</th>
+                                                            <th width="35%" class="text-center bg-color-teal txt-color-white">Parameters</th>
+                                                            <th class="text-center bg-color-teal txt-color-white">Reason</th>
+                                                            <th width="60px" style="max-width: 60px" class="text-center bg-color-teal txt-color-white">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form class="form-horizontal" id="form_mce_2_11" method="post">
                                         <div class="row padding-top-15">
                                             <div class="col-md-12">
                                                 <div class="form-group">
