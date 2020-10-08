@@ -25,10 +25,10 @@ try {
         Class_db::getInstance()->db_beginTransaction();
         $fn_task = new Class_task();       
         if ($_POST['funct'] == 'get_summary_total') {
-            $total_industry = Class_db::getInstance()->db_count('t_industrial', array('industrial_status'=>'1'));
-            $total_consultant = Class_db::getInstance()->db_count('t_consultant', array('consultant_status'=>'1'));            
-            $total_cems = Class_db::getInstance()->db_count('t_industrial_all', array('indAll_type'=>'1', 'indAll_status'=>'1'));
-            $total_pems = Class_db::getInstance()->db_count('t_industrial_all', array('indAll_type'=>'2', 'indAll_status'=>'1'));
+            $total_industry = Class_db::getInstance()->db_count('t_industrial', array());
+            $total_consultant = Class_db::getInstance()->db_count('t_consultant', array('consultant_status'=>'N(2,8)'));
+            $total_cems = Class_db::getInstance()->db_count('t_industrial_all', array('indAll_type'=>'1', 'indAll_status'=>'N(2,8)'));
+            $total_pems = Class_db::getInstance()->db_count('t_industrial_all', array('indAll_type'=>'2', 'indAll_status'=>'N(2,8)'));
             $total_cems_analyzer = Class_db::getInstance()->db_count('t_consultant_all', array('consAll_type'=>'1', 'consAll_status'=>'1'));
             $total_cems_software = Class_db::getInstance()->db_count('t_consultant_all', array('consAll_type'=>'2', 'consAll_status'=>'1'));
             $result = array('total_industry'=>$total_industry, 'total_consultant'=>$total_consultant, 'total_cems'=>$total_cems, 'total_pems'=>$total_pems, 'total_cems_analyzer'=>$total_cems_analyzer, 'total_pems_software'=>$total_cems_software);

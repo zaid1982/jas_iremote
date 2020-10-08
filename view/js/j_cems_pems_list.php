@@ -192,7 +192,7 @@ include 'view/js/j_modal_consultant_mobile.php';
     });
     
     function f_table_cpl () {
-        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0)'});
+        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0,4)'});
         f_dataTable_draw(dataNew, datas, 'datatable_cpl', 11);
     }
 
