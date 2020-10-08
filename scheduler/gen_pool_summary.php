@@ -45,7 +45,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;');");
     }        
     
-    $arr_industrial = Class_db::getInstance()->db_select('t_industrial', array('industrial_status'=>'1'));
+    $arr_industrial = Class_db::getInstance()->db_select('t_industrial', array('industrial_status'=>'24'));
     if (empty($arr_industrial))
         throw new Exception('(ErrCode:8002) [' . __LINE__ . '] - No active industrial premise');
     

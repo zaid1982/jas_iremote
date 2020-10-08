@@ -100,6 +100,29 @@
             }
         });
 
+        $('#mqj_document_date').datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: '0',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: '0',
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            showButtonPanel: true,
+            closeText: 'Clear',
+            beforeShow: function (input) {
+                setTimeout(function () {
+                    var clearButton = $(input).datepicker("widget").find(".ui-datepicker-close");
+                    clearButton.unbind("click").bind("click", function () {
+                        $.datepicker._clearDate(input);
+                    });
+                }, 1);
+            },
+            onSelect: function (input) {
+                $('#form_mqj_attach').bootstrapValidator('revalidateField', 'mqj_document_date');
+            }
+        });
+
         // $('.label_mqj_qa_upload').click(function() {
         //     labelID = $(this).attr('for');
         //     $('#'+labelID).trigger('click');
@@ -164,6 +187,13 @@
                         }
                     }
                 },
+                mqj_document_date : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Test Date is required'
+                        }
+                    }
+                },
                 mqj_file_document_title : {
                     validators: {
                         notEmpty: {
@@ -216,6 +246,7 @@
                     {mData: null, sClass: 'text-center'},
                     {mData: 'documentName_desc'},
                     {mData: 'document_name'},
+                    {mData: 'document_remarks'},
                     {mData: 'document_uplname'},
                     {mData: null, sClass: 'text-center',
                         mRender: function (data, type, row) {
@@ -1607,7 +1638,7 @@
 
     function f_mqj_gen_table_attach() {
         data_mqj_attach = f_get_general_info_multiple('dt_industrial_document', {indAll_id:$('#mqj_indAll_id').val(), documentName_type:'init_rata'}, '', '', 'indDoc_id');
-        f_dataTable_draw(mqj_otable_attach, data_mqj_attach, 'datatable_mqj_attach', 5);
+        f_dataTable_draw(mqj_otable_attach, data_mqj_attach, 'datatable_mqj_attach', 6);
     }
 
     function f_mqj_delete_attach (indDoc_id) {

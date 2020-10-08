@@ -546,7 +546,7 @@ try {
             $arrayParam = $_POST['param'];
             if (empty($arrayParam['wfGroup_id']))   throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter wfGroup_id empty.');
             $wf_group = Class_db::getInstance()->db_select_single('wf_group', array('wfGroup_id'=>$arrayParam['wfGroup_id']), NULL, 1);
-            if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$wf_group['wfGroup_regNo'], 'wfGroup_id'=>'<>'.$wf_group['wfGroup_id'], 'consultant_status'=>'1')) > 0)
+            if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$wf_group['wfGroup_regNo'], 'wfGroup_id'=>'<>'.$wf_group['wfGroup_id'])) > 0)
                 throw new Exception('(ErrCode:5854) [' . __LINE__ . '] - This company has already activated by other user based on Company Registration No. Please reject if true or deactivate other company if want to proceed with this application.', 32);
             $result = '1';
         } else if ($_POST['funct'] == 'check_industrial_active') {
@@ -554,7 +554,7 @@ try {
             $arrayParam = $_POST['param'];
             if (empty($arrayParam['industrial_id']))    throw new Exception('(ErrCode:5843) [' . __LINE__ . '] - Parameter industrial_id empty.');
             $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$arrayParam['industrial_id']), NULL, 1);
-            if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial['industrial_id'], 'industrial_status'=>'1')) > 0)
+            if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial['industrial_id'])) > 0)
                 throw new Exception('(ErrCode:5855) [' . __LINE__ . '] - This premise has already activated by other user based on JAS File No. Please reject if true or deactivate other premise if want to proceed with this application.', 32);
             $result = '1';
         } else if ($_POST['funct'] == 'save_task_action' || $_POST['funct'] == 'submit_task_action') {
@@ -565,12 +565,12 @@ try {
             if ($_POST['funct'] == 'submit_task_action' && !empty($_POST['maw_result']) && $_POST['maw_result'] != '11' && $_POST['maw_result'] != '26') {
                 if (in_array($wf_task_type['wfFlow_id'], array('1', '2', '3'))) {
                     $wf_group = Class_db::getInstance()->db_select_single('vw_wfGroup_consultant', array('wfTrans_id'=>$_POST['maw_wfTrans_id']), NULL, 1);
-                    if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$wf_group['wfGroup_regNo'], 'wfGroup_id'=>'<>'.$wf_group['wfGroup_id'], 'consultant_status'=>'1')) > 0)
+                    if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$wf_group['wfGroup_regNo'], 'wfGroup_id'=>'<>'.$wf_group['wfGroup_id'])) > 0)
                         throw new Exception('(ErrCode:5854) [' . __LINE__ . '] - This company has already activated by other user based on Company Registration No. Please reject if true or deactivate other company if want to proceed with this application.', 32);
                 } else if (in_array($wf_task_type['wfFlow_id'], array('4', '5'))) {
                     $industrial_id = Class_db::getInstance()->db_select_col('t_industrial_all', array('wfTrans_id'=>$_POST['maw_wfTrans_id']), 'industrial_id', NULL, 1);
                     $industrial = Class_db::getInstance()->db_select_single('t_industrial', array('industrial_id'=>$industrial_id), NULL, 1);
-                    if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial_id, 'industrial_status'=>'1')) > 0)
+                    if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>'(\''.$industrial['industrial_jasFileNo'].'\')', 'industrial_id'=>'<>'.$industrial_id)) > 0)
                         throw new Exception('(ErrCode:5855) [' . __LINE__ . '] - This premise has already activated by other user based on JAS File No. Please reject if true or deactivate other premise if want to proceed with this application.', 32);
                 }
             }
@@ -918,7 +918,7 @@ try {
         } else if ($_POST['funct'] == 'save_initial_rata_attach_cems') {
             if (empty($_POST['mqj_indAll_id']))         throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
             if (empty($_POST['mqj_document_type'])) throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
-            $document_id = !empty($_FILES['mqj_file_attachment']['name']) ? $fn_upload->upload_file('1', $_FILES['mqj_file_attachment'], $_POST['mqj_file_document_title'], $_POST['mqj_document_type'], '') : '';
+            $document_id = !empty($_FILES['mqj_file_attachment']['name']) ? $fn_upload->upload_file('1', $_FILES['mqj_file_attachment'], $_POST['mqj_file_document_title'], $_POST['mqj_document_type'], $_POST['mqj_document_date']) : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mqj_indAll_id'], 'documentName_id'=>$_POST['mqj_document_type'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'save_industrial_personnel_cems') {
             if (empty($_POST['mce_indAll_id']))                 throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');

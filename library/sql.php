@@ -1460,7 +1460,7 @@ class Class_sql {
                     WHERE ydaily_date = '[pool_date]' 
                     GROUP BY industrial_id, stack_id
                 ) data_summaries ON data_summaries.industrial_id = t_industrial_all.industrial_id AND data_summaries.stack_id = t_industrial_all.indAll_stackNo
-                WHERE indAll_datePoolStart <= '[pool_date]' AND indAll_status IN (1,30)";
+                WHERE indAll_datePoolStart <= '[pool_date]' AND indAll_status IN (1,27,28,29,30)";
             } else if ($title == 'dt_pooling_by_state') {
                 $sql = "SELECT ref_state.state_id AS state_id, ref_state.state_desc AS state_desc,
                     SUM(IF(total_data = 0,1,0)) AS data_red, 
@@ -1492,7 +1492,7 @@ class Class_sql {
                         WHERE ydaily_date = '[pool_date]' 
                         GROUP BY industrial_id, stack_id
                     ) data_summaries ON data_summaries.industrial_id = t_industrial_all.industrial_id AND data_summaries.stack_id = t_industrial_all.indAll_stackNo
-                    WHERE indAll_datePoolStart <= '[pool_date]' AND indAll_status IN (1,30)) 
+                    WHERE indAll_datePoolStart <= '[pool_date]' AND indAll_status IN (1,27,28,29,30)) 
                 as data_table ON data_table.state_id = ref_state.state_id
                 GROUP BY state_id";
             } else if ($title == 'dt_mobile_cems_equipment') {
@@ -2450,7 +2450,7 @@ class Class_sql {
                 LEFT JOIN t_consultant_all ON t_consultant_all.consAll_id = t_industrial_all.consAll_id
                 LEFT JOIN t_consultant ON t_consultant.consultant_id = t_consultant_all.consultant_id
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = t_consultant.wfGroup_id
-                WHERE indAll_status IN (1,30)
+                WHERE indAll_status IN (1,27,28,29,30)
                 GROUP BY consultant_id, wfGroup_name";
             } else if ($title == 'vw_gcp_count_registered') {
                 $sql = "SELECT COUNT(*) AS total FROM t_industrial_all WHERE indAll_status NOT IN (2, 8)";

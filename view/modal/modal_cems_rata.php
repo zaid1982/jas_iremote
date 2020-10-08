@@ -121,6 +121,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"><font color="red">*</font> Test Date</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input type="text" name="mqj_document_date" id="mqj_document_date"
+                                           class="form-control" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group margin-bottom-5">
@@ -151,9 +161,10 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center bg-color-teal txt-color-white" width="30px" data-hide="phone">No.</th>
-                                    <th class="text-center bg-color-teal txt-color-white" width="40%" data-hide="phone">Type</th>
+                                    <th class="text-center bg-color-teal txt-color-white" width="40%" data-class="expand">Type</th>
                                     <th class="text-center bg-color-teal txt-color-white" width="20%" data-hide="phone">Document Title</th>
-                                    <th class="text-center bg-color-teal txt-color-white" data-class="expand">File Name</th>
+                                    <th class="text-center bg-color-teal txt-color-white" width="15%" data-hide="phone">Test Date</th>
+                                    <th class="text-center bg-color-teal txt-color-white" data-hide="phone">File Name</th>
                                     <th class="text-center bg-color-teal txt-color-white" width="52px" style="min-width: 52px">&nbsp;</th>
                                 </tr>
                                 </thead>

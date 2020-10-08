@@ -86,11 +86,11 @@ try {
             if ($_POST['mrg_jenis_permohonan'] == '1' && empty($_POST['mrg_company_regNo']))                    throw new Exception('(ErrCode:5126) [' . __LINE__ . '] - Company Registration No. empty.', 35);
             if ($_POST['mrg_jenis_permohonan'] == '1') {
                 if (Class_db::getInstance()->db_count('user', array('user_name'=>$_POST['mrg_company_regNo'])) > 0)  throw new Exception('(ErrCode:5123) [' . __LINE__ . '] - Company Registration No. already registered.', 35);
-                if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$_POST['mrg_company_regNo'], 'consultant_status'=>'1')) > 0)
+                if (Class_db::getInstance()->db_count('vw_wfGroup_consultant', array('wfGroup_regNo'=>$_POST['mrg_company_regNo'])) > 0)
                     throw new Exception('(ErrCode:5127) [' . __LINE__ . '] - Company Registration No. already exist.', 35);
             } else {
                 if (Class_db::getInstance()->db_count('user', array('user_name'=>$_POST['mrg_doeFile_no'])) > 0)  throw new Exception('(ErrCode:5123) [' . __LINE__ . '] - DOE File No. already registered.', 35);
-                if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>$_POST['mrg_doeFile_no'], 'industrial_status'=>'1'))>0) 
+                if (Class_db::getInstance()->db_count('t_industrial', array('industrial_jasFileNo'=>$_POST['mrg_doeFile_no']))>0)
                     throw new Exception('(ErrCode:5130) [' . __LINE__ . '] - This DOE File No. already registered in the system.', 35);                
             }
             $user_name = $_POST['mrg_jenis_permohonan'] == '1' ? $_POST['mrg_company_regNo'] : $_POST['mrg_doeFile_no'];
