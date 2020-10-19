@@ -192,7 +192,9 @@ include 'view/js/j_modal_consultant_mobile.php';
     });
     
     function f_table_cpl () {
-        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0,4)'});
+        const wfGroupUser = f_get_general_info('wf_group_user', {user_id:$('#user_id').val(), wfGroupUser_status:'1'});
+        const stateId = f_get_value_from_table('wf_group', 'wfGroup_id', wfGroupUser['wfGroup_id'], 'state_id');
+        datas = f_get_general_info_multiple('dt_industrial_all_list', {indAll_status:'(27,28,29,30,1,0,4)', state_id:stateId});
         f_dataTable_draw(dataNew, datas, 'datatable_cpl', 11);
     }
 

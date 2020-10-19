@@ -1327,6 +1327,7 @@ class Class_sql {
                     ref_status.status_desc AS status_desc,
                     ref_status.status_color AS status_color,
                     t_industrial.wfGroup_id AS wfGroup_id,
+                    ref_state.state_id,
                     ref_state.state_desc,
                     t_industrial_all.*
                 FROM t_industrial_all 
