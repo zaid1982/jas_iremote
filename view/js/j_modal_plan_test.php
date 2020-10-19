@@ -11,7 +11,7 @@
                 mpt_indAll_dateRataSet : {
                     validators : {
                         notEmpty: {
-                            message: 'Initial RATA Date is required'
+                            message: 'Initial Quality Assurance Date is required'
                         }                      
                     }
                 }

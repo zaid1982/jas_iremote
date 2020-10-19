@@ -659,7 +659,7 @@
                 }
                 $.SmartMessageBox({
                     title : "<i class='fa fa-exclamation-circle'></i> Confirmation!",
-                    content : "Are you sure to submit this Initial RATA Report?",
+                    content : "Are you sure to submit this Initial Quality Assurance Report?",
                     buttons : '[No][Yes]'
                 }, function(ButtonPressed) {
                     if (ButtonPressed === "Yes") {

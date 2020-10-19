@@ -980,7 +980,7 @@ try {
             $result = '1';
         } else if ($_POST['funct'] == 'save_initial_rata_date') {
             if (empty($_POST['mpt_indAll_id']))             throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
-            if (empty($_POST['mpt_indAll_dateRataSet']))    throw new Exception('(ErrCode:5865) [' . __LINE__ . '] - Field Initial RATA Date empty.', 32);
+            if (empty($_POST['mpt_indAll_dateRataSet']))    throw new Exception('(ErrCode:5865) [' . __LINE__ . '] - Field Initial Quality Assurance Date empty.', 32);
             $result = Class_db::getInstance()->db_update('t_industrial_all', array('indAll_dateRataSet'=>$_POST['mpt_indAll_dateRataSet']), array('indAll_id'=>$_POST['mpt_indAll_id']));
 
 

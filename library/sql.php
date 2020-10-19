@@ -1856,11 +1856,11 @@ class Class_sql {
                     ref_status.status_color AS qa_status_color,
                     t_industrial_all.indAll_stackNo AS indAll_stackNo,
                     t_industrial_all.indAll_datePoolStart AS indAll_datePoolStart,
-                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial RATA'
-                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial RATA'
-                        WHEN t_qa.qa_type = 3 THEN 'CEMS RATA'
+                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 3 THEN 'CEMS Quality Assurance'
                         WHEN t_qa.qa_type = 4 THEN 'CEMS RAA'
-                        WHEN t_qa.qa_type = 5 THEN 'PEMS RATA'
+                        WHEN t_qa.qa_type = 5 THEN 'PEMS Quality Assurance'
                         WHEN t_qa.qa_type = 6 THEN 'PEMS RAA'
                     END AS qa_type_desc,
                     t_qa.*
@@ -2227,11 +2227,11 @@ class Class_sql {
                     t_industrial_all.indAll_type AS indAll_type,
                     t_industrial_all.indAll_id AS indAll_id,
                     t_qa.qa_type AS qa_type,
-                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial RATA'
-                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial RATA'
-                        WHEN t_qa.qa_type = 3 THEN 'CEMS RATA'
+                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 3 THEN 'CEMS Quality Assurance'
                         WHEN t_qa.qa_type = 4 THEN 'CEMS RAA'
-                        WHEN t_qa.qa_type = 5 THEN 'PEMS RATA'
+                        WHEN t_qa.qa_type = 5 THEN 'PEMS Quality Assurance'
                         WHEN t_qa.qa_type = 6 THEN 'PEMS RAA'
                         END AS qa_types,
                     wf_group.wfGroup_name AS wfGroup_name,
@@ -2272,11 +2272,11 @@ class Class_sql {
                     t_industrial_all.indAll_type AS indAll_type,
                     t_industrial_all.indAll_id AS indAll_id,
                     t_qa.qa_type AS qa_type,
-                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial RATA'
-                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial RATA'
-                        WHEN t_qa.qa_type = 3 THEN 'CEMS RATA'
+                    CASE WHEN t_qa.qa_type = 1 THEN 'CEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 2 THEN 'PEMS Initial Quality Assurance'
+                        WHEN t_qa.qa_type = 3 THEN 'CEMS Quality Assurance'
                         WHEN t_qa.qa_type = 4 THEN 'CEMS RAA'
-                        WHEN t_qa.qa_type = 5 THEN 'PEMS RATA'
+                        WHEN t_qa.qa_type = 5 THEN 'PEMS Quality Assurance'
                         WHEN t_qa.qa_type = 6 THEN 'PEMS RAA'
                         END AS qa_types,
                     wf_group.wfGroup_name AS wfGroup_name,

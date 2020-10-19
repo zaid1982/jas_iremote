@@ -6,7 +6,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h4 class="modal-title"><i class='fa fa-calendar-plus-o'></i>&nbsp; Set Initial RATA Date</h4>
+                    <h4 class="modal-title"><i class='fa fa-calendar-plus-o'></i>&nbsp; Set Initial Quality Assurance Date</h4>
                 </div>
                 <div class="modal-body">   
                     <div class="well">
@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-md-12">   
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Initial RATA Date</label>
+                                <label class="col-md-4 control-label">Initial Quality Assurance Date</label>
                                 <div class="col-md-4">   
                                     <div class="input-group">
                                         <input type="text" name="mpt_indAll_dateRataSet" id="mpt_indAll_dateRataSet" class="form-control" readonly>

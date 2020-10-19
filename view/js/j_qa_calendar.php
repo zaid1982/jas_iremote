@@ -41,31 +41,31 @@
                     calendar.fullCalendar('unselect');
                 },
                 events: [{
-                        title: 'RATA (Done)',
+                        title: 'Quality Assurance (Done)',
                         start: new Date(y, m, 4),
                         description: 'Petronas Gebeng Berhad<br>Stack 20329',
                         className: ["event", "bg-color-green"],
                         icon: 'fa-check'
                     }, {
-                        title: 'RATA',
+                        title: 'Quality Assurance',
                         description: 'Kerteh Oil Sdn Bhd<br>Stack 19200',
                         start: new Date(y, m, d + 5),
                         className: ["event", "bg-color-greenLight"],
                         icon: 'fa-gavel'
                     }, {
-                        title: 'RATA',
+                        title: 'Quality Assurance',
                         description: 'Nilai Industry Sdn Bhd<br>Stack 10001',
                         start: new Date(y, m, d + 9),
                         className: ["event", "bg-color-greenLight"],
                         icon: 'fa-gavel'
                     }, {
-                        title: 'RATA',
+                        title: 'Quality Assurance',
                         description: 'Serdang Oil Sdn Bhd<br>Stack C0021',
                         start: new Date(y, m, d + 15),
                         className: ["event", "bg-color-greenLight"],
                         icon: 'fa-gavel'
                     }, {
-                        title: 'RATA (Done - late)',
+                        title: 'Quality Assurance (Done - late)',
                         description: 'Kerteh Oil Sdn Bhd<br>Stack 21122',
                         start: new Date(y, m, d -2),
                         className: ["event", "bg-color-orange"],

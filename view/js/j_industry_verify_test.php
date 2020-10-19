@@ -257,9 +257,9 @@ include 'view/js/j_modal_pems_rata.php';
                             $label = '<button type="button" class="btn btn-info btn-xs" id="itp_btn_info" title="Application Information" onclick="f_load_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'itp\');"><i class="fa fa-info-circle"></i></button>';
                             $label += ' <button type="button" class="btn btn-warning btn-xs" title="Transaction History" onclick="f_load_action (3, '+row.wfTask_id+',\'itp\');"><i class="fa fa-history"></i></button>';
                             if (row.wfFlow_id == '4')
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Verify Initial RATA Test Report" onclick="f_load_cems_rata (2, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Verify Initial Quality Assurance Test Report" onclick="f_load_cems_rata (2, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
                             else if (row.wfFlow_id == '5')
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Verify Initial RATA Test Report" onclick="f_load_pems_rata (2, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Verify Initial Quality Assurance Test Report" onclick="f_load_pems_rata (2, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
                             return $label;
                         }
                     }
@@ -521,9 +521,9 @@ include 'view/js/j_modal_pems_rata.php';
                             $label = '<button type="button" class="btn btn-info btn-xs" id="itp_btn_info" title="Application Information" onclick="f_load_'+modal_open+' (3, \'\', '+row.wfTask_refValue+',\'itp\');"><i class="fa fa-info-circle"></i></button>';
                             $label += ' <button type="button" class="btn btn-warning btn-xs" title="Transaction History" onclick="f_load_action (3, '+row.wfTask_id+',\'itp\');"><i class="fa fa-history"></i></button>';
                             if (row.wfFlow_id == '4')
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Initial RATA Test Report" onclick="f_load_cems_rata (3, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Initial Quality Assurance Test Report" onclick="f_load_cems_rata (3, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
                             else if (row.wfFlow_id == '5')
-                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Initial RATA Test Report" onclick="f_load_pems_rata (3, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
+                                $label += ' <button type="button" class="btn btn-success btn-xs" id="itp_btn_edit" title="Initial Quality Assurance Test Report" onclick="f_load_pems_rata (3, \'\', '+row.wfTask_id+',\'itp\');"><i class="fa fa-file-text-o"></i></button>';
                             return $label;
                         }
                     }
@@ -571,17 +571,17 @@ include 'view/js/j_modal_pems_rata.php';
             if ($('#itp_dateDue').val() != '') 
                 txt_title += ', Due Date : '+$('#itp_dateDue').val();
             if ($('#itp_dateRata').val() != '') 
-                txt_title += ', Initial RATA Date : '+$('#itp_dateRata').val();
+                txt_title += ', Initial Quality Assurance Date : '+$('#itp_dateRata').val();
             txt_title = '<i>('+txt_title+')</i>';
         } else if ($('#itp_dateDue').val() != '') {
             if ($('#itp_dateRata').val() != '') {
                 txt_title += '<i>(Due Date : '+$('#itp_dateDue').val();
-                txt_title += ', Initial RATA Date : '+$('#itp_dateRata').val()+')</i>';
+                txt_title += ', Initial Quality Assurance Date : '+$('#itp_dateRata').val()+')</i>';
             } else
                 txt_title += '<i>(Due Date : '+$('#itp_dateDue').val()+')</i>';
         }
         else if ($('#itp_dateRata').val() != '') 
-            txt_title += '<i>(Initial RATA Date : '+$('#itp_dateRata').val()+')</i>';
+            txt_title += '<i>(Initial Quality Assurance Date : '+$('#itp_dateRata').val()+')</i>';
         
         $('#itp_table_title').html(txt_title);
     }
@@ -593,17 +593,17 @@ include 'view/js/j_modal_pems_rata.php';
             if ($('#itp2_dateDue').val() != '') 
                 txt_title += ', Due Date : '+$('#itp2_dateDue').val();
             if ($('#itp2_dateRata').val() != '') 
-                txt_title += ', Initial RATA Date : '+$('#itp2_dateRata').val();
+                txt_title += ', Initial Quality Assurance Date : '+$('#itp2_dateRata').val();
             txt_title = '<i>('+txt_title+')</i>';
         } else if ($('#itp2_dateDue').val() != '') {
             if ($('#itp2_dateRata').val() != '') {
                 txt_title += '<i>(Due Date : '+$('#itp2_dateDue').val();
-                txt_title += ', Initial RATA Date : '+$('#itp2_dateRata').val()+')</i>';
+                txt_title += ', Initial Quality Assurance Date : '+$('#itp2_dateRata').val()+')</i>';
             } else
                 txt_title += '<i>(Due Date : '+$('#itp2_dateDue').val()+')</i>';
         }
         else if ($('#itp2_dateRata').val() != '') 
-            txt_title += '<i>(Initial RATA Date : '+$('#itp2_dateRata').val()+')</i>';
+            txt_title += '<i>(Initial Quality Assurance Date : '+$('#itp2_dateRata').val()+')</i>';
         
         $('#itp2_table_title').html(txt_title);
     }

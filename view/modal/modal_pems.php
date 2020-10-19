@@ -1037,7 +1037,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">RATA (yearly)</label>
+                                                    <label class="col-md-3 control-label">Quality Assurance (yearly)</label>
                                                     <div class="col-md-1">
                                                         <div class="checkbox">
                                                             <label>

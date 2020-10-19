@@ -119,7 +119,7 @@ include 'view/js/j_modal_qa_report.php';
                 dataNew.column($(this).parent().index() + ':visible').search('^'+this.value+'$', true, false, true).draw();
         });        
         
-        datas = [{data1:'F1001', data2:'CEMS', data3:'SIRA 100212/13', data4:'Rania Resources Sdn Bhd', data5:'RATA', data6:'2016-04-14', data7:'2016-04-14 12:32:33', data8:'Late 15 days'},
+        datas = [{data1:'F1001', data2:'CEMS', data3:'SIRA 100212/13', data4:'Rania Resources Sdn Bhd', data5:'Quality Assurance', data6:'2016-04-14', data7:'2016-04-14 12:32:33', data8:'Late 15 days'},
         {data1:'F1001', data2:'CEMS', data3:'SIRA 100212/13', data4:'Rania Resources Sdn Bhd', data5:'RAA', data6:'2016-05-15', data7:'2016-05-15 23:32:44', data8:'In 3 days'},
         {data1:'F1001', data2:'CEMS', data3:'SIRA 100212/13', data4:'Rania Resources Sdn Bhd', data5:'RAA', data6:'2015-08-15', data7:'2015-08-15 23:32:44', data8:'Done'}];
         f_dataTable_draw(dataNew, datas);

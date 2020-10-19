@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title"><i class='fa fa-check-square-o'></i>&nbsp; Initial RATA Report</h4>
+                <h4 class="modal-title"><i class='fa fa-check-square-o'></i>&nbsp; Initial Quality Assurance Report</h4>
             </div>
             <div class="modal-body padding-gutter modal-fixHeight">   
                 <form class="form-horizontal" id="form_mtc">
@@ -446,7 +446,7 @@
                                         <tr>
                                             <td class="text-center">1</td>
                                             <td>Document adfs</td>
-                                            <td>Additional Initial RATA Report</td>
+                                            <td>Additional Initial Quality Assurance Report</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-xs" id="mtc_attachment_download" title="Download" onclick=""><i class="fa fa-download"></i></button>&nbsp;
                                                 <button type="button" class="btn btn-danger btn-xs mtc_show_industry" id="" title="Delete" onclick=""><i class="fa fa-minus"></i></button>

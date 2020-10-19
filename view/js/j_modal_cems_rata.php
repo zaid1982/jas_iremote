@@ -1374,7 +1374,7 @@
                 }
                 $.SmartMessageBox({
                     title: "<i class='fa fa-exclamation-circle'></i> Confirmation!",
-                    content: "Are you sure to submit this Initial RATA Report?",
+                    content: "Are you sure to submit this Initial Quality Assurance Report?",
                     buttons: '[No][Yes]'
                 }, function (ButtonPressed) {
                     if (ButtonPressed === "Yes") {
@@ -1383,7 +1383,7 @@
                             $('#mqj_qa_message').val($('[name="mqj_snote_qa_message"]').summernote('code'));
                             if (f_submit_forms('form_mqj_base,#form_mqj_form,#form_mqj_form_2', 'p_registration')) {
                                 submit_status = $('#mqj_wfTask_status').val() == '28' ? '10' : '13';
-                                if (f_submit($('#mqj_wfTask_id').val(), $('#mqj_wfTaskType_id').val(), submit_status, 'Initial RATA successfully submitted', $('#mqj_qa_message').val(), condition_no, submit_group, '', $('#mqj_wfTask_refName').val(), $('#mqj_wfTask_refValue').val())) {
+                                if (f_submit($('#mqj_wfTask_id').val(), $('#mqj_wfTaskType_id').val(), submit_status, 'Initial Quality Assurance successfully submitted', $('#mqj_qa_message').val(), condition_no, submit_group, '', $('#mqj_wfTask_refName').val(), $('#mqj_wfTask_refValue').val())) {
                                     f_table_icm();
                                     f_send_email('email_verify_initRATA', {wfTask_id: result_submit_task});
                                     $('#modal_cems_rata').modal('hide');
