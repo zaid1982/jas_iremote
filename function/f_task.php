@@ -370,7 +370,7 @@ class Class_task {
                 } else if ($status == '18') {   // approve 
                     if (in_array($wfTaskType_id, array('35', '45'))) {
                         $indAll_id = Class_db::getInstance()->db_select_col('wf_task', array('wfTask_id'=>$wfTask_id, 'wfTask_refName'=>'indAll_id'), 'wfTask_refValue', NULL, 1);
-                        Class_db::getInstance()->db_update('t_industrial_all', array('indAll_status'=>'27'), array('indAll_id'=>$indAll_id));
+                        Class_db::getInstance()->db_update('t_industrial_all', array('indAll_status'=>'27', 'indAll_datePoolStart'=>'Now()'), array('indAll_id'=>$indAll_id));
                         $industrial_id = Class_db::getInstance()->db_select_col('t_industrial_all', array('indAll_id'=>$indAll_id), 'industrial_id', NULL, 1);
                         Class_db::getInstance()->db_update('t_industrial', array('industrial_status'=>'24'), array('industrial_id'=>$industrial_id));
                         $wfTrans_regNo = $this->get_registration_no($wfTask_id);
