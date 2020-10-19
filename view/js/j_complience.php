@@ -803,9 +803,8 @@
             data_exr_opa.columns(i).visible(false);
         }
         industrial_param = f_get_general_info_multiple('vw_compliance_param_list', {indAll_id:indAll_id}, '', '', 'inputParam_id');
-        $.each(industrial_param, function(u){ 
-			alert(parseInt(industrial_param[u].inputParam_id));
-            if (industrial_param[u].inputParam_id >= '8') {
+        $.each(industrial_param, function(u){
+            if (parseInt(industrial_param[u].inputParam_id) >= 8) {
                 is_opa = true;
                 data_exr_opa.columns(parseInt(industrial_param[u].inputParam_id)-7).visible(true);
                 $('#exr_tblheader_'+industrial_param[u].inputParam_id).html(formattedNumber(industrial_param[u].indParam_limitValue));
