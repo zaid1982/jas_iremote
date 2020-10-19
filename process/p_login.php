@@ -46,7 +46,7 @@ try {
                 Class_db::getInstance()->db_update('user', array('user_failAttempt'=>'0'), array('user_name'=>'(\''.$_POST['txt_email'].'\')'));
                 $fn_task->save_audit('1');
             } else if ($user_type == '1' && $user_basic['user_type'] == '1') {      
-                /*$result_ldap = $fn_user->check_ldap($_POST['txt_email'], $_POST['txt_password']);
+                $result_ldap = $fn_user->check_ldap($_POST['txt_email'], $_POST['txt_password']);
                 log_debug(__LINE__, 'Result LDAP = '.$result_ldap, $log_dir);
                 if ($result_ldap == 0) {
                     Class_db::getInstance()->db_update('user', array('user_failAttempt'=>strval(intval($user_basic['user_failAttempt'])+1)), array('user_name'=>'(\''.$_POST['txt_email'].'\')'));
@@ -55,7 +55,7 @@ try {
                         throw new Exception('(ErrCode:5102) ['.__LINE__.'] - 3rd time login attempt fail', 31);
                     else                     
                         throw new Exception('(ErrCode:5101) ['.__LINE__.'] - Login attempt fail', 32);
-                }*/
+                }
                 if ($user_basic['user_status'] != '1') 
                     throw new Exception('(ErrCode:5100) ['.__LINE__.'] - User not active', 36);
                 $_SESSION["user_id"] = $user_basic['user_id'];  

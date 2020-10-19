@@ -328,8 +328,9 @@
                         arr_param_stack_in.push(arr_input_param[u]);
                         arr_param_plot.push({name:'Stack '+arr_input_param[u].indAll_stackNo, indAll_id:arr_input_param[u].indAll_id, data:f_exr_default_plot(arr_input_param[u].inputParam_id, date_form), threshold: limit_value, negativeColor:color_set[index], color: 'red', indParam_limitValue:arr_input_param[u].indParam_limitValue});
                     }
-                    if (u == arr_input_param.length - 1)
+                    if (u == arr_input_param.length - 1) {
                         arr_param_all.push({inputParam_id:arr_param_stack_in[0].inputParam_id,inputParam_desc:arr_param_stack_in[0].inputParam_desc, data:arr_param_stack_in, data_plot:arr_param_plot});
+					}
                 });   
                 $('#exr_div_bar_0').html('');
                 $('#exr_div_bar_0, #exr_widget_stack').show();   
@@ -803,13 +804,14 @@
         }
         industrial_param = f_get_general_info_multiple('vw_compliance_param_list', {indAll_id:indAll_id}, '', '', 'inputParam_id');
         $.each(industrial_param, function(u){ 
+			alert(parseInt(industrial_param[u].inputParam_id));
             if (industrial_param[u].inputParam_id >= '8') {
                 is_opa = true;
                 data_exr_opa.columns(parseInt(industrial_param[u].inputParam_id)-7).visible(true);
                 $('#exr_tblheader_'+industrial_param[u].inputParam_id).html(formattedNumber(industrial_param[u].indParam_limitValue));
             } else {
                 is_data = true;
-                data_exr.columns(industrial_param[u].inputParam_id).visible(true);
+                data_exr.columns(parseInt(industrial_param[u].inputParam_id)).visible(true);
                 $('#exr_tblheader_'+industrial_param[u].inputParam_id).html(formattedNumber(industrial_param[u].indParam_limitValue));
             }
             exr_limit_value[parseInt(industrial_param[u].inputParam_id)] = industrial_param[u].indParam_limitValue;

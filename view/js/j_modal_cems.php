@@ -183,7 +183,7 @@
                         if (visibleRows[j].inputParam_id === '9' || visibleRows[j].inputParam_id === '10')
                             bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
                         else
-                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                            bootstrapValidator.addField('mce_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{notEmpty:{message:'Required'},numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
                     }
                 }
             },
@@ -1385,6 +1385,7 @@
             const param_covered = f_get_general_info_multiple('vw_industial_param_covered', {}, {indAll_id:$('#mce_indAll_id').val()});
             let checked_same = 0;
             let param_desc = '';
+			console.log(data_mce_parameter);
             $.each(data_mce_parameter, function(u){
                 if (data_mce_parameter[u].inputParam_id !== '9' && data_mce_parameter[u].inputParam_id !== '10') {
                     checked_same = 0;
@@ -1445,7 +1446,7 @@
                             const condition_no = $('#mce_wfTask_status').val() === '2' ? '' : '1';
                             const wfGroup_id = $('#mce_wfTask_status').val() === '2' ? $('#mce_wfGroup_id').val() : '';
                             if (f_submit($('#mce_wfTask_id').val(), $('#mce_wfTaskType_id').val(), submit_status, submit_msg, $('#mce_wfTask_remark').val(), condition_no, wfGroup_id, '', 'indAll_id', $('#mce_indAll_id').val())) {
-                                const email_type = submit_status === '2' ? 'email_assign' : 'email_process';
+                                const email_type = $('#mce_wfTask_status').val() === '2' ? 'email_assign' : 'email_process';
                                 f_send_email(email_type, {wfTask_id:result_submit_task}); 
                                 if (mce_otable === 'icm')
                                     f_table_icm ();
@@ -1604,7 +1605,7 @@
     }
         
     function f_load_cems (load_type, wfGroup_id, indAll_id, otable) {
-        $('#modal_waiting').on('shown.bs.modal', function(e){
+        $('#modal_waiting').on('shown.bs.modal', function(e){			
             if (mce_1st_load) {      
                 get_option('mce_document_type', '1', 'document_name', 'documentName_id', 'documentName_desc', 'documentName_status', ' ', 'ref_id', 'documentName_type', 'cems');           
                 get_option('mce_docNormalize_type', '1', 'document_name', 'documentName_id', 'documentName_desc', 'documentName_status', ' ', 'ref_id', 'documentName_type', 'normalize');           
@@ -1740,7 +1741,7 @@
                         mce_total_section[u] = checklist_task[u].checklist_id;
                     });    
                 }
-            } else {
+            } else {			
                 f_mce_get_listInput();
             }
             $('#modal_cems').modal('show');       

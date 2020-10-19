@@ -341,7 +341,10 @@
                 if(visibleRows.length >= 1){
                     for(let j=0;j<visibleRows.length;j++){
                         let bootstrapValidator = $("#form_mpe_2_1").data('bootstrapValidator');
-                        bootstrapValidator.addField('mpe_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Concentration not a valid number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                        if (visibleRows[j].inputParam_id === '9' || visibleRows[j].inputParam_id === '10')
+                            bootstrapValidator.addField('mpe_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
+                        else
+                            bootstrapValidator.addField('mpe_indParam_concentration_'+visibleRows[j].indParam_id, {validators:{notEmpty:{message:'Required'},numeric:{message:'Must be number',thousandsSeparator: '',decimalSeparator: '.'}}});
                     }
                 }
             },
