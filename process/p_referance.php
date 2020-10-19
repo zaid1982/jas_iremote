@@ -36,6 +36,8 @@ try {
                 $result = Class_db::getInstance()->db_select('vw_opt_pems_consultant', array(), NULL, NULL, NULL, array('where_status'=>$_POST['status']));
             } else if ($_POST['tablename'] == 'industrial_active') {
                 $result = Class_db::getInstance()->db_select('vw_opt_industrial', array('state_id'=>$_POST['status']));
+            } else if ($_POST['tablename'] == 'industrial_parameter_to_be_excluded') {
+                $result = Class_db::getInstance()->db_select('vw_opt_parameter_to_be_excluded', array('indAll_id'=>$_POST['status']));
             } else if ($_POST['tablename'] == 'stack_complience') {
                 $result = Class_db::getInstance()->db_select('vw_opt_stack_complience', array(), NULL, NULL, NULL, array('industrial_id'=>$_POST['status'], 'date_pool_start'=>$_POST['id_name']));
             } else {

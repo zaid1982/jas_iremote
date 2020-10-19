@@ -832,20 +832,25 @@ try {
                 }
             }
             Class_db::getInstance()->db_delete('t_industrial_parameter', array('indAll_id'=>$arrayParam['indAll_id']));
+            Class_db::getInstance()->db_delete('t_industrial_exclude', array('indAll_id'=>$arrayParam['indAll_id']));
             $results = '1';
-            if (!empty($arrayParam['sourceCapacity_id'])) {
+            if (!empty($arrayParam['sourceCapacity_id']) && !empty($arrPost_indPollution)) {
                 if ($arrayParam['sourceCapacity_id'] == '1' || $arrayParam['sourceCapacity_id'] == '2') {
                     if (!empty($arrayParam['fuelType_id'])) {
                         $arr_pub = Class_db::getInstance()->db_select('t_pub', array('sourceCapacity_id'=>$arrayParam['sourceCapacity_id'], 'fuelType_id'=>$arrayParam['fuelType_id'], 'pub_status'=>'1'));
                         foreach($arr_pub as $pub) {
-                            Class_db::getInstance()->db_insert('t_industrial_parameter', array('indAll_id'=>$arrayParam['indAll_id'], 'pub_id'=>$pub['pub_id'], 'indParam_limitValue'=>$pub['pub_limitValue']));
+                            if (Class_db::getInstance()->db_count('t_input_parameter', array('inputParam_id'=>$pub['inputParam_id'], 'inputParam_type'=>'('.  implode(',', $arrPost_indPollution).')')) > 0) {
+                                Class_db::getInstance()->db_insert('t_industrial_parameter', array('indAll_id'=>$arrayParam['indAll_id'], 'pub_id'=>$pub['pub_id'], 'indParam_limitValue'=>$pub['pub_limitValue']));
+                            }
                         }
                         $results = '2';
                     }
                 } else {
                     $arr_pub = Class_db::getInstance()->db_select('t_pub', array('sourceCapacity_id'=>$arrayParam['sourceCapacity_id'], 'pub_status'=>'1'));
                     foreach($arr_pub as $pub) {
-                        Class_db::getInstance()->db_insert('t_industrial_parameter', array('indAll_id'=>$arrayParam['indAll_id'], 'pub_id'=>$pub['pub_id'], 'indParam_limitValue'=>$pub['pub_limitValue']));
+                        if (Class_db::getInstance()->db_count('t_input_parameter', array('inputParam_id'=>$pub['inputParam_id'], 'inputParam_type'=>'('.  implode(',', $arrPost_indPollution).')')) > 0) {
+                            Class_db::getInstance()->db_insert('t_industrial_parameter', array('indAll_id'=>$arrayParam['indAll_id'], 'pub_id'=>$pub['pub_id'], 'indParam_limitValue'=>$pub['pub_limitValue']));
+                        }
                     }
                     $results = '2';
                 }
@@ -853,6 +858,17 @@ try {
             Class_db::getInstance()->db_update('t_industrial_all', array('sourceActivity_id'=>$arrayParam['sourceActivity_id'], 'sourceCapacity_id'=>$arrayParam['sourceCapacity_id'], 'fuelType_id'=>$arrayParam['fuelType_id']),
                 array('indAll_id'=>$arrayParam['indAll_id']));
             $result = $results;
+        } else if ($_POST['funct'] == 'save_industrial_exclude') {
+            if (empty($_POST['mce_indAll_id']))             throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
+            if (empty($_POST['mce_exclude_param_id']))      throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Field Parameter to be Excluded empty.', 32);
+            if (empty($_POST['mce_exclude_reason']))        throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Field Reason empty.', 32);
+            if (Class_db::getInstance()->db_count('t_industrial_exclude', array('indAll_id'=>$_POST['mce_indAll_id'], 'pub_id'=>$_POST['mce_indAll_id'])) > 0) {
+                throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter already been excluded.', 32);
+            }
+            $document_id = !empty($_FILES['mce_file_exclude']['name']) ? $fn_upload->upload_file('1', $_FILES['mce_file_exclude'], 'Supportive Document for Excluded Parameter', '41', $_POST['mce_exclude_reason']) : '';
+            $inputParam_id = Class_db::getInstance()->db_select_col('t_pub', array('pub_id'=>$_POST['mce_indAll_id']), 'inputParam_id', NULL, 1);
+            Class_db::getInstance()->db_delete('t_industrial_parameter', array('indAll_id'=>$_POST['mce_indAll_id'], 'pub_id'=>$_POST['mce_indAll_id']));
+            $result = Class_db::getInstance()->db_insert('t_industrial_exclude', array('indAll_id'=>$_POST['mce_indAll_id'], 'inputParam_id'=>$inputParam_id, 'pub_id'=>$_POST['mce_exclude_param_id'], 'indExclude_reason'=>$_POST['mce_exclude_reason'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'save_industrial_written_cems') {
             if (empty($_POST['mce_indAll_id']))                 throw new Exception('(ErrCode:5859) [' . __LINE__ . '] - Parameter indAll_id empty.');
             if (empty($_POST['mce_written_type']))              throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
@@ -889,6 +905,16 @@ try {
             if (empty($_POST['mpe_document_type']))     throw new Exception('(ErrCode:5860) [' . __LINE__ . '] - Field Attachment Type empty.', 32);
             $document_id = !empty($_FILES['mpe_file_document']['name']) ? $fn_upload->upload_file('1', $_FILES['mpe_file_document'], $_POST['mpe_file_document_name'], $_POST['mpe_document_type'], $_POST['mpe_document_remarks']) : '';
             $result = Class_db::getInstance()->db_insert('t_industrial_doc', array('indAll_id'=>$_POST['mpe_indAll_id'], 'documentName_id'=>$_POST['mpe_document_type'], 'indDoc_others'=>$_POST['mpe_indDoc_others'], 'document_id'=>$document_id));
+        } else if ($_POST['funct'] == 'delete_industrial_exclude') {
+            if (empty($_POST['param']))                 throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter param empty');
+            $arrayParam = $_POST['param'];
+            if (empty($arrayParam['indExclude_id']))    throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter indExclude_id empty.');
+            $exclude = Class_db::getInstance()->db_select_single('t_industrial_exclude', array('indExclude_id'=>$arrayParam['indExclude_id']), NULL, 1);
+            Class_db::getInstance()->db_update('document', array('document_status'=>'8'), array('document_id'=>$exclude['document_id']));
+            $pub = Class_db::getInstance()->db_select_single('t_pub', array('pub_id'=>$exclude['pub_id']), NULL, 1);
+            Class_db::getInstance()->db_insert('t_industrial_parameter', array('indAll_id'=>$exclude['indAll_id'], 'pub_id'=>$exclude['pub_id'], 'indParam_limitValue'=>$pub['pub_limitValue']));
+            Class_db::getInstance()->db_delete('t_industrial_exclude', array('indExclude_id'=>$arrayParam['indExclude_id']));
+            $result = '1';
         } else if ($_POST['funct'] == 'delete_industrial_document') {
             if (empty($_POST['param']))                 throw new Exception('(ErrCode:5802) [' . __LINE__ . '] - Parameter param empty');
             $arrayParam = $_POST['param'];

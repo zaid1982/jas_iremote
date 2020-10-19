@@ -436,6 +436,43 @@
             }
         });
 
+        $('#form_mce_2_12').bootstrapValidator({
+            excluded: ':disabled',
+            fields: {
+                mce_exclude_param_id : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Parameter to be Excluded is required'
+                        }
+                    }
+                },
+                mce_exclude_reason : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Reason is required'
+                        },
+                        stringLength : {
+                            max : 255,
+                            message : 'Reason must be not more than 255 characters long'
+                        }
+                    }
+                },
+                mce_file_exclude : {
+                    validators: {
+                        notEmpty: {
+                            message: 'Supportive Document is required'
+                        },
+                        file: {
+                            extension: 'pdf',
+                            type: 'application/pdf',
+                            maxSize: '20000000',
+                            message: 'Only PDF file format max 20MB allowed.'
+                        }
+                    }
+                }
+            }
+        });
+
         let datatable_mce_exclude = undefined;
         mce_otable_exclude = $('#datatable_mce_exclude').DataTable({
             "paging": false,
@@ -471,6 +508,53 @@
                         }
                     }
                 ]
+        });
+
+        $('#mce_btn_add_exclude').on('click', function () {
+            let bootstrapValidator = $("#form_mce_2_12").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                $('#modal_waiting').on('shown.bs.modal', function(e){
+                    let formData = new FormData($('#form_mce_2_12')[0]);
+                    formData.append('funct', 'save_industrial_exclude');
+                    formData.append('mce_indAll_id', $('#mce_indAll_id').val());
+                    $.ajax({
+                        url: "process/p_registration.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: false,
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() {
+                            return $.ajaxSettings.xhr();
+                        },
+                        success: function(resp) {
+                            if (resp.success === true){
+                                f_notify(1, 'Success', 'Document successfully added.');
+                                $('#form_mce_2_12').trigger('reset');
+                                $('#form_mce_2_12').bootstrapValidator('resetForm', true);
+                                data_mce_exclude = f_get_general_info_multiple('dt_industrial_exclude', {indAll_id:$('#mce_indAll_id').val()}, '', '', 'indExclude_id');
+                                f_dataTable_draw(mce_otable_exclude, data_mce_exclude, 'datatable_mce_exclude', 4);
+                                data_mce_parameter = f_get_general_info_multiple('dt_pub_param', {indAll_id:$('#mce_indAll_id').val(), indParam_status:'1'}, '', '', 'inputParam_id');
+                                f_dataTable_draw(mce_otable_parameter, data_mce_parameter, 'datatable_mce_parameter', 5);
+                                get_option('mce_exclude_param_id', $('#mce_indAll_id').val(), 'industrial_parameter_to_be_excluded', '', '', '', ' ', 'ref_id');
+                            } else {
+                                f_notify(2, 'Error', resp.errors);
+                            }
+                        },
+                        error: function() {
+                            f_notify(2, 'Error', errMsg_default);
+                        }
+                    });
+                    $('#modal_waiting').modal('hide');
+                    $(this).unbind(e);
+                }).modal('show');
+            } else {
+                f_notify(2, 'Error', errMsg_validation);
+                return false;
+            }
         });
 
         $('#form_mce_2_2').bootstrapValidator({
@@ -1477,8 +1561,24 @@
             data_mce_parameter = f_get_general_info_multiple('dt_pub_param', {indAll_id:$('#mce_indAll_id').val(), indParam_status:'1'}, '', '', 'inputParam_id');
             f_dataTable_draw(mce_otable_parameter, data_mce_parameter, 'datatable_mce_parameter', 5);  
             f_mce_get_listInput();
+            get_option('mce_exclude_param_id', $('#mce_indAll_id').val(), 'industrial_parameter_to_be_excluded', '', '', '', ' ', 'ref_id');
         }  
     }
+
+    function f_mce_delete_docEclude (indExclude_id) {
+        $('#modal_waiting').on('shown.bs.modal', function(e){
+            if (f_submit_normal('delete_industrial_exclude', {indExclude_id: indExclude_id}, 'p_registration', 'Data successfully deleted.')) {
+                data_mce_exclude = f_get_general_info_multiple('dt_industrial_exclude', {indAll_id:$('#mce_indAll_id').val()}, '', '', 'indExclude_id');
+                f_dataTable_draw(mce_otable_exclude, data_mce_exclude, 'datatable_mce_exclude', 4);
+                data_mce_parameter = f_get_general_info_multiple('dt_pub_param', {indAll_id:$('#mce_indAll_id').val(), indParam_status:'1'}, '', '', 'inputParam_id');
+                f_dataTable_draw(mce_otable_parameter, data_mce_parameter, 'datatable_mce_parameter', 5);
+                get_option('mce_exclude_param_id', $('#mce_indAll_id').val(), 'industrial_parameter_to_be_excluded', '', '', '', ' ', 'ref_id');
+            }
+            $('#modal_waiting').modal('hide');
+            $(this).unbind(e);
+        }).modal('show');
+    }
+
     function f_mce_delete_written (indWritten_id) {
         $('#modal_waiting').on('shown.bs.modal', function(e){
             if (f_submit_normal('delete_industrial_written', {indWritten_id: indWritten_id}, 'p_registration', 'Data successfully deleted.')) {
@@ -1659,7 +1759,9 @@
             const status = load_type <= 2 ? '1' : '';
             const status_cons = load_type <= 2 ? 'AND consCems_status = 1' : '';
             get_option('mce_sourceActivity_id', status, 't_source_activity', 'sourceActivity_id', 'sourceActivity_desc', 'sourceActivity_status', ' ', 'ref_id');           
-            get_option('mce_consultant_id', status_cons, 'consultant_cems', '', '', '', ' ', 'ref_id');           
+            get_option('mce_consultant_id', status_cons, 'consultant_cems', '', '', '', ' ', 'ref_id');
+            get_option('mce_exclude_param_id', $('#mce_indAll_id').val(), 'industrial_parameter_to_be_excluded', '', '', '', ' ', 'ref_id');
+
             const installation_all = f_get_general_info('vw_installation_all_details', {indAll_id:$('#mce_indAll_id').val()}, 'mce');
             if ((installation_all.wfTask_status === '22' && installation_all.indAll_status === '22') || (installation_all.wfTask_status === '23' && installation_all.indAll_status === '23')) {
                 const previous_task = f_get_general_info_multiple('wf_task', {wfTrans_id:installation_all.wfTrans_id, wfTask_partition:'2'}, '', '', 'wfTask_id DESC');

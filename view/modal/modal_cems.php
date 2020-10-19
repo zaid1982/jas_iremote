@@ -447,12 +447,7 @@
                                             <div class="form-group margin-bottom-10 mac_hideView">
                                                 <label class="col-md-3 control-label"><font color="red">*</font> Supportive Document</label>
                                                 <div class="col-md-8">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" id="mce_file_exclude" name="mce_file_exclude" style="width: 100%">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-info" type="button" id="mce_btn_upload_exclude"><i class="fa fa-upload"></i></button>
-                                                        </span>
-                                                    </div>
+                                                    <input type="file" class="form-control" id="mce_file_exclude" name="mce_file_exclude" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
                                                     <button type="button" class="btn btn-primary pull-right" id="mce_btn_add_exclude">

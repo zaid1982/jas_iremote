@@ -174,6 +174,14 @@ class Class_sql {
                 WHERE t_industrial_all.industrial_id = [industrial_id] AND t_industrial_all.indAll_status IN (1,27,28,29,30) AND t_industrial_all.indAll_stackNo IS NOT NULL AND t_industrial_parameter.indParam_status = 1 
                 AND t_pub.pub_id IS NOT NULL 
                 GROUP BY ref_id";
+            } else if ($title == 'vw_opt_parameter_to_be_excluded') {
+                $sql = "SELECT 
+                    t_industrial_parameter.pub_id AS ref_id,
+                    t_input_parameter.inputParam_desc AS ref_desc,
+                    t_industrial_parameter.indAll_id AS indAll_id
+                FROM t_industrial_parameter
+                LEFT JOIN t_pub ON t_pub.pub_id = t_industrial_parameter.pub_id
+                LEFT JOIN t_input_parameter ON t_input_parameter.inputParam_id = t_pub.inputParam_id";
             } else if ($title == 'vw_address') {
                 $sql = "SELECT 
                     CONCAT('&nbsp;&nbsp;&nbsp;&nbsp;',address_line1,'<br>&nbsp;&nbsp;&nbsp;&nbsp;',IFNULL(address_line2,''),IF(address_line2 IS NOT NULL,'<br>&nbsp;&nbsp;&nbsp;&nbsp;',''),IFNULL(address_line3,''),IF(address_line3 IS NOT NULL,'<br>&nbsp;&nbsp;&nbsp;&nbsp;',''),
@@ -1210,7 +1218,6 @@ class Class_sql {
                 LEFT JOIN t_pub ON t_pub.pub_id = t_industrial_parameter.pub_id
                 LEFT JOIN t_input_parameter ON t_input_parameter.inputParam_id = t_pub.inputParam_id
                 LEFT JOIN t_monitor ON t_monitor.indParam_id = t_industrial_parameter.indParam_id
-                INNER JOIN t_industrial_pollution ON t_industrial_pollution.indAll_id = t_industrial_parameter.indAll_id AND t_industrial_pollution.pollutionMonitored_id = t_input_parameter.inputParam_type
                 WHERE t_pub.pub_status = 1";
             } else if ($title == 'dt_industrial_exclude') {
                 $sql = "SELECT 
