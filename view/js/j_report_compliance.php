@@ -25,7 +25,7 @@
                 sliced: true,
                 selected: true
             }];
-        chart_pie_3d('gco_chart_1', 'Total Compliance by Status', 'December 2016', dataSeries);
+        chart_pie('gco_chart_1', 'Total Compliance by Status', 'December 2016', dataSeries);
         dataSeries = [
             {
                 name: 'Responded',
@@ -38,7 +38,7 @@
                 sliced: true,
                 selected: true
             }];
-        chart_pie_3d('gco_chart_2', 'Total Fail Pooling by Respond Status', 'December 2016', dataSeries);        
+        chart_pie('gco_chart_2', 'Total Fail Pooling by Respond Status', 'December 2016', dataSeries);
         chart_gco_4('gco_chart_4');
         chart_gco_5('gco_chart_5');
         

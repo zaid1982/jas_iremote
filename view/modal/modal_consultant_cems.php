@@ -340,7 +340,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label"><font color="red">*</font> Type of Probe</label>
+                                                    <label class="col-md-3 control-label"><font color="red">*</font> Type of Probe <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Model/Name of sample probe e.g.: SICK probe design"></i></label>
                                                     <div class="col-md-9">                                                        
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" name="mac_consCems_probeType" id="mac_consCems_probeType"/>
@@ -386,7 +386,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label"><font color="red">*</font> Heated Sampling Line</label>
+                                                    <label class="col-md-3 control-label"><font color="red">*</font> Heated Sampling Line <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Model/Name of heated line. e.g. Eltherm or equivalent Length: 35m+ dependent on site"></i></label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" name="mac_consCems_samplingLine" id="mac_consCems_samplingLine"/>
@@ -407,7 +407,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">Software</label>
+                                                    <label class="col-md-3 control-label">Software <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Operating software version certified for all equipment components e.g.: VERSION 1.0.40 (MCU) AND 02.18 (SOPAS ET) (SERIAL NUMBER 074078537 ONWARDS)"></i></label>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" name="mac_consCems_software" id="mac_consCems_software"/>
                                                     </div>
@@ -548,7 +548,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-md-4 control-label"><font color="red">*</font> Type of Consumable Span Gas</label>
+                                                        <label class="col-md-4 control-label"><font color="red">*</font> Type of Consumable Span Gas <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Actual value volume of substance or mixture of substance with known of composition"></i></label>
                                                         <div class="col-md-8">
                                                             <input type="text" class="form-control" name="mac_consParam_reference" id="mac_consParam_reference"/>
                                                         </div>
@@ -556,7 +556,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="col-md-4 control-label"><font color="red">*</font> Method</label>
+                                                        <label class="col-md-4 control-label"><font color="red">*</font> Method <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Certified measurement of calibration gas"></i></label>
                                                         <div class="col-md-8 selectContainer">
                                                             <select class="form-control" name="mac_consParam_method" id="mac_consParam_method">
                                                                 <option value=""></option>
@@ -566,7 +566,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-md-4 control-label"><font color="red">*</font> Data Generation</label>
+                                                        <label class="col-md-4 control-label"><font color="red">*</font> Data Generation <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Capability of analyzer generates 1 data e.g.: 1sec/1 data"></i></label>
                                                         <div class="col-md-8">
                                                             <div class="input-group">      
                                                                 <input type="text" name="mac_consParam_dataGeneration" id="mac_consParam_dataGeneration" class="form-control"/>
@@ -579,7 +579,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label"><font color="red">*</font> Method of Detection</label>
+                                                        <label class="col-md-3 control-label"><font color="red">*</font> Method of Detection <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Monitoring type/technique of analyzer capture flue gas and particles."></i></label>
                                                         <div class="col-md-9 selectContainer">
                                                             <select multiple class="form-control select2" name="mac_analyzerTechnique_id[]" id="mac_analyzerTechnique_id"></select>
                                                         </div>
@@ -600,7 +600,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Certification Range</label>
+                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Certification Range <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="Range of analyzer tested and certified for compliance with the relevance performance criteria"></i></label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon bg-color-white">From</span>
@@ -744,7 +744,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Measurement Range</label>
+                                                        <label class="col-md-2 control-label"><font color="red">*</font> Supplementary Measurement Range <i class="fa fa-info-circle" style="vertical-align: super; color: darkred" rel="tooltip" data-placement="right" data-original-title="The set of values that CEMS can measure"></i></label>
                                                         <div class="col-md-4">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon bg-color-white">From</span>       
