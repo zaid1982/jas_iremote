@@ -866,7 +866,7 @@ try {
                 throw new Exception('(ErrCode:xxxx) [' . __LINE__ . '] - Parameter already been excluded.', 32);
             }
             $document_id = !empty($_FILES['mce_file_exclude']['name']) ? $fn_upload->upload_file('1', $_FILES['mce_file_exclude'], 'Supportive Document for Excluded Parameter', '41', $_POST['mce_exclude_reason']) : '';
-            $inputParam_id = Class_db::getInstance()->db_select_col('t_pub', array('pub_id'=>$_POST['mce_indAll_id']), 'inputParam_id', NULL, 1);
+            $inputParam_id = Class_db::getInstance()->db_select_col('t_pub', array('pub_id'=>$_POST['mce_exclude_param_id']), 'inputParam_id', NULL, 1);
             Class_db::getInstance()->db_delete('t_industrial_parameter', array('indAll_id'=>$_POST['mce_indAll_id'], 'pub_id'=>$_POST['mce_indAll_id']));
             $result = Class_db::getInstance()->db_insert('t_industrial_exclude', array('indAll_id'=>$_POST['mce_indAll_id'], 'inputParam_id'=>$inputParam_id, 'pub_id'=>$_POST['mce_exclude_param_id'], 'indExclude_reason'=>$_POST['mce_exclude_reason'], 'document_id'=>$document_id));
         } else if ($_POST['funct'] == 'save_industrial_written_cems') {
