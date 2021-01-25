@@ -1,7 +1,7 @@
 <?php
 
 class Class_sql {
-    
+
     private $prm_user_role = "select user_role.user_id AS user_id,group_concat(ref_role.role_desc order by ref_role.role_id ASC separator ', ') AS role_list from user_role left join ref_role on ref_role.role_id = user_role.role_id group by user_role.user_id";
     private $prm_user_type = "select user_type.user_id AS user_id,group_concat(ref_uType.uType_desc order by ref_uType.uType_id ASC separator ', ') AS userType_list from user_type left join ref_uType on ref_uType.uType_id = user_type.uType_id group by user_type.user_id";
     private $log_dir = '';
@@ -11,20 +11,20 @@ class Class_sql {
         $config = parse_ini_file('../library/config.ini');
         $this->log_dir = $config['log_dir'];
     }
-    
+
     private function get_exception($codes, $function, $line, $msg) {
-        if ($msg != '') {            
+        if ($msg != '') {
             $pos = strpos($msg,'-');
-            if ($pos !== false)   
-                $msg = substr($msg, $pos+2); 
+            if ($pos !== false)
+                $msg = substr($msg, $pos+2);
             return "(ErrCode:".$codes.") [".__CLASS__.":".$function.":".$line."] - ".$msg;
         } else
             return "(ErrCode:".$codes.") [".__CLASS__.":".$function.":".$line."]";
     }
-    
+
     public function get_sql ($title) {
-        try {     
-            if ($title == 'vw_user_basic') { 
+        try {
+            if ($title == 'vw_user_basic') {
                 $sql = "select 
                     user.user_id AS user_id,
                     user_role.role_id AS role_id,
@@ -53,7 +53,7 @@ class Class_sql {
                     WHERE (user_role.user_id = [user_id] OR user_type.user_id = [user_id])) role_menus ON role_menus.userMenu_id = user_menu.userMenu_id 
                 INNER JOIN ref_menu ON ref_menu.menu_id = user_menu.menu_id 
                 LEFT JOIN ref_menu2nd ON ref_menu2nd.menu2nd_id = user_menu.menu2nd_id
-                LEFT JOIN ref_menu3rd ON ref_menu3rd.menu3rd_id = user_menu.menu3rd_id";      
+                LEFT JOIN ref_menu3rd ON ref_menu3rd.menu3rd_id = user_menu.menu3rd_id";
             } else if ($title == 'vw_general_now') {
                 $sql = "SELECT CONCAT(YEAR(TIMESTAMP(general_remark)) + 1, '-01-01 00:00:00') AS time_end, ref_general.*, NOW() AS time_now FROM ref_general";
             } else if ($title == 'dt_task_history') {
@@ -76,7 +76,7 @@ class Class_sql {
                 LEFT JOIN `profile` ON `profile`.profile_id = `user`.profile_id
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = wf_task.wfGroup_id
                 LEFT JOIN ref_status ON ref_status.status_id = wf_task.wfTask_status
-                WHERE wf_task_type.wfTaskType_isEnd = 'N'";         
+                WHERE wf_task_type.wfTaskType_isEnd = 'N'";
             } else if ($title == 'dt_task_history_info') {
                 $sql = "SELECT 
                     wf_flow.wfFlow_module AS modul,
@@ -90,7 +90,7 @@ class Class_sql {
                 FROM wf_task 
                 LEFT JOIN wf_task_type ON wf_task_type.wfTaskType_id = wf_task.wfTaskType_id
                 LEFT JOIN `user` ON `user`.user_id = wf_task.wfTask_claimedBy 
-                LEFT JOIN wf_flow ON wf_flow.wfFlow_id = wf_task_type.wfFlow_id";  
+                LEFT JOIN wf_flow ON wf_flow.wfFlow_id = wf_task_type.wfFlow_id";
             } else if ($title == 'vw_email_send') {
                 $sql = "SELECT 
                     email_send.emailSend_id AS emailSend_id,
@@ -193,8 +193,8 @@ class Class_sql {
                 FROM address 
                 LEFT JOIN ref_city ON ref_city.city_id = address.city_id 
                 LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id";
-            } else if ($title == 'vw_get_date_diff') {  
-                $sql = "SELECT '[date_in]' + INTERVAL [expression] AS date_out";    
+            } else if ($title == 'vw_get_date_diff') {
+                $sql = "SELECT '[date_in]' + INTERVAL [expression] AS date_out";
             } else if ($title == 'dt_audit') {
                 $sql = "SELECT 
                     audit.*,
@@ -209,7 +209,7 @@ class Class_sql {
                 LEFT JOIN profile ON profile.profile_id = user.profile_id
                 INNER JOIN (select user_type.user_id AS user_id,group_concat(ref_utype.uType_desc order by ref_utype.uType_id ASC separator ', ') AS role_list from user_type left join ref_utype on ref_utype.uType_id = user_type.uType_id group by user_type.user_id) vws_user_type ON vws_user_type.user_id = user.user_id
                 LEFT JOIN audit_action ON audit_action.auditAction_id = audit.auditAction_id
-                LEFT JOIN audit_module ON audit_module.auditModule_id = audit_action.auditAction_id";         
+                LEFT JOIN audit_module ON audit_module.auditModule_id = audit_action.auditAction_id";
             } else if ($title == 'vw_menu_akses_list') {
                 $sql = "SELECT 
                     user_menu.userMenu_turn,
@@ -224,15 +224,15 @@ class Class_sql {
                 INNER JOIN user_menu ON user_menu.userMenu_id = role_menu.userMenu_id
                 LEFT JOIN ref_menu ON ref_menu.menu_id = user_menu.menu_id 
                 LEFT JOIN ref_menu2nd ON ref_menu2nd.menu2nd_id = user_menu.menu2nd_id
-                LEFT JOIN ref_menu3rd ON ref_menu3rd.menu3rd_id = user_menu.menu3rd_id";   
+                LEFT JOIN ref_menu3rd ON ref_menu3rd.menu3rd_id = user_menu.menu3rd_id";
             } else if ($title == 'vw_get_current_utype') {
                 $sql = "SELECT
                     user_type.user_id AS user_id,
                     ref_uType.uType_cate AS uType_cate
                 FROM user_type 
                 LEFT JOIN ref_uType ON ref_uType.uType_id = user_type.uType_id
-                GROUP BY uType_cate, user_id";   
-            } else if ($title == 'dt_user_mgmt') {  
+                GROUP BY uType_cate, user_id";
+            } else if ($title == 'dt_user_mgmt') {
                 $sql = "SELECT     
                     `profile`.*,                           
                     ref_department.department_desc AS department_desc,
@@ -247,29 +247,29 @@ class Class_sql {
                 LEFT JOIN ref_status ON ref_status.status_id = `user`.user_status 
                 LEFT JOIN wf_group_user ON wf_group_user.user_id = `user`.user_id AND wf_group_user.wfGroupUser_status = 1 AND wf_group_user.wfGroupUser_isMain = 1
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = wf_group_user.wfGroup_id
-                LEFT JOIN ref_department ON ref_department.department_id = wf_group_user.department_id";            
-            } else if ($title == 'dt_ref_state') {  
+                LEFT JOIN ref_department ON ref_department.department_id = wf_group_user.department_id";
+            } else if ($title == 'dt_ref_state') {
                 $sql = "SELECT ref_state.*, ref_status.status_desc, ref_status.status_color 
                 FROM ref_state 
                 LEFT JOIN ref_status ON ref_status.status_id = ref_state.state_status";
-            } else if ($title == 'dt_ref_city') {  
+            } else if ($title == 'dt_ref_city') {
                 $sql = "SELECT ref_city.*, ref_state.state_desc, ref_status.status_desc, ref_status.status_color 
                 FROM ref_city 
                 LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id
                 LEFT JOIN ref_status ON ref_status.status_id = ref_city.city_status";
-            } else if ($title == 'dt_ref_department') {  
+            } else if ($title == 'dt_ref_department') {
                 $sql = "SELECT ref_department.*, ref_status.status_desc, ref_status.status_color  
                 FROM ref_department 
-                LEFT JOIN ref_status ON ref_status.status_id = ref_department.department_status";       
-            } else if ($title == 'dt_ref_qnfCate') {  
+                LEFT JOIN ref_status ON ref_status.status_id = ref_department.department_status";
+            } else if ($title == 'dt_ref_qnfCate') {
                 $sql = "SELECT t_qnf_category.*, ref_status.status_desc, ref_status.status_color  
                 FROM t_qnf_category 
-                LEFT JOIN ref_status ON ref_status.status_id = t_qnf_category.qnfCate_status";     
-            } else if ($title == 'dt_ref_certIssuer') {  
+                LEFT JOIN ref_status ON ref_status.status_id = t_qnf_category.qnfCate_status";
+            } else if ($title == 'dt_ref_certIssuer') {
                 $sql = "SELECT t_certificate_issuer.*, ref_status.status_desc, ref_status.status_color  
                 FROM t_certificate_issuer 
-                LEFT JOIN ref_status ON ref_status.status_id = t_certificate_issuer.certIssuer_status";     
-            } else if ($title == 'dt_ref_softwareMethod') {  
+                LEFT JOIN ref_status ON ref_status.status_id = t_certificate_issuer.certIssuer_status";
+            } else if ($title == 'dt_ref_softwareMethod') {
                 $sql = "SELECT t_software_method.*, ref_status.status_desc, ref_status.status_color  
                 FROM t_software_method 
                 LEFT JOIN ref_status ON ref_status.status_id = t_software_method.softwareMethod_status";
@@ -277,12 +277,12 @@ class Class_sql {
                 $sql = "SELECT t_analyzer_technique.*, ref_status.status_desc, ref_status.status_color 
                 FROM t_analyzer_technique 
                 LEFT JOIN ref_status ON ref_status.status_id = t_analyzer_technique.analyzerTechnique_status";
-            } else if ($title == 'dt_ref_cemsDesc') {  
+            } else if ($title == 'dt_ref_cemsDesc') {
                 $sql = "SELECT document_name.*, ref_status.status_desc, ref_status.status_color  
                 FROM document_name 
                 LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status
-                WHERE documentName_type = 'cems'"; 
-            } else if ($title == 'dt_ref_pemsDesc') {  
+                WHERE documentName_type = 'cems'";
+            } else if ($title == 'dt_ref_pemsDesc') {
                 $sql = "SELECT document_name.*, ref_status.status_desc, ref_status.status_color  
                 FROM document_name 
                 LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status
@@ -300,7 +300,7 @@ class Class_sql {
                 $sql = "SELECT document_name.*, ref_status.status_desc 
                 FROM document_name 
                 LEFT JOIN ref_status ON ref_status.status_id = document_name.documentName_status";
-            } else if ($title == 'vw_profile') {  
+            } else if ($title == 'vw_profile') {
                 $sql = "SELECT 
                     `user`.user_id AS user_id, 
                     `profile`.profile_name AS profile_name,
@@ -329,22 +329,22 @@ class Class_sql {
                     LEFT JOIN ref_utype ON ref_utype.uType_id = user_type.uType_id 
                     GROUP BY user_id  				
                 ) user_types ON user_types.user_id = `user`.user_id";
-            } else if ($title == 'vw_join_status') {  
+            } else if ($title == 'vw_join_status') {
                 $sql = "SELECT [table_name].*, ref_status.status_desc 
                 FROM [table_name] 
                 LEFT JOIN ref_status ON ref_status.status_id = [table_name].[status_name]";
-            } else if ($title == 'vw_user_role') {  
+            } else if ($title == 'vw_user_role') {
                 $sql = "SELECT user_role.*, ref_role.role_desc, ref_status.status_desc 
                 FROM user_role 
                 LEFT JOIN ref_role ON ref_role.role_id = user_role.role_id
                 LEFT JOIN ref_status ON ref_status.status_id = user_role.userRole_status
                 ORDER BY user_role.role_id";
-            } else if ($title == 'vw_roles') { 
+            } else if ($title == 'vw_roles') {
                 $sql = "SELECT 
                     user_role.*, ref_role.role_desc, ref_status.status_desc
                 FROM user_role
                 LEFT JOIN ref_role ON ref_role.role_id = user_role.role_id
-                LEFT JOIN ref_status ON ref_status.status_id = user_role.userRole_status";            
+                LEFT JOIN ref_status ON ref_status.status_id = user_role.userRole_status";
             } else if ($title == 'dt_task_comment') {
                 $sql = "SELECT
                     wf_task.*,
@@ -355,7 +355,7 @@ class Class_sql {
                 LEFT JOIN `user` ON `user`.user_id = wf_task.wfTask_claimedBy 
                 LEFT JOIN `profile` ON `profile`.profile_id = `user`.profile_id
                 WHERE wfTask_remark IS NOT NULL AND wf_task.wfTask_claimedBy IS NOT NULL 
-                ORDER BY wfTask_id";            
+                ORDER BY wfTask_id";
             } else if ($title == 'dt_track_monitoring') {
                 $sql = "SELECT 
                     wf_transaction.wfTrans_no AS wfTrans_no,
@@ -376,15 +376,15 @@ class Class_sql {
                 LEFT JOIN wf_flow ON wf_flow.wfFlow_id = wf_task_type.wfFlow_id 
                 LEFT JOIN ref_status ON ref_status.status_id = wf_transaction.wfTrans_status
                 LEFT JOIN `profile` ON `profile`.user_id = wf_transaction.wfTrans_processOfficer AND `profile`.profile_status = 1
-                WHERE wf_transaction.wfTrans_status NOT IN (2,8)";            
-            } else if ($title == 'vw_user_types') {  
+                WHERE wf_transaction.wfTrans_status NOT IN (2,8)";
+            } else if ($title == 'vw_user_types') {
                 $sql = "SELECT 
                     user_type.user_id AS user_id,
                     group_concat(ref_utype.uType_desc ORDER BY ref_utype.uType_id ASC SEPARATOR ', ') AS role_list 
                 FROM user_type 
                 LEFT JOIN ref_utype ON ref_utype.uType_id = user_type.uType_id 
                 GROUP BY user_type.user_id";
-            } else if ($title == 'dt_list_to_delegate') { 
+            } else if ($title == 'dt_list_to_delegate') {
                 $sql = "SELECT 
                     wf_task_type.wfTaskType_name AS wfTaskType_name,
                     ref_utype.uType_desc AS uType_desc,
@@ -395,7 +395,15 @@ class Class_sql {
                 WHERE wf_task.wfTask_partition = 1 AND wfTask_timeClaimed IS NOT NULL AND wf_task_type.uType_id IN (2,3)";
             } else if ($title == 'vw_consultant_info') {
                 $sql = "SELECT 
-                    wf_group.*,
+					wf_group.wfGroup_id,
+                    wf_group.wfGroup_type,
+                    wf_group.wfGroup_name,
+                    wf_group.wfGroup_regNo,
+                    wf_group.wfGroupProfile_id,
+                    wf_group.wfGroup_isFirstTime,
+                    wf_group.wfGroup_createdBy,
+                    wf_group.wfGroup_timeCreated,
+                    wf_group.wfGroup_status,
                     address.address_id AS address_id,
                     address.address_line1 AS address_line1,
                     address.address_postcode AS address_postcode,
@@ -611,9 +619,9 @@ class Class_sql {
                     SELECT 
                         consAll_id,
                         GROUP_CONCAT(
-                            CASE WHEN consType_type = 1 THEN 'Gas  Analyzer'
-                                WHEN consType_type = 2 THEN 'Dust Monitor'
-                                WHEN consType_type = 3 THEN 'Opacity Meter' 
+                            CASE WHEN consType_type = 1 THEN 'Gas Analyzer'
+                                WHEN consType_type = 2 THEN 'Opacity Meter'
+                                WHEN consType_type = 3 THEN 'Particulate Monitors' 
                             END
                         SEPARATOR ', ') AS consType_type
                     FROM t_consultant_type 
@@ -621,7 +629,7 @@ class Class_sql {
                 ) AS cons_type ON cons_type.consAll_id = t_consultant_cems.consAll_id
                 LEFT JOIN ref_status ON ref_status.status_id = t_consultant_cems.consCems_status
                 WHERE t_consultant_cems.consCems_status <> 8";
-            } else if ($title == 'dt_consultant_pems_cons') {   
+            } else if ($title == 'dt_consultant_pems_cons') {
                 $sql = "SELECT 
                     t_consultant_pems.*,
                     t_consultant.wfGroup_id AS wfGroup_id,
@@ -641,7 +649,7 @@ class Class_sql {
                 LEFT JOIN wf_transaction ON wf_transaction.wfTrans_id = t_consultant_pems.wfTrans_id
                 LEFT JOIN ref_status ON ref_status.status_id = t_consultant_pems.consPems_status
                 WHERE t_consultant_pems.consPems_status <> 8";
-             } else if ($title == 'dt_consultant_mobile_cons') {   
+            } else if ($title == 'dt_consultant_mobile_cons') {
                 $sql = "SELECT 
                     t_consultant_mobile.*,
                     t_consultant.wfGroup_id AS wfGroup_id,
@@ -661,9 +669,9 @@ class Class_sql {
                     SELECT 
                         consAll_id,
                         GROUP_CONCAT(
-                            CASE WHEN consType_type = 1 THEN 'Gas  Analyzer'
-                                WHEN consType_type = 2 THEN 'Dust Monitor'
-                                WHEN consType_type = 3 THEN 'Opacity Meter' 
+                            CASE WHEN consType_type = 1 THEN 'Gas Analyzer'
+                                WHEN consType_type = 2 THEN 'Opacity Meter'
+                                WHEN consType_type = 3 THEN 'Particulate Monitors' 
                             END
                         SEPARATOR ', ') AS consType_type
                     FROM t_consultant_type 
@@ -873,7 +881,15 @@ class Class_sql {
                 INNER JOIN ref_state ON ref_state.state_id = ref_parlimen.state_id";
             } else if ($title == 'vw_industrial_info') {
                 $sql = "SELECT 
-                    wf_group.*,
+                    wf_group.wfGroup_id,
+                    wf_group.wfGroup_type,
+                    wf_group.wfGroup_name,
+                    wf_group.wfGroup_regNo,
+                    wf_group.wfGroupProfile_id,
+                    wf_group.wfGroup_isFirstTime,
+                    wf_group.wfGroup_createdBy,
+                    wf_group.wfGroup_timeCreated,
+                    wf_group.wfGroup_status,
                     address.address_id AS address_id,
                     address.address_line1 AS address_line1,
                     address.address_postcode AS address_postcode,
@@ -1016,7 +1032,7 @@ class Class_sql {
                 LEFT JOIN wf_group ON wf_group.wfGroup_id = t_consultant.wfGroup_id
                 LEFT JOIN wf_group_user ON wf_group_user.wfGroup_id = wf_group.wfGroup_id AND wf_group_user.wfGroupUser_status = 1
                 LEFT JOIN `profile` ON `profile`.user_id = wf_group_user.user_id AND `profile`.profile_status = 1
-                WHERE wfTask_partition = 1";            
+                WHERE wfTask_partition = 1";
             } else if ($title == 'vw_industry_email_batch') {
                 $sql = "SELECT 
                     wf_task.wfTask_id AS wfTask_id,
@@ -1568,7 +1584,7 @@ class Class_sql {
                 LEFT JOIN wf_group_profile ON wf_group_profile.wfGroupProfile_id = wf_group.wfGroupProfile_id
                 LEFT JOIN address ON address.address_id = wf_group_profile.wfGroup_address
                 LEFT JOIN ref_city ON ref_city.city_id = address.city_id
-                LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id";                
+                LEFT JOIN ref_state ON ref_state.state_id = ref_city.state_id";
             } else if ($title == 'vw_pooling_selected_param') {
                 $sql = "SELECT 
                     GROUP_CONCAT(t_input_parameter.inputParam_desc ORDER BY t_input_parameter.inputParam_id ASC SEPARATOR ', ') AS param_list
@@ -1948,7 +1964,7 @@ class Class_sql {
                     user_type.userType_status AS userType_status,
                     t_widget.widget_no AS widget_no
                 FROM user_type 
-                LEFT JOIN t_widget ON t_widget.uType_id = user_type.uType_id";  
+                LEFT JOIN t_widget ON t_widget.uType_id = user_type.uType_id";
             } else if ($title == 'vw_hm_chart_2') {
                 $sql = "SELECT
                     wfFlow_desc, wfFlow_short, COUNT(*) AS total
@@ -2473,7 +2489,7 @@ class Class_sql {
                     GROUP BY city_id
                 ) table_data ON table_data.city_id = ref_city.city_id 
                 WHERE city_status = 1";
-            } else if ($title == 'vw_gcs_chart_6') { 
+            } else if ($title == 'vw_gcs_chart_6') {
                 $sql = "SELECT 
                     t_industrial_all.consultant_id AS consultant_id, 
                     wf_group.wfGroup_name AS wfGroup_name, 
@@ -2652,7 +2668,7 @@ class Class_sql {
                 FROM t_consultant_cems
                 WHERE consCems_techniqueType IS NOT NULL AND consCems_status = 1
                 GROUP BY consCems_techniqueType";
-             } else if ($title == 'vw_gca_chart_4') {
+            } else if ($title == 'vw_gca_chart_4') {
                 $sql = "SELECT 
                     consCems_isNormalize AS consCems_isNormalize,
                     COUNT(*) AS total
@@ -2807,7 +2823,7 @@ class Class_sql {
                     ) a
                 JOIN (SELECT @i := -1) r1
                 WHERE 
-                @i < DATEDIFF([date_end], '[date_start]')";     
+                @i < DATEDIFF([date_end], '[date_start]')";
             } else if ($title == 'dt_30min_by_stack') {
                 $sql = "SELECT 
                     FROM_UNIXTIME(FLOOR(UNIX_TIMESTAMP(data_timestamp)/(30* 60)) * (30*60)) AS thirtyHourInterval,
@@ -2836,7 +2852,7 @@ class Class_sql {
                 WHERE YEAR(data_timestamp) = [data_year] AND MONTH(data_timestamp) = [data_month] 
                 GROUP BY dates";
             } else
-                throw new Exception($this->get_exception('0098', __FUNCTION__, __LINE__, 'Sql not exist : '.$title)); 
+                throw new Exception($this->get_exception('0098', __FUNCTION__, __LINE__, 'Sql not exist : '.$title));
             return $sql;
         }
         catch(Exception $e) {
@@ -2845,7 +2861,7 @@ class Class_sql {
             throw new Exception($this->get_exception('0099', __FUNCTION__, __LINE__, $e->getMessage()), $errCode);
         }
     }
-    
+
 }
 
 ?>
